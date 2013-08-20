@@ -326,7 +326,9 @@ if [[ $OS == "Ubuntu" ]]; then
 		apt-get install edubuntu-desktop-kde
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install ubuntu-gnome-desktop
+		apt-get install ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
+		# ubuntukylin-default-settings - Default settings for the UbuntuKylin desktop
+		# ubuntukylin-theme - UbuntuKylin theme
 		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	fi
 	apt-get install edubuntu-desktop gnome-desktop-environment kde-standard kde-full kubuntu-desktop lubuntu-desktop xfce4 ubuntu-desktop ubuntustudio-desktop xubuntu-desktop
