@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Zend Studio - 7.2.1
+Exec="/home/jimmychou/Zend/ZendStudio-7.2.1/ZendStudio"
+Icon=/home/jimmychou/Zend/ZendStudio-7.2.1/icon.xpm
+Categories=Development;IDE

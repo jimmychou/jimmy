@@ -1,0 +1,20 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Exec=synaptiks
+Type=Application
+Terminal=false
+#Icon=synaptiks
+Icon=/usr/share/app-install/icons/synaptiks.png
+Categories=Qt;KDE;Utility;HardwareSettings;
+
+X-DocPath=synaptiks/index.html
+
+X-KDE-StartupNotify=true
+X-DBUS-StartupType=Unique
+X-DBUS-ServiceName=de.lunaryorn.synaptiks
+
+Name=synaptiks
+Name[de]=synaptiks
+
+GenericName=Touchpad management
+GenericName[de]=Touchpad-Verwaltung

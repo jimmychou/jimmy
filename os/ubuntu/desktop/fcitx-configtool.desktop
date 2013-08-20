@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Fcitx Config Tool
+Name[zh_CN]=Fcitx配置工具
+Comment=Fcitx GUI Config Tool
+Comment[zh_CN]=Fcitx图形化配置工具
+Exec=fcitx-configtool
+Icon=fcitx
+MimeType=
+Type=Application
+Categories=Settings;
+X-KDE-StartupNotify=false
+StartupNotify=false
