@@ -281,7 +281,7 @@ else
 		if [[ $Version == "12" ]]; then
 			yum install flash-plugin.i386
 			# flash-plugin.i386 : Adobe Flash Player 11.2
-		elif [[ $Version == "12" ]]; then
+		elif [[ $Version == "19" ]]; then
 			yum install google-chrome-stable.i386
 			# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		fi
