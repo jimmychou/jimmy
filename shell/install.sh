@@ -189,6 +189,12 @@ else
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
+		elif [[ $Version == "17" ]]; then
+			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "19" ]]; then
 			yum install php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX phpMemcachedAdmin.noarch sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
 			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
@@ -204,13 +210,15 @@ else
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		else
-			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-Smarty2.noarch unar.$OS_SUFFIX
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			# php-Smarty2.noarch : Template/Presentation Framework for PHP
+			# unar.$OS_SUFFIX : Multi-format extractor
 		fi
-		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch php-Smarty2.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
+		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
 		# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 		# php-pecl-http.$OS_SUFFIX : Extended HTTP support
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
@@ -228,10 +236,8 @@ else
 		##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 		##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 		# php-Smarty.noarch : Template/Presentation Framework for PHP
-		# php-Smarty2.noarch : Template/Presentation Framework for PHP
 		# sphinx.$OS_SUFFIX : Free open-source SQL full-text search engine
 		# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
-		# unar.$OS_SUFFIX : Multi-format extractor
 		# php-ZendFramework.noarch : Leading open-source PHP framework
 		# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 	else
@@ -362,10 +368,12 @@ else
 		if [[ $Version == "19" ]]; then
 			yum install peervpn.$OS_SUFFIX
 			##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
+		else
+			yum install peervpn.$OS_SUFFIX
+			##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
 		fi
-		yum install openvpn.$OS_SUFFIX peervpn.$OS_SUFFIX puppet-server.noarch sysbench.$OS_SUFFIX tmux.$OS_SUFFIX
+		yum install openvpn.$OS_SUFFIX puppet-server.noarch sysbench.$OS_SUFFIX tmux.$OS_SUFFIX
 		# openvpn.$OS_SUFFIX : A full-featured SSL VPN solution
-		##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
 		# puppet-server.noarch : Server for the puppet system management tool
 		# sysbench.$OS_SUFFIX : System performance benchmark
 		# tmux.$OS_SUFFIX : A terminal multiplexer
@@ -418,6 +426,10 @@ else
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
+		elif [[ $Version == "17" ]]; then
+			yum groups install "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" #"Sugar Desktop Environment" # commented for conflict
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groups install "Development tools"
 		elif [[ $Version == "19" ]]; then
 			yum groups install "GNOME Desktop" "KDE Plasma Workspaces" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment" "Basic Desktop"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
