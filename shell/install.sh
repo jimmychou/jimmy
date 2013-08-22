@@ -391,7 +391,7 @@ if [[ $OS == "Ubuntu" ]]; then
 else
 	if [[ $OS == "Fedora" ]]; then
 		if [[ $Version == "12" ]]; then
-			yum groupinstall "GNOME Desktop Environment" "KDE" "LXDE" "XFCE"
+			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		elif [[ $Version == "19" ]]; then
