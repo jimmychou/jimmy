@@ -203,17 +203,16 @@ else
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
+		else
+			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 		fi
-		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch php-Smarty2.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
+		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch php-Smarty2.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
 		# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 		# php-pecl-http.$OS_SUFFIX : Extended HTTP support
-		# community-mysql.$OS_SUFFIX : MySQL client programs and shared libraries
-		##community-mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
-		# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
-		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
-		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
-		# mysql-server.$OS_SUFFIX : The MySQL server and related files
-		#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
 		# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
@@ -298,9 +297,8 @@ else
 		#?gnash-plugin.$OS_SUFFIX : Web-client flash movie player plugin  //adobe-flashplugin是这个？
 		# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
 	fi
-	yum install flash-plugin.i386 flash-plugin.$OS_SUFFIX opera
+	yum install flash-plugin.i386 opera
 	# flash-plugin.i386 : Adobe Flash Player 11.2
-	# flash-plugin.$OS_SUFFIX : Adobe Flash Player 11.2
 	# opera.i386 : Fast and secure web browser and Internet suite
 fi
 
@@ -421,13 +419,14 @@ else
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		elif [[ $Version == "19" ]]; then
-			yum groups install "GNOME Desktop" "KDE Desktop" "Xfce Desktop"
+			yum groups install "GNOME Desktop" "KDE Plasma Workspaces" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment" "Basic Desktop"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groups install "Development tools"
+		else
+			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groupinstall "Development tools"
 		fi
-		yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
-		# 桌面环境安装过后再安装就会提示找不着相关环境
-		yum groupinstall "Development tools"
 	else
 		yum groupinstall "KDE Desktop"
 		yum groupinstall "Development tools" "Eclipse" "Emacs" "Input Methods" "Java Platform"
