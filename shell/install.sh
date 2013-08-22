@@ -171,6 +171,15 @@ else
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
+		elif [[ $Version == "13" ]]; then
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX php-Smarty.noarch
+			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
+			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "19" ]]; then
 			yum install php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX phpMemcachedAdmin.noarch sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
 			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
@@ -394,11 +403,18 @@ else
 			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
+		elif [[ $Version == "13" ]]; then
+			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groupinstall "Development tools"
 		elif [[ $Version == "19" ]]; then
 			yum groups install "GNOME Desktop" "KDE Desktop" "Xfce Desktop"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groups install "Development tools"
 		fi
+		yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
+		# 桌面环境安装过后再安装就会提示找不着相关环境
+		yum groupinstall "Development tools"
 	else
 		yum groupinstall "KDE Desktop"
 		yum groupinstall "Development tools" "Eclipse" "Emacs" "Input Methods" "Java Platform"
