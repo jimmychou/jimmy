@@ -1,18 +1,19 @@
 #!/bin/bash
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
 if [[ $OS == "Ubuntu" ]]; then
-    #Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version不同，如此还会有空格，必须按如下执行
+    #Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
     Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	#len=`expr length $Codename`
     Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
     echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 else
     OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'`
-    Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}'`
+    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
+    Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
     echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
 fi
 OS_SUFFIX=`uname -m` # uanme -p  uname -i
+
 # 一.可以用 apt-get install 命令批量安装的软件
 
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
@@ -66,6 +67,11 @@ if [[ $OS == "Ubuntu" ]]; then
 	##update-manager - GNOME application that manages apt updates
 else
 	if [[ $OS == "Fedora" ]]; then
+		if [[ $Version == "19" ]]; then
+			yum install arandr.noarch libreoffice.$OS_SUFFIX
+			# arandr.noarch : Simple GTK+ XRandR GUI
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		fi
 		yum install arandr.noarch camorama.$OS_SUFFIX chmsee.$OS_SUFFIX cssed.$OS_SUFFIX emma.noarch fcitx.$OS_SUFFIX filezilla.$OS_SUFFIX gphpedit.$OS_SUFFIX kcm_touchpad.$OS_SUFFIX qterm.$OS_SUFFIX synaptic.$OS_SUFFIX
 		# arandr.noarch : Simple GTK+ XRandR GUI
 		# camorama.$OS_SUFFIX : Gnome webcam viewer
@@ -156,12 +162,40 @@ if [[ $OS == "Ubuntu" ]]; then
 	# zend-framework - a simple, straightforward, open-source software framework for PHP 5
 else
 	if [[ $OS == "Fedora" ]]; then
-		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch php-Smarty2.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
+		if [[ $Version == "12" ]]; then
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX php-Smarty.noarch
+			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
+			# php-Smarty.noarch : Template/Presentation Framework for PHP
+		elif [[ $Version == "19" ]]; then
+			yum install php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX phpMemcachedAdmin.noarch sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
+			# community-mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##community-mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
+			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
+			# redis.$OS_SUFFIX : A persistent key-value database
+			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# unar.$OS_SUFFIX : Multi-format extractor
+			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
+		fi
+		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch php-Smarty2.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
 		# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 		# php-pecl-http.$OS_SUFFIX : Extended HTTP support
 		# community-mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##community-mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
+		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+		# mysql-server.$OS_SUFFIX : The MySQL server and related files
+		#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
 		# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
@@ -235,11 +269,19 @@ if [[ $OS == "Ubuntu" ]]; then
 	#/opera-next - Fast and secure web browser and Internet suite //貌似这个版本比上面的版本还要旧，这是为何？
 else
 	if [[ $OS == "Fedora" ]]; then
+		if [[ $Version == "12" ]]; then
+			yum install flash-plugin.i386
+			# flash-plugin.i386 : Adobe Flash Player 11.2
+		elif [[ $Version == "12" ]]; then
+			yum install google-chrome-stable.i386
+			# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
+		fi
 		yum install gnash-plugin.$OS_SUFFIX google-chrome-stable
 		#?gnash-plugin.$OS_SUFFIX : Web-client flash movie player plugin  //adobe-flashplugin是这个？
 		# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
 	fi
-	yum install flash-plugin.$OS_SUFFIX opera
+	yum install flash-plugin.i386 flash-plugin.$OS_SUFFIX opera
+	# flash-plugin.i386 : Adobe Flash Player 11.2
 	# flash-plugin.$OS_SUFFIX : Adobe Flash Player 11.2
 	# opera.i386 : Fast and secure web browser and Internet suite
 fi
@@ -301,6 +343,10 @@ if [[ $OS == "Ubuntu" ]]; then
 	# tree - displays directory tree, in color
 else
 	if [[ $OS == "Fedora" ]]; then
+		if [[ $Version == "19" ]]; then
+			yum install peervpn.$OS_SUFFIX
+			##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
+		fi
 		yum install openvpn.$OS_SUFFIX peervpn.$OS_SUFFIX puppet-server.noarch sysbench.$OS_SUFFIX tmux.$OS_SUFFIX
 		# openvpn.$OS_SUFFIX : A full-featured SSL VPN solution
 		##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
@@ -344,9 +390,15 @@ if [[ $OS == "Ubuntu" ]]; then
 	# xubuntu-desktop - Xubuntu desktop system
 else
 	if [[ $OS == "Fedora" ]]; then
-		yum groups install "GNOME Desktop" "KDE Desktop" "Xfce Desktop"
-		# 桌面环境安装过后再安装就会提示找不着相关环境
-		yum groups install "Development tools"
+		if [[ $Version == "12" ]]; then
+			yum groupinstall "GNOME Desktop Environment" "KDE" "LXDE" "XFCE"
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groupinstall "Development tools"
+		elif [[ $Version == "19" ]]; then
+			yum groups install "GNOME Desktop" "KDE Desktop" "Xfce Desktop"
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groups install "Development tools"
+		fi
 	else
 		yum groupinstall "KDE Desktop"
 		yum groupinstall "Development tools" "Eclipse" "Emacs" "Input Methods" "Java Platform"
