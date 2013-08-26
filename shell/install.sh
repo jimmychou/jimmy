@@ -186,7 +186,7 @@ else
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "13" ]]; then
-			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX php-Smarty.noarch
 			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
@@ -194,7 +194,6 @@ else
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# redis.$OS_SUFFIX : A persistent key-value database
-			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "14" ]]; then
 			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
@@ -316,13 +315,14 @@ else
 		# sphinx.$OS_SUFFIX : Free open-source SQL full-text search engine
 		# php-ZendFramework.noarch : Leading open-source PHP framework
 	else
-		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
+		# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 		#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 	fi
-	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-fpm.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX yum-plugin-fastestmirror.noarch
 	# httpd.$OS_SUFFIX : Apache HTTP Serve
 	# chkconfig.$OS_SUFFIX : A system tool for maintaining the /etc/rc*.d hierarchy
 	# cmake.$OS_SUFFIX : Cross-platform make system
@@ -338,7 +338,6 @@ else
 	# php-cli.$OS_SUFFIX : Command-line interface for PHP
 	# php-common.$OS_SUFFIX : Common files for PHP
 	# php-devel.$OS_SUFFIX : Files needed for building PHP extensions
-	# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 	# php-gd.$OS_SUFFIX : A module for PHP applications for using the gd graphics library
 	##php-mbstring.$OS_SUFFIX : A module for PHP applications which need multi-byte string handling
 	##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
