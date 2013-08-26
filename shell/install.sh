@@ -195,7 +195,7 @@ else
 			# redis.$OS_SUFFIX : A persistent key-value database
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "14" ]]; then
-			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX sshpass.$OS_SUFFIX php-Smarty.noarch
 			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
@@ -204,7 +204,6 @@ else
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# redis.$OS_SUFFIX : A persistent key-value database
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
-			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "15" ]]; then
 			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-Smarty.noarch
