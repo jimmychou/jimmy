@@ -13,6 +13,10 @@ else
     echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
 fi
 OS_SUFFIX=`uname -m` # uanme -p  uname -i
+OS_SUFFIX_SPECIAL=$OS_SUFFIX
+if [[ $OS_SUFFIX == "i686" ]]; then
+	OS_SUFFIX_SPECIAL=i386
+fi
 
 # 一.可以用 apt-get install 命令批量安装的软件
 
@@ -67,13 +71,27 @@ if [[ $OS == "Ubuntu" ]]; then
 	##update-manager - GNOME application that manages apt updates
 else
 	if [[ $OS == "Fedora" ]]; then
-		if [[ $Version == "19" ]]; then
+		if [[ $Version == "16" ]]; then
+			yum install libreoffice.$OS_SUFFIX
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		elif [[ $Version == "17" ]]; then
+			yum install arandr.noarch libreoffice.$OS_SUFFIX
+			# arandr.noarch : Simple GTK+ XRandR GUI
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		elif [[ $Version == "18" ]]; then
+			yum install arandr.noarch libreoffice.$OS_SUFFIX
+			# arandr.noarch : Simple GTK+ XRandR GUI
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		elif [[ $Version == "19" ]]; then
+			yum install arandr.noarch libreoffice.$OS_SUFFIX
+			# arandr.noarch : Simple GTK+ XRandR GUI
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		else
 			yum install arandr.noarch libreoffice.$OS_SUFFIX
 			# arandr.noarch : Simple GTK+ XRandR GUI
 			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
 		fi
-		yum install arandr.noarch camorama.$OS_SUFFIX chmsee.$OS_SUFFIX cssed.$OS_SUFFIX emma.noarch fcitx.$OS_SUFFIX filezilla.$OS_SUFFIX gphpedit.$OS_SUFFIX kcm_touchpad.$OS_SUFFIX qterm.$OS_SUFFIX synaptic.$OS_SUFFIX
-		# arandr.noarch : Simple GTK+ XRandR GUI
+		yum install camorama.$OS_SUFFIX chmsee.$OS_SUFFIX cssed.$OS_SUFFIX emma.noarch fcitx.$OS_SUFFIX filezilla.$OS_SUFFIX gphpedit.$OS_SUFFIX kcm_touchpad.$OS_SUFFIX qterm.$OS_SUFFIX synaptic.$OS_SUFFIX
 		# camorama.$OS_SUFFIX : Gnome webcam viewer
 		# chmsee.$OS_SUFFIX : HTML Help viewer for Unix/Linux
 		# cssed.$OS_SUFFIX : CSS editor and validator
@@ -163,83 +181,148 @@ if [[ $OS == "Ubuntu" ]]; then
 else
 	if [[ $OS == "Fedora" ]]; then
 		if [[ $Version == "12" ]]; then
-			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX php-Smarty.noarch
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
 			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
+			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "13" ]]; then
-			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX php-Smarty.noarch
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
 			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
+			# redis.$OS_SUFFIX : A persistent key-value database
+			# unar.$OS_SUFFIX : Multi-format extractor
+			# php-Smarty.noarch : Template/Presentation Framework for PHP
+		elif [[ $Version == "14" ]]; then
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
+			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
+			# redis.$OS_SUFFIX : A persistent key-value database
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "15" ]]; then
-			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX sphinx-php.$OS_SUFFIX php-Smarty.noarch
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
 			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			# redis.$OS_SUFFIX : A persistent key-value database
 			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
-		elif [[ $Version == "17" ]]; then
-			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+		elif [[ $Version == "16" ]]; then
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework-full.noarch
+			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
-		elif [[ $Version == "19" ]]; then
-			yum install php-pecl-http.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX phpMemcachedAdmin.noarch sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			# redis.$OS_SUFFIX : A persistent key-value database
+			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
+		elif [[ $Version == "17" ]]; then
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
+			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
+			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
+			# php-Smarty2.noarch : Template/Presentation Framework for PHP
+			# redis.$OS_SUFFIX : A persistent key-value database
+			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# unar.$OS_SUFFIX : Multi-format extractor
+			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
+		elif [[ $Version == "18" ]]; then
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework-full.noarch
+			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
+			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
+			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
+			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
+			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
+			# php-Smarty2.noarch : Template/Presentation Framework for PHP
+			# redis.$OS_SUFFIX : A persistent key-value database
+			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
+			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
+		elif [[ $Version == "19" ]]; then
+			yum install exif.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# community-mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##community-mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
+			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
+			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
+			# php-Smarty2.noarch : Template/Presentation Framework for PHP
 			# redis.$OS_SUFFIX : A persistent key-value database
-			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
+			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		else
-			yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-Smarty2.noarch unar.$OS_SUFFIX
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX community-mysql.$OS_SUFFIX community-mysql-bench.$OS_SUFFIX community-mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# community-mysql.$OS_SUFFIX : MySQL client programs and shared libraries
+			##community-mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
+			# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
+			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
+			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
+			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
 			# php-Smarty2.noarch : Template/Presentation Framework for PHP
+			# redis.$OS_SUFFIX : A persistent key-value database
+			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
+			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
 			# unar.$OS_SUFFIX : Multi-format extractor
+			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		fi
-		yum install exif.$OS_SUFFIX php-pecl-http.$OS_SUFFIX nginx.$OS_SUFFIX nmon.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch redis.$OS_SUFFIX phpMemcachedAdmin.noarch sphinx-php.$OS_SUFFIX php-Smarty.noarch sphinx.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework.noarch php-ZendFramework-full.noarch
-		# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
-		# php-pecl-http.$OS_SUFFIX : Extended HTTP support
+		yum install nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
-		# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
 		#?#lighttpd-fastcgi.$OS_SUFFIX : FastCGI module and spawning helper for lighttpd and PHP
 		#?#php-pear-Net-Curl.noarch : OO interface to PHP's cURL extension
 		#?#php-pecl-imagick.$OS_SUFFIX : Provides a wrapper to the ImageMagick library
 		#?#php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
-		#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		#?#phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 		#?#php-pear-PhpDocumentor.noarch : The complete documentation solution for PHP
 		# puppet.noarch : A network tool for managing many disparate systems
-		# redis.$OS_SUFFIX : A persistent key-value database
-		##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
-		##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 		# php-Smarty.noarch : Template/Presentation Framework for PHP
 		# sphinx.$OS_SUFFIX : Free open-source SQL full-text search engine
-		# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
 		# php-ZendFramework.noarch : Leading open-source PHP framework
-		# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 	else
 		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
@@ -292,20 +375,23 @@ if [[ $OS == "Ubuntu" ]]; then
 	#/opera-next - Fast and secure web browser and Internet suite //貌似这个版本比上面的版本还要旧，这是为何？
 else
 	if [[ $OS == "Fedora" ]]; then
-		if [[ $Version == "12" ]]; then
-			yum install flash-plugin.i386
-			# flash-plugin.i386 : Adobe Flash Player 11.2
+		if [[ $Version == "17" ]]; then
+			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
+			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
+		elif [[ $Version == "18" ]]; then
+			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
+			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		elif [[ $Version == "19" ]]; then
-			yum install google-chrome-stable.i386
-			# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
+			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
+			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
+		else
+			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
+			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		fi
-		yum install gnash-plugin.$OS_SUFFIX google-chrome-stable
-		#?gnash-plugin.$OS_SUFFIX : Web-client flash movie player plugin  //adobe-flashplugin是这个？
-		# google-chrome-stable.386 : Google Chrome  #需要手动加入第三方源，只有386，没有686
 	fi
-	yum install flash-plugin.i386 opera
-	# flash-plugin.i386 : Adobe Flash Player 11.2
-	# opera.i386 : Fast and secure web browser and Internet suite
+	yum install flash-plugin.$OS_SUFFIX_SPECIAL opera.$OS_SUFFIX_SPECIAL
+	# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
+	# opera.$OS_SUFFIX_SPECIAL : Fast and secure web browser and Internet suite
 fi
 
 # 二.只能在Ubuntu软件中心搜索安装的软件
@@ -365,13 +451,6 @@ if [[ $OS == "Ubuntu" ]]; then
 	# tree - displays directory tree, in color
 else
 	if [[ $OS == "Fedora" ]]; then
-		if [[ $Version == "19" ]]; then
-			yum install peervpn.$OS_SUFFIX
-			##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
-		else
-			yum install peervpn.$OS_SUFFIX
-			##peervpn.$OS_SUFFIX : A VPN software using full mesh network topology
-		fi
 		yum install openvpn.$OS_SUFFIX puppet-server.noarch sysbench.$OS_SUFFIX tmux.$OS_SUFFIX
 		# openvpn.$OS_SUFFIX : A full-featured SSL VPN solution
 		# puppet-server.noarch : Server for the puppet system management tool
@@ -401,47 +480,54 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntukylin-theme - UbuntuKylin theme
 		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	fi
-	apt-get install edubuntu-desktop gnome-desktop-environment kde-standard kde-full kubuntu-desktop lubuntu-desktop xfce4 ubuntu-desktop ubuntustudio-desktop xubuntu-desktop
+	apt-get install edubuntu-desktop gnome-desktop-environment kubuntu-desktop lubuntu-desktop ubuntu-desktop ubuntustudio-desktop xubuntu-desktop
 	# edubuntu-desktop - educational desktop for Ubuntu
 	# gnome-desktop-environment - The GNOME Desktop Environment - transitional package
-	# kde-standard - KDE Plasma Desktop and standard set of applications
-	# kde-full - complete KDE Software Compilation for end users
 	# kubuntu-desktop - Kubuntu Plasma Desktop/Netbook system
 	# lubuntu-desktop - Lubuntu Desktop environment
-	# xfce4 - Meta-package for the Xfce Lightweight Desktop Environment
 	# ubuntu-desktop - The Ubuntu desktop system
 	# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	# xubuntu-desktop - Xubuntu desktop system
 else
 	if [[ $OS == "Fedora" ]]; then
 		if [[ $Version == "12" ]]; then
-			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
+			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE" "Moblin Desktop Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		elif [[ $Version == "13" ]]; then
-			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE"
+			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "Moblin Desktop Environment" "Sugar Desktop Environment"
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groupinstall "Development tools"
+		elif [[ $Version == "14" ]]; then
+			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		elif [[ $Version == "15" ]]; then
-			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE"
+			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" # conflict
+			# 桌面环境安装过后再安装就会提示找不着相关环境
+			yum groupinstall "Development tools"
+		elif [[ $Version == "16" ]]; then
+			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		elif [[ $Version == "17" ]]; then
-			yum groups install "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" #"Sugar Desktop Environment" # commented for conflict
+			yum groups install "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment" # commented for conflict
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groups install "Development tools"
+		elif [[ $Version == "18" ]]; then
+			yum groups install "GNOME Desktop" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment"
+			yum groups install "Development Tools"
 		elif [[ $Version == "19" ]]; then
 			yum groups install "GNOME Desktop" "KDE Plasma Workspaces" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment" "Basic Desktop"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groups install "Development tools"
 		else
-			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE"
+			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
 			yum groupinstall "Development tools"
 		fi
 	else
 		yum groupinstall "KDE Desktop"
-		yum groupinstall "Development tools" "Eclipse" "Emacs" "Input Methods" "Java Platform"
 	fi
 fi
 #注意事项：
