@@ -239,7 +239,7 @@ else
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		elif [[ $Version == "17" ]]; then
-			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-ZendFramework-full.noarch
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework-full.noarch
 			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
@@ -249,11 +249,9 @@ else
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
-			# php-Smarty2.noarch : Template/Presentation Framework for PHP
 			# redis.$OS_SUFFIX : A persistent key-value database
 			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
-			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		elif [[ $Version == "18" ]]; then
 			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nmon.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX php-pecl-http.$OS_SUFFIX php-Smarty2.noarch redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework-full.noarch
