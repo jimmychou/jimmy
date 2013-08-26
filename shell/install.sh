@@ -176,14 +176,13 @@ if [[ $OS == "Ubuntu" ]]; then
 else
 	if [[ $OS == "Fedora" ]]; then
 		if [[ $Version == "12" ]]; then
-			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
+			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX php-Smarty.noarch
 			# libexif.$OS_SUFFIX : Library for extracting extra information from image files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
-			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "13" ]]; then
 			yum install libexif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX php-pecl-sphinx.$OS_SUFFIX redis.$OS_SUFFIX php-Smarty.noarch
