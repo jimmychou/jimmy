@@ -86,10 +86,6 @@ else
 			yum install arandr.noarch libreoffice.$OS_SUFFIX
 			# arandr.noarch : Simple GTK+ XRandR GUI
 			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
-		else
-			yum install arandr.noarch libreoffice.$OS_SUFFIX
-			# arandr.noarch : Simple GTK+ XRandR GUI
-			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
 		fi
 		yum install camorama.$OS_SUFFIX chmsee.$OS_SUFFIX cssed.$OS_SUFFIX emma.noarch fcitx.$OS_SUFFIX filezilla.$OS_SUFFIX gphpedit.$OS_SUFFIX kcm_touchpad.$OS_SUFFIX qterm.$OS_SUFFIX synaptic.$OS_SUFFIX
 		# camorama.$OS_SUFFIX : Gnome webcam viewer
@@ -103,11 +99,10 @@ else
 		# qterm.$OS_SUFFIX : BBS client for X Window System written in Qt
 		# synaptic.$OS_SUFFIX : Graphical frontend for APT package manager
 	fi
-	yum install compiz.$OS_SUFFIX firefox.$OS_SUFFIX gedit.$OS_SUFFIX libreoffice.$OS_SUFFIX rhythmbox.$OS_SUFFIX thunderbird.$OS_SUFFIX
+	yum install compiz.$OS_SUFFIX firefox.$OS_SUFFIX gedit.$OS_SUFFIX rhythmbox.$OS_SUFFIX thunderbird.$OS_SUFFIX
 	# compiz.$OS_SUFFIX : OpenGL window and compositing manager
 	# firefox.$OS_SUFFIX : Mozilla Firefox Web browser
 	# gedit.$OS_SUFFIX : Text editor for the GNOME desktop
-	# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
 	# rhythmbox.$OS_SUFFIX : Music Management Application
 	# thunderbird.$OS_SUFFIX : Mozilla Thunderbird mail/newsgroup client
 fi
@@ -214,7 +209,7 @@ else
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "15" ]]; then
-			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX unar.$OS_SUFFIX php-Smarty.noarch
+			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-Smarty.noarch
 			# exif.$OS_SUFFIX : Utility to show EXIF information hidden in JPEG files
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
@@ -224,7 +219,6 @@ else
 			# redis.$OS_SUFFIX : A persistent key-value database
 			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
-			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "16" ]]; then
 			yum install exif.$OS_SUFFIX mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX redis.$OS_SUFFIX sphinx-php.$OS_SUFFIX sshpass.$OS_SUFFIX php-ZendFramework-full.noarch
@@ -380,9 +374,6 @@ else
 			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
 			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		elif [[ $Version == "19" ]]; then
-			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
-			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
-		else
 			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
 			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		fi
