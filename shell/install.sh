@@ -403,9 +403,7 @@ fi
 
 # 3.以下也都可以在第三方官方网站下载安装
 if [[ $OS == "Ubuntu" ]]; then
-	if [[ $Codename == "lucid" ]]; then
-		echo Nothing to do
-	elif [[ $Codename == "precise" ]]; then
+	if [[ $Codename == "precise" ]]; then
 		apt-get install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
 	elif [[ $Codename == "quantal" ]]; then
