@@ -48,6 +48,20 @@ if [[ $OS == "Ubuntu" ]]; then
 		##software-center - Utility for browsing, installing, and removing software
 		##ubuntuone-installer - Ubuntu One Installer
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
+	elif [[ $Codename == "quantal" ]]; then
+		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client ubuntuone-control-panel-qt virtualbox
+		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+		# compiz - OpenGL 窗口和合成管理器
+		# compiz-plugins - OpenGL window and compositing manager - plugins
+		# compiz-plugins-extra - transitional dummy package.
+		# compiz-plugins-main - transitional dummy package.
+		# compiz-plugins-main-default - transitional dummy package.
+		##?kde-config-touchpad - touchpad configuration tool (synaptiks) //其他能对应上？
+		# libreoffice - office productivity suite
+		##software-center - Utility for browsing, installing, and removing software
+		# ubuntuone-client - Ubuntu One client
+		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
+		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "raring" ]]; then
 		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
@@ -151,8 +165,20 @@ if [[ $OS == "Ubuntu" ]]; then
 		# smarty - Template engine for PHP
 		# sphinxsearch - Fast standalone full-text SQL search engine
 		##vim-puppet - syntax highlighting for puppet manifests in vim
+	elif [[ $Codename == "quantal" ]]; then
+		apt-get install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
+		# git - fast, scalable, distributed revision control system
+		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
+		# php-doc - Documentation for PHP5
+		# php5-memcached - memcached extension module for PHP5, uses libmemcached
+		##php-apc - APC (Alternative PHP Cache) module for PHP 5
+		# nmon - performance monitoring tool for Linux
+		# redis-server - Persistent key-value database with network interface
+		# smarty3 - Template engine for PHP
+		# sphinxsearch - Fast standalone full-text SQL search engine
+		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install git  php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
+		apt-get install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
@@ -382,6 +408,9 @@ if [[ $OS == "Ubuntu" ]]; then
 	elif [[ $Codename == "precise" ]]; then
 		apt-get install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
+	elif [[ $Codename == "quantal" ]]; then
+		apt-get install google-chrome-stable 
+		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
 	elif [[ $Codename == "raring" ]]; then
 		apt-get install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
@@ -426,6 +455,10 @@ if [[ $OS == "Ubuntu" ]]; then
 		apt-get install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
 		##chromium-browser - Chromium 浏览器
+	elif [[ $Codename == "quantal" ]]; then
+		apt-get install activity-log-manager chromium-browser
+		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
+		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "raring" ]]; then
 		apt-get install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
@@ -458,6 +491,10 @@ if [[ $OS == "Ubuntu" ]]; then
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
 	elif [[ $Codename == "precise" ]]; then
+		apt-get install sysbench tmux
+		# sysbench - Cross-platform and multi-threaded benchmark tool
+		# tmux - terminal multiplexer
+	elif [[ $Codename == "quantal" ]]; then
 		apt-get install sysbench tmux
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
@@ -500,7 +537,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 		# firefox-themes-ubuntu - Firefox themes matching the Ubuntu desktop look
 		# kubuntu-kde4-desktop - Kubuntu desktop system
-		# ubuntu-sounds - Ubuntu's GNOME audio theme
+		# ubuntu-sounds - Ubuntu's GNOME audio theme  # dependency of ubuntu-desktop
 	elif [[ $Codename == "lucid" ]]; then
 		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
@@ -513,6 +550,13 @@ if [[ $OS == "Ubuntu" ]]; then
 		# lubuntu-desktop - Lubuntu Desktop environment
 		# ubuntu-desktop - The Ubuntu desktop system
 		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
+	elif [[ $Codename == "quantal" ]]; then
+		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntu-gnome-desktop
+		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
+		# lubuntu-desktop - Lubuntu Desktop environment
+		# ubuntu-desktop - The Ubuntu desktop system
+		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
+		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	elif [[ $Codename == "raring" ]]; then
 		apt-get install lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
 		# lubuntu-desktop - Lubuntu Desktop environment
