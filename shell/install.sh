@@ -22,24 +22,35 @@ fi
 
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
 if [[ $OS == "Ubuntu" ]]; then
-	if [[ $Codename == "lucid" ]]; then
-		apt-get install compiz-plugins openoffice.org touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
+	if [[ $Codename == "hardy" ]]; then
+		apt-get install compiz-plugins gsynaptics openoffice.org virtualbox-ose
+		# compiz-plugins - OpenGL window and compositing manager - plugins
+		# gsynaptics - configuration tool for Synaptics touchpad driver of X server
+		# openoffice.org - office productivity suite
+		# virtualbox-ose - x86 virtualization solution - base binaries
+	elif [[ $Codename == "lucid" ]]; then
+		apt-get install arandr compiz-plugins openoffice.org software-center touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
+		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# openoffice.org - office productivity suite
+		##software-center - Utility for browsing, installing, and removing software
 		# touchfreeze - a facility for disabling touchpad tap-to-click function
 		# ubuntuone-client - Ubuntu One client
 		# ubuntuone-client-gnome - Ubuntu One client GNOME integration
 		# ubuntuone-client-tools - Ubuntu One client tools
 		# virtualbox-ose - x86 virtualization solution - base binaries
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install compiz-plugins-extra kde-config-touchpad libreoffice ubuntuone-installer virtualbox
+		apt-get install arandr compiz-plugins-extra kde-config-touchpad libreoffice software-center ubuntuone-installer virtualbox
+		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		##compiz-plugins-extra - Collection of extra plugins from OpenCompositing for Compiz
 		##?kde-config-touchpad - touchpad configuration tool (synaptiks) //其他能对应上？
 		# libreoffice - office productivity suite
+		##software-center - Utility for browsing, installing, and removing software
 		##ubuntuone-installer - Ubuntu One Installer
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
+		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
+		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# compiz - OpenGL 窗口和合成管理器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# compiz-plugins-extra - transitional dummy package.
@@ -47,12 +58,12 @@ if [[ $OS == "Ubuntu" ]]; then
 		# compiz-plugins-main-default - transitional dummy package.
 		##?kde-config-touchpad - touchpad configuration tool (synaptiks) //其他能对应上？
 		# libreoffice - office productivity suite
+		##software-center - Utility for browsing, installing, and removing software
 		# ubuntuone-client-data - Data files for Ubuntu One
 		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	fi
-	apt-get install arandr camorama chmsee compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox software-center synaptic thunderbird update-manager
-	# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+	apt-get install camorama chmsee compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox synaptic thunderbird update-manager
 	# camorama - gnome utility to view and save images from a webcam（用于查看和保存来自摄像头的图像的 gnome 应用程序）
 	# chmsee - GTK+ 环境下的 chm 阅读器
 	# compizconfig-settings-manager - Compiz configuration settings manager
@@ -65,7 +76,6 @@ if [[ $OS == "Ubuntu" ]]; then
 	# gphpedit - development environment for PHP/HTML/CSS（PHP/HTML/CSS 开发环境）
 	# qterm - BBS client for X Window System written in Qt
 	# rhythmbox - GNOME 的音乐播放器与管理器
-	##software-center - Utility for browsing, installing, and removing software
 	# synaptic - 图形界面的软件包管理器
 	# thunderbird - Email, RSS and newsgroup client with integrated spam filter
 	##update-manager - GNOME application that manages apt updates
@@ -110,27 +120,51 @@ fi
 
 # 2.以下软件都能在Ubuntu软件中心搜索找到，但是没有特定的icon
 if [[ $OS == "Ubuntu" ]]; then
-	if [[ $Codename == "lucid" ]]; then
-		apt-get install chkconfig git-core phpunit-doc smarty
+	if [[ $Codename == "hardy" ]]; then
+		apt-get install git-core php5-memcache php-doc smarty
+		# git-core - fast, scalable, distributed revision control system
+		# php5-memcache - memcache extension module for PHP5
+		# php-doc - Documentation for PHP4 and PHP5
+		# smarty - Template engine for PHP
+	elif [[ $Codename == "lucid" ]]; then
+		apt-get install chkconfig git-core phpunit-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
 		# chkconfig - system tool to enable or disable system services
 		# git-core - fast, scalable, distributed revision control system
 		# phpunit-doc - Manual for phpunit
+		# php5-memcached - memcached extension module for PHP5, uses libmemcached
+		##php-apc - APC (Alternative PHP Cache) module for PHP 5
+		# nmon - performance monitoring tool for Linux
+		# redis-server - Persistent key-value database with network interface
 		# smarty - Template engine for PHP
+		# sphinxsearch - Fast standalone full-text SQL search engine
+		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install chkconfig git php5-fpm php-doc smarty
+		apt-get install chkconfig git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
 		# chkconfig - system tool to enable or disable system services //不知道10.04优美与
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
+		# php5-memcached - memcached extension module for PHP5, uses libmemcached
+		##php-apc - APC (Alternative PHP Cache) module for PHP 5
+		# nmon - performance monitoring tool for Linux
+		# redis-server - Persistent key-value database with network interface
 		# smarty - Template engine for PHP
+		# sphinxsearch - Fast standalone full-text SQL search engine
+		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install git  php5-fpm php-doc smarty3
+		apt-get install git  php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
+		# php5-memcached - memcached extension module for PHP5, uses libmemcached
+		##php-apc - APC (Alternative PHP Cache) module for PHP 5
+		# nmon - performance monitoring tool for Linux
+		# redis-server - Persistent key-value database with network interface
 		# smarty3 - Template engine for PHP
+		# sphinxsearch - Fast standalone full-text SQL search engine
+		##vim-puppet - syntax highlighting for puppet manifests in vim
 	fi
-	apt-get install apache2 cakephp cmake exif gcc g++ keepalived libapache2-mod-php5 logrotate lrzsz lsb memcached mysql-client mysql-server nginx nmon p7zip-full php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd php5-imagick php5-memcached php5-mysql phpmyadmin php-apc php-pear phpunit puppet readpst redis-server sphinxsearch sshpass subversion sysstat unrar vim vim-puppet zend-framework
+	apt-get install apache2 cakephp cmake exif gcc g++ keepalived libapache2-mod-php5 logrotate lrzsz lsb memcached mysql-client mysql-server nginx p7zip-full php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd php5-imagick php5-mysql phpmyadmin php-pear phpunit puppet readpst sshpass subversion sysstat unrar vim zend-framework
 	# apache2 - Apache HTTP Server metapackage
 	##cakephp - MVC rapid application development framework for PHP
 	# cmake - cross-platform, open-source make system
@@ -146,7 +180,6 @@ if [[ $OS == "Ubuntu" ]]; then
 	# mysql-client - MySQL database client (metapackage depending on the latest version)
 	# mysql-server - MySQL database server (metapackage depending on the latest version)
 	# nginx - small, but very powerful and efficient web server and mail proxy
-	# nmon - performance monitoring tool for Linux
 	# p7zip-full - 7z and 7za file archivers with high compression ratio
 	# php5 - server-side, HTML-embedded scripting language (metapackage)
 	# php5-cgi - server-side, HTML-embedded scripting language (CGI binary)
@@ -156,22 +189,17 @@ if [[ $OS == "Ubuntu" ]]; then
 	# php5-dev - Files for PHP5 module development
 	# php5-gd - GD module for php5
 	# php5-imagick - ImageMagick module for php5
-	# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	# php5-mysql - MySQL module for php5
 	# phpmyadmin - MySQL web administration tool
-	##php-apc - APC (Alternative PHP Cache) module for PHP 5
 	# php-pear - PEAR - PHP Extension and Application Repository
 	# phpunit - Unit testing suite for PHP5
 	# puppet - Centralized configuration management - agent startup and compatibility scripts
 	# readpst - Utilities to convert Outlook .pst files to other formats
-	# redis-server - Persistent key-value database with network interface
-	# sphinxsearch - Fast standalone full-text SQL search engine
 	# sshpass - Non-interactive ssh password authentication
 	# subversion - Advanced version control system
 	# sysstat - system performance tools for Linux
 	# unrar - Unarchiver for .rar files (non-free version)
 	# vim - Vi 增强版 - 增强的 vi 编辑器
-	##vim-puppet - syntax highlighting for puppet manifests in vim
 	# zend-framework - a simple, straightforward, open-source software framework for PHP 5
 else
 	if [[ $OS == "Fedora" ]]; then
@@ -392,18 +420,20 @@ fi
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
 if [[ $OS == "Ubuntu" ]]; then
 	if [ $Codename == "lucid" ]; then
-		echo Nothing to do
+		apt-get install chromium-browser
+		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install activity-log-manager
+		apt-get install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
+		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install activity-log-manager
+		apt-get install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
+		##chromium-browser - Chromium 浏览器
 	fi
-	apt-get install amarok bluefish chromium-browser eclipse kdesvn pidgin stardict wireshark
+	apt-get install amarok bluefish eclipse kdesvn pidgin stardict wireshark
 	# amarok - easy to use media player based on the KDE Platform
 	# bluefish - advanced Gtk+ HTML editor
-	##chromium-browser - Chromium 浏览器
 	##eclipse - Extensible Tool Platform and Java IDE
 	##kdesvn - Subversion client with tight KDE integration
 	# pidgin - graphical multi-protocol instant messaging client for X
@@ -423,7 +453,20 @@ fi
 
 # 2.以下软件都能在Ubuntu软件中心搜索找到，但是没有特定的icon
 if [[ $OS == "Ubuntu" ]]; then
-	apt-get install libpcre3-dev libzlcore-dev openssh-client openssh-server openvpn puppetmaster python-mutagen screen sysbench tmux tree
+	if [[ $Codename == "lucid" ]]; then
+		apt-get install sysbench tmux
+		# sysbench - Cross-platform and multi-threaded benchmark tool
+		# tmux - terminal multiplexer
+	elif [[ $Codename == "precise" ]]; then
+		apt-get install sysbench tmux
+		# sysbench - Cross-platform and multi-threaded benchmark tool
+		# tmux - terminal multiplexer
+	elif [[ $Codename == "raring" ]]; then
+		apt-get install sysbench tmux
+		# sysbench - Cross-platform and multi-threaded benchmark tool
+		# tmux - terminal multiplexer
+	fi
+	apt-get install libpcre3-dev libzlcore-dev openssh-client openssh-server openvpn puppetmaster python-mutagen screen tree
 	# libpcre3-dev - Perl 5 Compatible Regular Expression Library - development files，为nginx源码编译需要的PCRE准备
 	# libzlcore-dev - ZLibrary cross-platform development library (development files)
 	# openssh-client - secure shell (SSH) client, for secure access to remote machines
@@ -432,8 +475,6 @@ if [[ $OS == "Ubuntu" ]]; then
 	# puppetmaster - Centralized configuration management - master startup and compatibility scripts
 	##python-mutagen - audio metadata editing library，Amarok中文乱码命令mid3conv需要的软件包
 	# screen - terminal multiplexor with VT100/ANSI terminal emulation
-	# sysbench - Cross-platform and multi-threaded benchmark tool
-	# tmux - terminal multiplexer
 	# tree - displays directory tree, in color
 else
 	if [[ $OS == "Fedora" ]]; then
@@ -454,25 +495,37 @@ fi
 
 # 3.以下桌面安装要慎重选择，否则卸载就比较麻烦了
 if [[ $OS == "Ubuntu" ]]; then
-	if [[ $Codename == "lucid" ]]; then
-		apt-get install edubuntu-desktop-kde
+	if [[ $Codename == "hardy" ]]; then
+		apt-get install edubuntu-desktop-kde firefox-themes-ubuntu kubuntu-kde4-desktop ubuntu-sounds
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
+		# firefox-themes-ubuntu - Firefox themes matching the Ubuntu desktop look
+		# kubuntu-kde4-desktop - Kubuntu desktop system
+		# ubuntu-sounds - Ubuntu's GNOME audio theme
+	elif [[ $Codename == "lucid" ]]; then
+		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
+		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
+		# lubuntu-desktop - Lubuntu Desktop environment
+		# ubuntu-desktop - The Ubuntu desktop system
+		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install edubuntu-desktop-kde
+		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
+		# lubuntu-desktop - Lubuntu Desktop environment
+		# ubuntu-desktop - The Ubuntu desktop system
+		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
+		apt-get install lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
+		# lubuntu-desktop - Lubuntu Desktop environment
+		# ubuntu-desktop - The Ubuntu desktop system
+		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 		# ubuntukylin-default-settings - Default settings for the UbuntuKylin desktop
 		# ubuntukylin-theme - UbuntuKylin theme
 		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	fi
-	apt-get install edubuntu-desktop gnome-desktop-environment kubuntu-desktop lubuntu-desktop ubuntu-desktop ubuntustudio-desktop xubuntu-desktop
+	apt-get install edubuntu-desktop gnome-desktop-environment kubuntu-desktop xubuntu-desktop
 	# edubuntu-desktop - educational desktop for Ubuntu
 	# gnome-desktop-environment - The GNOME Desktop Environment - transitional package
 	# kubuntu-desktop - Kubuntu Plasma Desktop/Netbook system
-	# lubuntu-desktop - Lubuntu Desktop environment
-	# ubuntu-desktop - The Ubuntu desktop system
-	# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	# xubuntu-desktop - Xubuntu desktop system
 else
 	if [[ $OS == "Fedora" ]]; then
