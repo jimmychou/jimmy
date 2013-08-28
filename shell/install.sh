@@ -16,6 +16,9 @@ OS_SUFFIX=`uname -m` # uanme -p  uname -i
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
+	if [[ $Version == "5.9" ]]; then
+		OS_SUFFIX="i386"
+	fi
 fi
 
 # 一.可以用 apt-get install 命令批量安装的软件
@@ -154,7 +157,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "precise" ]]; then
 		apt-get install chkconfig git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
-		# chkconfig - system tool to enable or disable system services //不知道10.04优美与
+		# chkconfig - system tool to enable or disable system services
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
@@ -235,7 +238,7 @@ else
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
-			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
 		elif [[ $Version == "13" ]]; then
@@ -244,7 +247,7 @@ else
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
-			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# redis.$OS_SUFFIX : A persistent key-value database
 			# php-Smarty.noarch : Template/Presentation Framework for PHP
@@ -254,7 +257,7 @@ else
 			# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
-			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-sphinx.$OS_SUFFIX : PECL extension for Sphinx SQL full-text search engine
 			# redis.$OS_SUFFIX : A persistent key-value database
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
@@ -266,7 +269,7 @@ else
 			##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
-			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# redis.$OS_SUFFIX : A persistent key-value database
 			##sphinx-php.$OS_SUFFIX : PHP API for Sphinx
 			# sshpass.$OS_SUFFIX : Non-interactive SSH authentication utility
@@ -343,7 +346,7 @@ else
 			# nmon.$OS_SUFFIX : Nigel's performance Monitor for Linux
 			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
-			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+			#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			#?php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-pecl-http.$OS_SUFFIX : Extended HTTP support
 			# php-Smarty2.noarch : Template/Presentation Framework for PHP
@@ -353,7 +356,7 @@ else
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		fi
-		yum install nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch
+		yum install nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch yum-plugin-fastestmirror.noarch
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
 		#?#lighttpd-fastcgi.$OS_SUFFIX : FastCGI module and spawning helper for lighttpd and PHP
@@ -366,15 +369,25 @@ else
 		# php-Smarty.noarch : Template/Presentation Framework for PHP
 		# sphinx.$OS_SUFFIX : Free open-source SQL full-text search engine
 		# php-ZendFramework.noarch : Leading open-source PHP framework
-	else
+		##yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+	elif [[ $OS == "CentOS" ]]; then
+		if [[ $Version == "5.9" ]]; then
+			yum install php-pecl-memcache.$OS_SUFFIX yum-fastestmirror.noarch
+			#?#php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
+			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+		else 
+			yum install php-pecl-memcached.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+			#?#php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
+			##yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+		fi
 		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
 		# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
-		#?php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases   // Fedora不存在？
+		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
-	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
 	# httpd.$OS_SUFFIX : Apache HTTP Serve
 	# chkconfig.$OS_SUFFIX : A system tool for maintaining the /etc/rc*.d hierarchy
 	# cmake.$OS_SUFFIX : Cross-platform make system
@@ -398,7 +411,6 @@ else
 	# subversion.$OS_SUFFIX : A Modern Concurrent Version Control System
 	# sysstat.$OS_SUFFIX : Collection of performance monitoring tools for Linux
 	# vim-enhanced.$OS_SUFFIX : A version of the VIM editor which includes recent enhancements
-	##yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 fi
 
 # 3.以下也都可以在第三方官方网站下载安装
@@ -574,41 +586,46 @@ else
 		if [[ $Version == "12" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "LXDE" "XFCE" "Moblin Desktop Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		elif [[ $Version == "13" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "Moblin Desktop Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		elif [[ $Version == "14" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		elif [[ $Version == "15" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" # conflict
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		elif [[ $Version == "16" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		elif [[ $Version == "17" ]]; then
 			yum groups install "GNOME Desktop Environment" "LXDE" "XFCE" "MeeGo NetBook UX Environment" "Sugar Desktop Environment" # commented for conflict
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groups install "Development tools"
+			yum groups install "Development Tools"
 		elif [[ $Version == "18" ]]; then
 			yum groups install "GNOME Desktop" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment"
 			yum groups install "Development Tools"
 		elif [[ $Version == "19" ]]; then
 			yum groups install "GNOME Desktop" "KDE Plasma Workspaces" "Xfce Desktop" "LXDE Desktop" "Cinnamon Desktop" "MATE Desktop" "Sugar Desktop Environment" "Basic Desktop"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groups install "Development tools"
+			yum groups install "Development Tools"
 		else
 			yum groupinstall "GNOME Desktop Environment" "LXDE" "XFCE"
 			# 桌面环境安装过后再安装就会提示找不着相关环境
-			yum groupinstall "Development tools"
+			yum groupinstall "Development Tools"
 		fi
-	else
-		yum groupinstall "KDE Desktop"
+	elif [[ $OS == "CentOS" ]]; then
+		if [[ $Version == "5.9" ]]; then
+			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "XFCE-4.4"
+		else
+			yum groupinstall "KDE Desktop"
+		fi
+		yum groupinstall "Development Tools"
 	fi
 fi
 #注意事项：
