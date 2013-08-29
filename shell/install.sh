@@ -356,11 +356,16 @@ else
 			# unar.$OS_SUFFIX : Multi-format extractor
 			# php-ZendFramework-full.noarch : Meta package to install full Zend Framework
 		fi
-		yum install nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch yum-plugin-fastestmirror.noarch
+		yum install git.$OS_SUFFIX keepalived.$OS_SUFFIX libpst.$OS_SUFFIX memcached.$OS_SUFFIX nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-apc.$OS_SUFFIX php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch yum-plugin-fastestmirror.noarch
+		# git.$OS_SUFFIX : Fast Version Control System
+		# keepalived.$OS_SUFFIX : High Availability monitor built upon LVS, VRRP and service pollers
+		# libpst.$OS_SUFFIX : Utilities to convert Outlook .pst files to other formats
+		# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
 		# lighttpd-fastcgi.$OS_SUFFIX : FastCGI module and spawning helper for lighttpd and PHP
 		# php-pear-Net-Curl.noarch : OO interface to PHP's cURL extension
+		##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
 		# php-pecl-imagick.$OS_SUFFIX : Provides a wrapper to the ImageMagick library
 		# php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
@@ -375,38 +380,38 @@ else
 			yum install yum-fastestmirror.noarch
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install yum-plugin-fastestmirror.noarch
+			yum install git.$OS_SUFFIX keepalived.$OS_SUFFIX libpst.$OS_SUFFIX memcached.$OS_SUFFIX php-fpm.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+			# git.$OS_SUFFIX : Fast Version Control System
+			# keepalived.$OS_SUFFIX : High Availability monitor built upon LVS, VRRP and service pollers
+			# libpst.$OS_SUFFIX : Utilities to convert Outlook .pst files to other formats
+			# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
+			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
+			##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		fi
-		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
-		# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
-	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
+	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pear.noarch subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
 	# httpd.$OS_SUFFIX : Apache HTTP Serve
 	# chkconfig.$OS_SUFFIX : A system tool for maintaining the /etc/rc*.d hierarchy
 	# cmake.$OS_SUFFIX : Cross-platform make system
 	# gcc.$OS_SUFFIX : Various compilers (C, C++, Objective-C, Java, ...)
 	# gcc-c++.$OS_SUFFIX : C++ support for GCC
-	# git.$OS_SUFFIX : Fast Version Control System
-	# keepalived.$OS_SUFFIX : High Availability monitor built upon LVS, VRRP and service pollers
 	# logrotate.$OS_SUFFIX : Rotates, compresses, removes and mails system log files
 	# lrzsz.$OS_SUFFIX : The lrz and lsz modem communications programs
 	# redhat-lsb.$OS_SUFFIX : LSB base libraries support for CentOS
-	# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
 	# php.$OS_SUFFIX : PHP scripting language for creating dynamic web sites
 	# php-cli.$OS_SUFFIX : Command-line interface for PHP
 	# php-common.$OS_SUFFIX : Common files for PHP
 	# php-devel.$OS_SUFFIX : Files needed for building PHP extensions
 	# php-gd.$OS_SUFFIX : A module for PHP applications for using the gd graphics library
 	##php-mbstring.$OS_SUFFIX : A module for PHP applications which need multi-byte string handling
-	##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
 	# php-pear.noarch : PHP Extension and Application Repository framework
-	# libpst.$OS_SUFFIX : Utilities to convert Outlook .pst files to other formats
 	# subversion.$OS_SUFFIX : A Modern Concurrent Version Control System
 	# sysstat.$OS_SUFFIX : Collection of performance monitoring tools for Linux
 	# vim-enhanced.$OS_SUFFIX : A version of the VIM editor which includes recent enhancements
