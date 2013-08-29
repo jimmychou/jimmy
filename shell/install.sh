@@ -359,32 +359,31 @@ else
 		yum install nginx.$OS_SUFFIX p7zip.$OS_SUFFIX lighttpd-fastcgi.$OS_SUFFIX php-pear-Net-Curl.noarch php-pecl-imagick.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch php-pear-PhpDocumentor.noarch puppet.noarch php-Smarty.noarch sphinx.$OS_SUFFIX php-ZendFramework.noarch yum-plugin-fastestmirror.noarch
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
 		# p7zip.$OS_SUFFIX : Very high compression ratio file archiver
-		#?#lighttpd-fastcgi.$OS_SUFFIX : FastCGI module and spawning helper for lighttpd and PHP
-		#?#php-pear-Net-Curl.noarch : OO interface to PHP's cURL extension
-		#?#php-pecl-imagick.$OS_SUFFIX : Provides a wrapper to the ImageMagick library
-		#?#php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
-		#?#phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
-		#?#php-pear-PhpDocumentor.noarch : The complete documentation solution for PHP
+		# lighttpd-fastcgi.$OS_SUFFIX : FastCGI module and spawning helper for lighttpd and PHP
+		# php-pear-Net-Curl.noarch : OO interface to PHP's cURL extension
+		# php-pecl-imagick.$OS_SUFFIX : Provides a wrapper to the ImageMagick library
+		# php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
+		# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
+		# php-pear-PhpDocumentor.noarch : The complete documentation solution for PHP
 		# puppet.noarch : A network tool for managing many disparate systems
 		# php-Smarty.noarch : Template/Presentation Framework for PHP
 		# sphinx.$OS_SUFFIX : Free open-source SQL full-text search engine
 		# php-ZendFramework.noarch : Leading open-source PHP framework
-		##yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
 		if [[ $Version == "5.9" ]]; then
-			yum install php-pecl-memcache.$OS_SUFFIX yum-fastestmirror.noarch
-			#?#php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
+			yum install yum-fastestmirror.noarch
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install php-pecl-memcached.$OS_SUFFIX yum-plugin-fastestmirror.noarch
-			#?#php-pecl-memcached.$OS_SUFFIX : Extension to work with the Memcached caching daemon
-			##yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+			yum install yum-plugin-fastestmirror.noarch
+			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		fi
-		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
 		# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
+		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
 	yum install httpd.$OS_SUFFIX chkconfig.$OS_SUFFIX cmake.$OS_SUFFIX gcc.$OS_SUFFIX gcc-c++.$OS_SUFFIX git.$OS_SUFFIX keepalived.$OS_SUFFIX logrotate.$OS_SUFFIX lrzsz.$OS_SUFFIX redhat-lsb.$OS_SUFFIX memcached.$OS_SUFFIX php.$OS_SUFFIX php-cli.$OS_SUFFIX php-common.$OS_SUFFIX php-devel.$OS_SUFFIX php-gd.$OS_SUFFIX php-mbstring.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX php-pear.noarch libpst.$OS_SUFFIX subversion.$OS_SUFFIX sysstat.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
@@ -441,9 +440,18 @@ else
 			yum install google-chrome-stable.$OS_SUFFIX_SPECIAL
 			# google-chrome-stable.$OS_SUFFIX_SPECIAL : Google Chrome  #需要手动加入第三方源，只有386，没有686
 		fi
+		yum install flash-plugin.$OS_SUFFIX_SPECIAL
+		# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
+	elif [[ $OS == "CentOS" ]]; then
+		if [[ $Version == "5.9" ]]; then
+			yum install flash-plugin.$OS_SUFFIX_SPECIAL
+			# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
+		else
+			yum install flash-plugin.$OS_SUFFIX
+			# flash-plugin.$OS_SUFFIX : Adobe Flash Player 11.2
+		fi
 	fi
-	yum install flash-plugin.$OS_SUFFIX_SPECIAL opera.$OS_SUFFIX_SPECIAL
-	# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
+	yum install opera.$OS_SUFFIX_SPECIAL
 	# opera.$OS_SUFFIX_SPECIAL : Fast and secure web browser and Internet suite
 fi
 
@@ -623,7 +631,7 @@ else
 		if [[ $Version == "5.9" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "XFCE-4.4"
 		else
-			yum groupinstall "KDE Desktop"
+			yum groupinstall "Desktop" "General Purpose Desktop" "KDE Desktop"
 		fi
 		yum groupinstall "Development Tools"
 	fi
