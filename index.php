@@ -10,8 +10,8 @@ $datas = array(
 	)
 	,'Ubuntu ON DELL Latitude'=> 
 	array(
-		'inner_prefix'=>'http://127.0.0.1/jimmychou/',
-		'outer_prefix'=>'http://127.0.0.1:8080/jimmychou/',
+		'inner_prefix'=>'http://127.0.0.1/',
+		'outer_prefix'=>'http://127.0.0.1:8080/',
 		'inner_name'=>'Nginx',
 		'outer_name'=>'Apache',
 		'lists'=>array(
@@ -33,8 +33,8 @@ $datas = array(
 	)
 	,'CentOS ON VMware of Lenovo IdeaPad'=> 
 	array(
-		'inner_prefix'=>'http://192.168.0.110/jimmychou/',
-		'outer_prefix'=>'http://192.168.0.110:8080/jimmychou/',
+		'inner_prefix'=>'http://192.168.0.110/',
+		'outer_prefix'=>'http://192.168.0.110:8080/',
 		'inner_name'=>'Nginx',
 		'outer_name'=>'Apache',
 		'lists'=>array(
