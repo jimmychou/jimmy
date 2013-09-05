@@ -117,17 +117,20 @@ else
 		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
 		if [[ $Version == "5.9" ]]; then
-			yum install yum-fastestmirror.noarch
+			yum install phpmyadmin.noarch yum-fastestmirror.noarch
+			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install git.$OS_SUFFIX memcached.$OS_SUFFIX php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+			yum install git.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch
 			# git.$OS_SUFFIX : Fast Version Control System
 			# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
+			# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		fi
-		yum install mysql-server.$OS_SUFFIX php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
+		# nginx.$OS_SUFFIX_SPECIAL : nginx is a high performance web server
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi

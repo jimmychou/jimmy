@@ -126,8 +126,15 @@ else
 		# qterm.$OS_SUFFIX : BBS client for X Window System written in Qt
 		# synaptic.$OS_SUFFIX : Graphical frontend for APT package manager
 	elif [[ $OS == "CentOS" ]]; then
-		yum install libreoffice.$OS_SUFFIX
-		# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		if [[ $Version == "5.9" ]]; then
+			yum install filezilla.$OS_SUFFIX synaptic.$OS_SUFFIX synaptics.$OS_SUFFIX
+			# filezilla.$OS_SUFFIX : FTP, FTPS and SFTP client
+			# synaptic.$OS_SUFFIX : Graphical package management program using apt
+			# synaptics.$OS_SUFFIX : Synaptics 触摸板驱动
+		else
+			yum install libreoffice.$OS_SUFFIX
+			# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
+		fi
 	fi
 	yum install compiz.$OS_SUFFIX firefox.$OS_SUFFIX gedit.$OS_SUFFIX rhythmbox.$OS_SUFFIX thunderbird.$OS_SUFFIX
 	# compiz.$OS_SUFFIX : OpenGL window and compositing manager
@@ -380,24 +387,25 @@ else
 		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
 		if [[ $Version == "5.9" ]]; then
-			yum install yum-fastestmirror.noarch
+			yum install phpmyadmin.noarch yum-fastestmirror.noarch
+			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install git.$OS_SUFFIX keepalived.$OS_SUFFIX libpst.$OS_SUFFIX memcached.$OS_SUFFIX php-fpm.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+			yum install git.$OS_SUFFIX keepalived.$OS_SUFFIX libpst.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX php-pecl-apc.$OS_SUFFIX yum-plugin-fastestmirror.noarch
 			# git.$OS_SUFFIX : Fast Version Control System
 			# keepalived.$OS_SUFFIX : High Availability monitor built upon LVS, VRRP and service pollers
 			# libpst.$OS_SUFFIX : Utilities to convert Outlook .pst files to other formats
 			# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
+			# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		fi
-		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL phpMyAdmin.noarch php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
 		# nginx.$OS_SUFFIX_SPECIAL : nginx is a high performance web server
-		# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
