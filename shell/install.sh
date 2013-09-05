@@ -125,6 +125,9 @@ else
 		##?kcm_touchpad.$OS_SUFFIX : Synaptics driver based touchpads kcontrol module
 		# qterm.$OS_SUFFIX : BBS client for X Window System written in Qt
 		# synaptic.$OS_SUFFIX : Graphical frontend for APT package manager
+	elif [[ $OS == "CentOS" ]]; then
+		yum install libreoffice.$OS_SUFFIX
+		# libreoffice.$OS_SUFFIX : Free Software Productivity Suite
 	fi
 	yum install compiz.$OS_SUFFIX firefox.$OS_SUFFIX gedit.$OS_SUFFIX rhythmbox.$OS_SUFFIX thunderbird.$OS_SUFFIX
 	# compiz.$OS_SUFFIX : OpenGL window and compositing manager
@@ -389,10 +392,12 @@ else
 			##php-pecl-apc.$OS_SUFFIX : APC caches and optimizes PHP intermediate code
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		fi
-		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum install mysql.$OS_SUFFIX mysql-bench.$OS_SUFFIX mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL phpMyAdmin.noarch php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql.$OS_SUFFIX : MySQL client programs and shared libraries
 		##mysql-bench.$OS_SUFFIX : MySQL benchmark scripts and data
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
+		# nginx.$OS_SUFFIX_SPECIAL : nginx is a high performance web server
+		# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
