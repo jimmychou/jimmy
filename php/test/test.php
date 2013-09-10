@@ -1,11 +1,33 @@
 <?php
 class Tools
 {
+	function mb_str_split( $string, $split_length = 1 ){
+		mb_internal_encoding('UTF-8'); 
+		mb_regex_encoding('UTF-8');  
+		$split_length = ($split_length <= 0) ? 1 : $split_length;
+		$mb_strlen = mb_strlen($string, 'utf-8');
+		$array = array();
+		for( $i=0,$j=0;$i<$mb_strlen;$i+=$split_length ){
+			//$array[] = mb_substr( $string,$i,$split_length ); 
+			//$array[$j] = mb_substr( $string,$i,$split_length );
+			$single = mb_substr( $string,$i,$split_length );
+			$array[$j] = $single;
+			$j++;
+		}
+		return $array;
+	}
 	//人人网一个把 "I love this game" 倒转成 "game this love I"
 	function renren_reverse( $str,$mode=1 )
 	{
-	    if( $mode == 1 ){
-			$str_array = str_split( $str );
+		if( $mode == 1 ){
+			//$str_array = self::mb_str_split( $str,1 );
+			$str_array = self::mb_str_split( $str,1 );
+			krsort( $str_array );
+			return $str_array;
+		}
+		elseif( $mode == 2 ){
+			$str_array = explode( " ",$str );
+			krsort( $str_array );
 			return $str_array;
 		}
 	}
@@ -682,7 +704,8 @@ foreach( $test2 as $key=>$value ){
     echo "key=$key and value=$value\n";
 }
 */
-//var_dump( $tools->renren_reverse( "I love you",1 ) );
-#var_dump( $tools->renren_reverse( "这是什么",1 ) );
+//var_dump( $tools->renren_reverse( "I love this game holly shit!",2 ) );
+//var_dump( $tools->renren_reverse( "这是什么",1 ) );
+var_dump( $tools->renren_reverse( "这是 什么 东西 为什么",2 ) );
 
 //两个整型变量赋值，是一个存储空间么？
