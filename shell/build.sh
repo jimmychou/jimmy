@@ -462,8 +462,8 @@ NOEFFECT
 		    --with-pdo-odbc=shared,unixODBC,/usr \
 		    --with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
 		    --with-pdo-pgsql=shared,/usr \
-		    --with-mcrypt=/usr \
 		    --with-pdo-sqlite=shared,/usr \
+		    --with-mcrypt=shared,/usr \
 		    --enable-fpm && make && sudo make install
 fi
 #cd 
