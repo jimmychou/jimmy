@@ -1,7 +1,7 @@
 <?php
 class Tools
 {
-	function mb_str_split( $string, $split_length = 1 ){
+	public function mb_str_split( $string, $split_length = 1 ){
 		mb_internal_encoding('UTF-8'); 
 		mb_regex_encoding('UTF-8');  
 		$split_length = ($split_length <= 0) ? 1 : $split_length;
@@ -17,7 +17,7 @@ class Tools
 		return $array;
 	}
 	//人人网一个把 "I love this game" 倒转成 "game this love I"
-	function renren_reverse( $str,$mode=1 )
+	public function renren_reverse( $str,$mode=1 )
 	{
 		if( $mode == 1 ){
 			//$str_array = self::mb_str_split( $str,1 );
@@ -31,22 +31,49 @@ class Tools
 			return $str_array;
 		}
 	}
-	function __autoload( $classname )
+	public function __autoload( $classname )
 	{
 		//    require_once ( $classname.'.class.php' );
 	}
 	//$person = new Person( 'Altair', 6 );
 	//var_dump ( $person );
 
-	function stick_convert()
+	public function stick_convert( $string )
 	{
 		// 强制类型转换
-		$str = '222';
-		$int = intval( $str );
-		echo '$str='.$str.' and type is '.gettype( $str ).' and int='.$int.' and type is '.gettype( $int )."\n";
+		$intval = intval( $string );
+		echo 'string='.$string.' and type is '.gettype( $string ).' and intval='.$intval.' and type is '.gettype( $intval )."\n";
 	}
 
-	function ref_count()
+	public function xref_count()
+	{
+		//$a = array( 'meaning' => 'life', 'number' => 42 );
+		//$a = 'Hello World!';
+		//xdebug_debug_zval( 'a' );
+		$a = "new string";
+		xdebug_debug_zval( 'a' );
+		$b = $a;
+		xdebug_debug_zval( 'a' );
+		xdebug_debug_zval( 'b' );
+		$c = $a;
+		xdebug_debug_zval( 'a' );
+		xdebug_debug_zval( 'b' );
+		xdebug_debug_zval( 'c' );
+		$d = &$a;
+		//$d = $a;
+		xdebug_debug_zval( 'a' );
+		xdebug_debug_zval( 'b' );
+		xdebug_debug_zval( 'c' );
+		xdebug_debug_zval( 'd' );
+		//unset( $a );
+		unset( $b );
+		xdebug_debug_zval( 'a' );
+		xdebug_debug_zval( 'b' );
+		xdebug_debug_zval( 'c' );
+		xdebug_debug_zval( 'd' );
+	}
+
+	public function ref_count()
 	{
 		$test = 'wahaha';
 		debug_zval_dump( $test );
@@ -67,7 +94,7 @@ class Tools
 		//require_once ('a.php');
 	}
 
-	function strange_int()
+	public function strange_int()
 	{
 		echo (int) ( (0.1+0.7) * 10 )."\n";
 	}
@@ -77,7 +104,7 @@ class Tools
 	// array_fill
 
 	//print_r( htmlspecialchars( 'http://www.baidu.com' ) );
-	function merge_error()
+	public function merge_error()
 	{
 		$temp = array();
 		//$temp = null;
@@ -86,7 +113,7 @@ class Tools
 	}
 
 	// for phpredis library
-	function phpredis_lib()
+	public function phpredis_lib()
 	{
 		echo 'size is '.strlen( json_encode( array( 'r'=>4,'id'=>1,'exp'=>4,'t'=>1231531513 ) ) )."\n";
 		echo 'size is '.strlen( "4,1,4,1231531513" )."\n";
@@ -155,7 +182,7 @@ class Tools
 		print_r( $all_datas );
 	}
 	//!与empty的区别
-	function check_empty( $data )
+	public function check_empty( $data )
 	{
 		if( empty( $data ) ){
 			echo "it's empty\n";
@@ -164,7 +191,7 @@ class Tools
 			echo "it's not empty\n";
 		}
 	}
-	function check_value( $data )
+	public function check_value( $data )
 	{
 		if( !$data ){
 			echo "it has no data\n";
@@ -173,7 +200,7 @@ class Tools
 			echo "it has data\n";
 		}
 	}
-	function test_value()
+	public function test_value()
 	{
 		$martrix = array();
 		check_empty( $martrix );
@@ -191,7 +218,7 @@ class Tools
 			echo 'empty';
 		}
 	}
-	function andor()
+	public function andor()
 	{
 		echo $a = decbin( 12 ) . "\n";
 		echo $b = decbin( 26 ) . "\n";
@@ -214,14 +241,14 @@ class Tools
 		echo "Hello world!2这是什么啊！！\n";
 		echo substr( '这他妈是些什么东西啊！',0,7 )."\n";
 	}
-	function inverse($x)
+	public function inverse($x)
 	{
 		if (!$x) {
 			throw new Exception('Division by zero.');
 		}
 		else return 1/$x;
 	}
-	function test_inverse()
+	public function test_inverse()
 	{
 		try{
 			echo inverse( 5 ) . "\n";
@@ -231,7 +258,7 @@ class Tools
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
 	}
-	function diff_array_merge()
+	public function diff_array_merge()
 	{
 		$arr1 = array('a', 'b', 'c', 'd', 'e');
 		$arr2 = array('a', 'b', 'c', 'd', 'e','f','g');
@@ -240,7 +267,7 @@ class Tools
 		$arr3 = $arr1 + $arr2;
 		print_r( $arr3 );
 	}
-	function get_time()
+	public function get_time()
 	{
 		$timezone = date_default_timezone_get();
 		echo "你的电脑使用时区为$timezone\n";
@@ -248,7 +275,7 @@ class Tools
 		$now = date("Y-m-d H:i:s D l j N S w z W F a B e I O P T Z c r U",$now);
 		echo "现在时刻$now\n";
 	}
-	function utf8()
+	public function utf8()
 	{
 		$utf8 = "\u53c2\u6570\u9519\u8bef";
 		//$utf8 = "what a shit!";
@@ -257,19 +284,19 @@ class Tools
 		//        echo "$ori\n";
 		//print u'\u53c2\u6570\u9519\u8bef'
 	}
-    public function stringandbinary()
-    {
-        $string = 100;
-        $bin = pack( 'I',$string );
-        //$bin = pack( "nvc*", 0x1234, 0x5678, 65, 66 );
-        echo "string = $string and bin = $bin \n";
-        //file_put_contents( "bin",$bin,FILE_APPEND );
-        //file_put_contents( "string",$string,FILE_APPEND );
+	public function stringandbinary()
+	{
+		$string = 100;
+		$bin = pack( 'I',$string );
+		//$bin = pack( "nvc*", 0x1234, 0x5678, 65, 66 );
+		echo "string = $string and bin = $bin \n";
+		//file_put_contents( "bin",$bin,FILE_APPEND );
+		//file_put_contents( "string",$string,FILE_APPEND );
 
-        //print_r( unpack("c2chars/nint", $binarydata ) );
-        echo system( 'od data/bin ');
-        echo system( 'od data/string' );
-    }
+		//print_r( unpack("c2chars/nint", $binarydata ) );
+		echo system( 'od data/bin ');
+		echo system( 'od data/string' );
+	}
 	// Memcached
 	public function test_memcached()
 	{
@@ -305,7 +332,9 @@ class Tools
 	}
 	public function db_connect()
 	{
-		$link = mysql_connect( "127.0.0.1:3306",'root','' );
+		$link = mysqli_connect( "127.0.0.1",'root','penny7531' );
+//		$link = mysql_connect( "127.0.0.1:3306",'root','penny7531' );
+// PHP 5.5.3报错 PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead
 		if( !$link ){
 			echo "the connect is refused\n";
 			die();
@@ -313,11 +342,14 @@ class Tools
 		else{
 			//    echo "OK\n";
 			$db_list = mysql_list_dbs( $link );
+// PHP 5.5.3报错 PHP Deprecated:  Function mysql_list_dbs() is deprecated
+// PHP 5.5.3报错 PHP Deprecated:  mysql_list_dbs(): This function is deprecated; use mysql_query() with SHOW DATABASES instead
 			while( $db_row = mysql_fetch_object( $db_list ) ){
 				//	    print_r( $db_row );
 				$db = $db_row->Database;
 				echo "db is $db \n";
 				$table_list = mysql_list_tables( $db );
+// PHP 5.5.3报错 PHP Deprecated:  Function mysql_list_tables() is deprecated
 				//		print_r( $table_list );
 				if( !$table_list ){
 					print "DB Error,could not list tables\n";
@@ -434,7 +466,7 @@ class Tools
 	}
 }
 $tools = new Tools();
-$json = '';
+//$json = '';
 //print_r( $tools->utf8( $json ) );
 //print_r( $tools->get_time(  ) );
 
@@ -704,8 +736,30 @@ foreach( $test2 as $key=>$value ){
     echo "key=$key and value=$value\n";
 }
 */
+
+//反转字符
+
 //var_dump( $tools->renren_reverse( "I love this game holly shit!",2 ) );
 //var_dump( $tools->renren_reverse( "这是什么",1 ) );
-var_dump( $tools->renren_reverse( "这是 什么 东西 为什么",2 ) );
+//var_dump( $tools->renren_reverse( "这是 什么 东西 为什么",2 ) );
+
+
+// 强制类型转换
+
+//var_dump( $tools->stick_convert( 222 ) );
+//var_dump( $tools->stick_convert( '222' ) );
+//var_dump( $tools->stick_convert( 'string' ) );
+
+//var_dump( $tools->ref_count() );
+//var_dump( $tools->xref_count() );
+
+//var_dump( $tools->strange_int( ) );
+//print_r( $tools->strange_int( ) );
+
+//var_dump( array( 'status'=>'ok' ) );
+
+// 用原生php-mysql库连接MySQL数据库
+//var_dump( $tools->db_connect() );
+
 
 //两个整型变量赋值，是一个存储空间么？
