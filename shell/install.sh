@@ -1,16 +1,18 @@
 #!/bin/bash
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
 if [[ $OS == "Ubuntu" ]]; then
-    #Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
-    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
+	apt-get install lsb
+	#Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
+	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	#len=`expr length $Codename`
-    Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-    echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 else
-    OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-    Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
-    echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
+	yum install redhat-lsb
+	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
+	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
+	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
 fi
 OS_SUFFIX=`uname -m` # uanme -p  uname -i
 OS_SUFFIX_SPECIAL=$OS_SUFFIX

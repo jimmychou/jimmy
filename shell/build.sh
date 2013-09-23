@@ -1,16 +1,18 @@
 #!/bin/bash
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
 if [[ $OS == "Ubuntu" ]]; then
-    #Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
-    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
+	sudo apt-get install lsb g++
+	#Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
+	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	#len=`expr length $Codename`
-    Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-    echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 else
-    OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-    Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-    Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
-    echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
+	sudo yum install redhat-lsb gcc-c++
+	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
+	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
+	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
 fi
 OS_SUFFIX=`uname -m` # uanme -p  uname -i
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
@@ -20,13 +22,10 @@ if [[ $OS_SUFFIX == "i686" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
-
 SOFTWARE=~/software
 if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
-
-#sudo yum install gcc-c++.$OS_SUFFIX pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 
 # Nginx模块 google_perftools_module
 
@@ -117,6 +116,7 @@ NOEFFECT
 			# --add-module=/build/buildd/nginx-1.2.6/debian/modules/nginx-dav-ext-module
 NOEFFECT
 	elif [[ $OS == "CentOS" ]]; then
+		sudo yum install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 <<NOEFFECT
 		echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
 		./configure --prefix=/etc/nginx \
@@ -190,6 +190,8 @@ NOEFFECT
 	fi
 fi
 
+# HTTPD编译
+
 #HTTPDVERSION=2.4.6  # Some software is not compatible with the configure condition on CentOS 5.9
 HTTPDVERSION=2.2.25
 HTTPDSUFFIX=tar.gz
@@ -199,6 +201,7 @@ if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official Httpd on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
+		sudo yum install apr-devel apr-util-devel
 <<NOEFFECT
 		echo The Official Httpd on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
@@ -360,7 +363,7 @@ NOEFFECT
 	fi
 fi
 
-# 从5.5开始使用cmake来编译
+# MySQL编译，从5.5开始使用cmake来编译
 
 #MYSQLBIGVERSION=5.6
 #MYSQLVERSION=5.6.14
@@ -463,7 +466,7 @@ NOEFFECT
 	fi
 fi
 
-#cd ~/php-5.5.1
+# PHP编译
 # 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
 
 PHPVERSION=5.5.3
@@ -474,6 +477,7 @@ if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official PHP on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
+		sudo yum install bzip2-devel curl-devel gmp-devel libc-client-devel libmcrypt-devel unixODBC-devel postgresql-devel sqlite-devel aspell-devel net-snmp-devel
 <<NOEFFECT
 		echo The Official PHP on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \

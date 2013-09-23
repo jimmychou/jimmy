@@ -1,4 +1,5 @@
 #!/bin/bash
+# For Ubuntu 10.04
 if [[ $1 == "on" ]]; then
 	echo update-rc.d -f defaults begin
 	update-rc.d -f apache2 defaults 
