@@ -151,7 +151,7 @@ NOEFFECT
 			--with-ipv6 \
 			--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 NOEFFECT
-		echo The Current Nginx on CentOS 5.9 is configured as below:
+		echo The Current Nginx 1.4.1 on CentOS 5.9 is configured as below:
 		./configure --prefix=/usr/share/nginx \
 			--user=nginx \
 			--group=nginx \
@@ -279,7 +279,7 @@ if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
 			--disable-xmlreader \
 			--disable-xmlwriter
 NOEFFECT
-		echo The Current Httpd on CentOS 5.9 is configured as below:
+		echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -360,12 +360,13 @@ NOEFFECT
 	fi
 fi
 
+# 从5.5开始使用cmake来编译
 
 #MYSQLBIGVERSION=5.6
 #MYSQLVERSION=5.6.14
-# use cmake since 5.5
-MYSQLBIGVERSION=5.1
-MYSQLVERSION=5.1.72
+
+MYSQLBIGVERSION=5.0
+MYSQLVERSION=5.0.96
 MYSQLSUFFIX=tar.gz
 cd $SOFTWARE
 if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ]; then
@@ -408,14 +409,16 @@ if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ]; then
 			--enable-largefile \
 			--enable-profiling \
 			--enable-thread-safe-client \
-			--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
+			--disable-dependency-tracking \
+			--with-named-thread-libs=-lpthread
+			CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
+			CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
+			FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
+			build_alias=i386-redhat-linux-gnu \
+			host_alias=i386-redhat-linux-gnu \
+			target_alias=i386-redhat-linux-gnu
 NOEFFECT
-	fi
-fi
-cd $SOFTWARE/mysql-$MYSQLVERSION
-
-
-		echo The Current MySQL on CentOS 5.9 is configured as below:
+		echo The Current MySQL 5.0.96 on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -434,7 +437,7 @@ cd $SOFTWARE/mysql-$MYSQLVERSION
 			--mandir=/usr/share/man \
 			--infodir=/usr/share/info \
 			--with-readline \
-			--with-ssl \
+			--with-openssl \
 			--without-debug \
 			--enable-shared \
 			--with-bench \
@@ -449,9 +452,16 @@ cd $SOFTWARE/mysql-$MYSQLVERSION
 			--enable-largefile \
 			--enable-profiling \
 			--enable-thread-safe-client \
-#			--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
-
-exit
+			--disable-dependency-tracking \
+			--with-named-thread-libs=-lpthread
+			CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
+			CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
+			FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
+			build_alias=i386-redhat-linux-gnu \
+			host_alias=i386-redhat-linux-gnu \
+			target_alias=i386-redhat-linux-gnu && make && sudo make install
+	fi
+fi
 
 #cd ~/php-5.5.1
 # 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
@@ -460,7 +470,7 @@ PHPVERSION=5.5.3
 PHPSUFFIX=tar.gz
 cd $SOFTWARE
 if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
-	wget http://219.239.26.20/download/50550151/73687443/3/gz/48/187/1377323886384_955/php-$PHPVERSION.$PHPSUFFIX && tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
+	wget http://cn2.php.net/get/php-$PHPVERSION.$PHPSUFFIX/from/this/mirror && tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official PHP on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
@@ -674,11 +684,12 @@ NOEFFECT
 			--with-recode=shared,/usr
 NOEFFECT
 <<NOEFFECT
-		echo The Local PHP on CentOS 5.9 is configured as below:
+		echo The Local PHP 5.5.3 on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
 			--program-prefix= \
+			--prefix=/usr/local \
 			--exec-prefix=/usr/local \
 			--datadir=/usr/local/share/ \
 			--cache-file=../config.cache \
@@ -747,25 +758,26 @@ NOEFFECT
 			--with-mcrypt=shared,/usr \
 			--enable-fpm
 NOEFFECT
-		echo The Current PHP on CentOS 5.9 is configured as below:
+		echo The Current PHP 5.5.3 on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
 			--program-prefix= \
-#			--exec-prefix=/usr/local \
-#			--datadir=/usr/local/share/ \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--datadir=/usr/share/ \
 			--cache-file=../config.cache \
 			--with-libdir=lib \
-#			--with-config-file-path=/usr/local/etc \
-#			--with-config-file-scan-dir=/usr/local/etc/php.d \
+			--with-config-file-path=/etc \
+			--with-config-file-scan-dir=/etc/php.d \
 			--disable-debug \
 			--with-pic \
 			--disable-rpath \
 			--without-pear \
 			--with-bz2 \
 			--with-curl \
-#			--with-freetype-dir=/usr \
-#			--with-png-dir=/usr \
+			--with-freetype-dir=/usr \
+			--with-png-dir=/usr \
 			--enable-gd-native-ttf \
 			--without-gdbm \
 			--with-gettext \
@@ -805,7 +817,7 @@ NOEFFECT
 			--with-ldap=shared \
 			--with-ldap-sasl \
 			--with-mysql=shared,/usr \
-			--with-mysqli=shared,/usr/lib/mysql/mysql_config \
+			--with-mysqli=shared,/usr/bin/mysql_config \
 			--with-pgsql=shared \
 			--with-snmp=shared,/usr \
 			--enable-soap=shared \
@@ -814,7 +826,7 @@ NOEFFECT
 			--enable-xmlwriter=shared \
 			--enable-pdo=shared \
 			--with-pdo-odbc=shared,unixODBC,/usr \
-			--with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
+			--with-pdo-mysql=shared,/usr/bin/mysql_config \
 			--with-pdo-pgsql=shared,/usr \
 			--with-pdo-sqlite=shared,/usr \
 			--with-mcrypt=shared,/usr \
