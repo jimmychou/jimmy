@@ -26,13 +26,19 @@ if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
 
-sudo yum install gcc-c++.$OS_SUFFIX pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+#sudo yum install gcc-c++.$OS_SUFFIX pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+
+# Nginx模块 google_perftools_module
+
 GPERFTOOLSVERSION=2.1
 GPERFTOOLSSUFFIX=tar.gz
 cd $SOFTWARE
 if [ ! -f gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX ]; then
 	wget http://gperftools.googlecode.com/files/gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX && tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX && cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION && ./configure && make && sudo make install
 fi
+
+# Nginx编译
+
 NGINXVERSION=1.4.1
 NGINXSUFFIX=tar.gz
 cd $SOFTWARE
@@ -73,7 +79,8 @@ if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
 			#--add-module=/build/buildd/nginx-1.1.19/debian/modules/nginx-echo \
 			#--add-module=/build/buildd/nginx-1.1.19/debian/modules/nginx-upstream-fair \
 			#--add-module=/build/buildd/nginx-1.1.19/debian/modules/nginx-dav-ext-module
-
+NOEFFECT
+<<NOEFFECT
 		echo The Official Nginx on Ubuntu 13.04 is configured as below:
 		./configure --prefix=/usr/share/nginx \
 			--conf-path=/etc/nginx/nginx.conf \
@@ -111,7 +118,7 @@ if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
 NOEFFECT
 	elif [[ $OS == "CentOS" ]]; then
 <<NOEFFECT
-		echo The Official Nginx on CentOS 5.9 of remi repo is configured as below:
+		echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
 		./configure --prefix=/etc/nginx \
 			--sbin-path=/usr/sbin/nginx \
 			--conf-path=/etc/nginx/nginx.conf \
@@ -144,7 +151,7 @@ NOEFFECT
 			--with-ipv6 \
 			--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 NOEFFECT
-		echo The real configure is as below:
+		echo The Current Nginx on CentOS 5.9 is configured as below:
 		./configure --prefix=/usr/share/nginx \
 			--user=nginx \
 			--group=nginx \
@@ -182,7 +189,270 @@ NOEFFECT
 			--with-mail_ssl_module && make && sudo make install
 	fi
 fi
+
+#HTTPDVERSION=2.4.6  # Some software is not compatible with the configure condition on CentOS 5.9
+HTTPDVERSION=2.2.25
+HTTPDSUFFIX=tar.gz
+cd $SOFTWARE
+if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
+	wget http://mirror.bit.edu.cn/apache/httpd/httpd-$HTTPDVERSION.$HTTPDSUFFIX && tar -zvxf httpd-$HTTPDVERSION.$HTTPDSUFFIX && cd $SOFTWARE/httpd-$HTTPDVERSION
+	if [[ $OS == "Ubuntu" ]]; then
+		echo The Official Httpd on Ubuntu is configured as below:
+	elif [[ $OS == "CentOS" ]]; then
+<<NOEFFECT
+		echo The Official Httpd on CentOS 5.9 is configured as below:
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--bindir=/usr/bin \
+			--sbindir=/usr/sbin \
+			--sysconfdir=/etc \
+			--datadir=/usr/share \
+			--includedir=/usr/include \
+			--libdir=/usr/lib \
+			--libexecdir=/usr/libexec \
+			--localstatedir=/var \
+			--sharedstatedir=/usr/com \
+			--mandir=/usr/share/man \
+			--infodir=/usr/share/info \
+			--cache-file=../config.cache \
+			--with-libdir=lib \
+			--with-config-file-path=/etc \
+			--with-config-file-scan-dir=/etc/php.d \
+			--disable-debug \
+			--with-pic \
+			--disable-rpath \
+			--without-pear \
+			--with-bz2 \
+			--with-curl \
+			--with-exec-dir=/usr/bin \
+			--with-freetype-dir=/usr \
+			--with-png-dir=/usr \
+			--enable-gd-native-ttf \
+			--without-gdbm \
+			--with-gettext \
+			--with-gmp \
+			--with-iconv \
+			--with-jpeg-dir=/usr \
+			--with-openssl \
+			--with-png \
+			--with-pspell \
+			--with-expat-dir=/usr \
+			--with-pcre-regex=/usr \
+			--with-zlib \
+			--with-layout=GNU \
+			--enable-exif \
+			--enable-ftp \
+			--enable-magic-quotes \
+			--enable-sockets \
+			--enable-sysvsem \
+			--enable-sysvshm \
+			--enable-sysvmsg \
+			--enable-track-vars \
+			--enable-trans-sid \
+			--enable-yp \
+			--enable-wddx \
+			--with-kerberos \
+			--enable-ucd-snmp-hack \
+			--with-unixODBC=shared,/usr \
+			--enable-memory-limit \
+			--enable-shmop \
+			--enable-calendar \
+			--enable-dbx \
+			--enable-dio \
+			--with-mime-magic=/usr/share/file/magic.mime \
+			--without-sqlite \
+			--with-libxml-dir=/usr \
+			--with-xml \
+			--with-system-tzdata \
+			--with-apxs2=/usr/sbin/apxs \
+			--without-mysql \
+			--without-gd \
+			--without-odbc \
+			--disable-dom \
+			--disable-dba \
+			--without-unixODBC \
+			--disable-pdo \
+			--disable-xmlreader \
+			--disable-xmlwriter
+NOEFFECT
+		echo The Current Httpd on CentOS 5.9 is configured as below:
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--bindir=/usr/bin \
+			--sbindir=/usr/sbin \
+			--sysconfdir=/etc \
+			--datadir=/usr/share \
+			--includedir=/usr/include \
+			--libdir=/usr/lib \
+			--libexecdir=/usr/libexec \
+			--localstatedir=/var \
+			--sharedstatedir=/usr/com \
+			--mandir=/usr/share/man \
+			--infodir=/usr/share/info \
+			--cache-file=../config.cache \
+			--with-libdir=lib \
+			--with-config-file-path=/etc \
+			--with-config-file-scan-dir=/etc/php.d \
+			--disable-debug \
+			--with-pic \
+			--disable-rpath \
+			--without-pear \
+			--with-bz2 \
+			--with-curl \
+			--with-exec-dir=/usr/bin \
+			--with-freetype-dir=/usr \
+			--with-png-dir=/usr \
+			--enable-gd-native-ttf \
+			--without-gdbm \
+			--with-gettext \
+			--with-gmp \
+			--with-iconv \
+			--with-jpeg-dir=/usr \
+			--with-openssl \
+			--with-png \
+			--with-pspell \
+			--with-expat-dir=/usr \
+			--with-pcre-regex=/usr \
+			--with-zlib \
+			--with-layout=GNU \
+			--enable-exif \
+			--enable-ftp \
+			--enable-magic-quotes \
+			--enable-sockets \
+			--enable-sysvsem \
+			--enable-sysvshm \
+			--enable-sysvmsg \
+			--enable-track-vars \
+			--enable-trans-sid \
+			--enable-yp \
+			--enable-wddx \
+			--with-kerberos \
+			--enable-ucd-snmp-hack \
+			--with-unixODBC=shared,/usr \
+			--enable-memory-limit \
+			--enable-shmop \
+			--enable-calendar \
+			--enable-dbx \
+			--enable-dio \
+			--with-mime-magic=/usr/share/file/magic.mime \
+			--without-sqlite \
+			--with-libxml-dir=/usr \
+			--with-xml \
+			--with-system-tzdata \
+			--with-apxs2=/usr/sbin/apxs \
+			--without-mysql \
+			--without-gd \
+			--without-odbc \
+			--disable-dom \
+			--disable-dba \
+			--without-unixODBC \
+			--disable-pdo \
+			--disable-xmlreader \
+			--disable-xmlwriter && make && sudo make install
+	fi
+fi
+
+
+#MYSQLBIGVERSION=5.6
+#MYSQLVERSION=5.6.14
+# use cmake since 5.5
+MYSQLBIGVERSION=5.1
+MYSQLVERSION=5.1.72
+MYSQLSUFFIX=tar.gz
+cd $SOFTWARE
+if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ]; then
+	wget http://dev.mysql.com/get/Downloads/MySQL-$MYSQLBIGVERSION/mysql-$MYSQLVERSION.$MYSQLSUFFIX/from/http://cdn.mysql.com/ && tar -zvxf mysql-$MYSQLVERSION.$MYSQLSUFFIX && cd $SOFTWARE/mysql-$MYSQLVERSION
+	if [[ $OS == "Ubuntu" ]]; then
+		echo The Official MySQL on Ubuntu is configured as below:
+	elif [[ $OS == "CentOS" ]]; then
+<<NOEFFECT
+		echo The Official MySQL on CentOS 5.9 is configured as below:
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--bindir=/usr/bin \
+			--sbindir=/usr/sbin \
+			--sysconfdir=/etc \
+			--datadir=/usr/share \
+			--includedir=/usr/include \
+			--libdir=/usr/lib \
+			--libexecdir=/usr/libexec \
+			--localstatedir=/var \
+			--sharedstatedir=/usr/com \
+			--mandir=/usr/share/man \
+			--infodir=/usr/share/info \
+			--with-readline \
+			--with-openssl \
+			--without-debug \
+			--enable-shared \
+			--with-bench \
+			--localstatedir=/var/lib/mysql \
+			--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+			--with-mysqld-user=mysql \
+			--with-extra-charsets=all \
+			--with-innodb \
+			--with-berkeley-db \
+			--enable-community-features \
+			--enable-local-infile \
+			--enable-largefile \
+			--enable-profiling \
+			--enable-thread-safe-client \
+			--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
+NOEFFECT
+	fi
+fi
+cd $SOFTWARE/mysql-$MYSQLVERSION
+
+
+		echo The Current MySQL on CentOS 5.9 is configured as below:
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--bindir=/usr/bin \
+			--sbindir=/usr/sbin \
+			--sysconfdir=/etc \
+			--datadir=/usr/share \
+			--includedir=/usr/include \
+			--libdir=/usr/lib \
+			--libexecdir=/usr/libexec \
+			--localstatedir=/var \
+			--sharedstatedir=/usr/com \
+			--mandir=/usr/share/man \
+			--infodir=/usr/share/info \
+			--with-readline \
+			--with-ssl \
+			--without-debug \
+			--enable-shared \
+			--with-bench \
+			--localstatedir=/var/lib/mysql \
+			--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+			--with-mysqld-user=mysql \
+			--with-extra-charsets=all \
+			--with-innodb \
+			--with-berkeley-db \
+			--enable-community-features \
+			--enable-local-infile \
+			--enable-largefile \
+			--enable-profiling \
+			--enable-thread-safe-client \
+#			--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
+
 exit
+
 #cd ~/php-5.5.1
 # 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
 
@@ -192,10 +462,10 @@ cd $SOFTWARE
 if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
 	wget http://219.239.26.20/download/50550151/73687443/3/gz/48/187/1377323886384_955/php-$PHPVERSION.$PHPSUFFIX && tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
 	if [[ $OS == "Ubuntu" ]]; then
-		echo The Official PHP on Ubuntu CentOS is configured as below:
+		echo The Official PHP on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
-		echo The CentOS 5.9 default php-fpm
 <<NOEFFECT
+		echo The Official PHP on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -298,7 +568,7 @@ if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
 			--enable-dbase=shared
 NOEFFECT
 <<NOEFFECT
-		echo CentOS 6.0
+		echo The Official PHP on CentOS 6.0 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i686-redhat-linux-gnu \
@@ -403,6 +673,8 @@ NOEFFECT
 			--with-enchant=shared,/usr \
 			--with-recode=shared,/usr
 NOEFFECT
+<<NOEFFECT
+		echo The Local PHP on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -473,9 +745,79 @@ NOEFFECT
 			--with-pdo-pgsql=shared,/usr \
 			--with-pdo-sqlite=shared,/usr \
 			--with-mcrypt=shared,/usr \
+			--enable-fpm
+NOEFFECT
+		echo The Current PHP on CentOS 5.9 is configured as below:
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+#			--exec-prefix=/usr/local \
+#			--datadir=/usr/local/share/ \
+			--cache-file=../config.cache \
+			--with-libdir=lib \
+#			--with-config-file-path=/usr/local/etc \
+#			--with-config-file-scan-dir=/usr/local/etc/php.d \
+			--disable-debug \
+			--with-pic \
+			--disable-rpath \
+			--without-pear \
+			--with-bz2 \
+			--with-curl \
+#			--with-freetype-dir=/usr \
+#			--with-png-dir=/usr \
+			--enable-gd-native-ttf \
+			--without-gdbm \
+			--with-gettext \
+			--with-gmp \
+			--with-iconv \
+			--with-jpeg-dir=/usr \
+			--with-openssl \
+			--with-png-dir \
+			--with-pspell \
+			--with-libexpat-dir=/usr \
+			--with-pcre-regex=/usr \
+			--with-zlib \
+			--with-layout=GNU \
+			--enable-exif \
+			--enable-ftp \
+			--enable-sockets \
+			--enable-sysvsem \
+			--enable-sysvshm \
+			--enable-sysvmsg \
+			--enable-wddx \
+			--with-kerberos \
+			--with-unixODBC=shared,/usr \
+			--enable-shmop \
+			--enable-calendar \
+			--without-sqlite3 \
+			--with-libxml-dir=/usr \
+			--enable-pcntl \
+			--with-imap=shared \
+			--with-imap-ssl \
+			--enable-mbstring=shared \
+			--enable-mbregex \
+			--with-gd=shared \
+			--enable-bcmath=shared \
+			--enable-dba=shared \
+			--with-db4=/usr \
+			--with-xmlrpc=shared \
+			--with-ldap=shared \
+			--with-ldap-sasl \
+			--with-mysql=shared,/usr \
+			--with-mysqli=shared,/usr/lib/mysql/mysql_config \
+			--with-pgsql=shared \
+			--with-snmp=shared,/usr \
+			--enable-soap=shared \
+			--with-xsl=shared,/usr \
+			--enable-xmlreader=shared \
+			--enable-xmlwriter=shared \
+			--enable-pdo=shared \
+			--with-pdo-odbc=shared,unixODBC,/usr \
+			--with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
+			--with-pdo-pgsql=shared,/usr \
+			--with-pdo-sqlite=shared,/usr \
+			--with-mcrypt=shared,/usr \
 			--enable-fpm && make && sudo make install
 	fi
 fi
-#cd 
-# cat /usr/bin/mysqlbug | grep configure
-
