@@ -1,14 +1,14 @@
 #!/bin/bash
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
 if [[ $OS == "Ubuntu" ]]; then
-	sudo apt-get install lsb g++
+	sudo apt-get install -y lsb g++
 	#Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	#len=`expr length $Codename`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 else
-	sudo yum install redhat-lsb gcc-c++
+	sudo yum install -y redhat-lsb gcc-c++
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
@@ -116,7 +116,7 @@ NOEFFECT
 			# --add-module=/build/buildd/nginx-1.2.6/debian/modules/nginx-dav-ext-module
 NOEFFECT
 	elif [[ $OS == "CentOS" ]]; then
-		sudo yum install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+		sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 <<NOEFFECT
 		echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
 		./configure --prefix=/etc/nginx \
@@ -201,7 +201,7 @@ if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official Httpd on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
-		sudo yum install apr-devel apr-util-devel
+		sudo yum install -y apr-util-devel
 <<NOEFFECT
 		echo The Official Httpd on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
@@ -377,6 +377,7 @@ if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official MySQL on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
+		sudo yum install -y ncurses-devel.$OS_SUFFIX
 <<NOEFFECT
 		echo The Official MySQL on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
@@ -477,7 +478,8 @@ if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official PHP on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
-		sudo yum install bzip2-devel curl-devel gmp-devel libc-client-devel libmcrypt-devel unixODBC-devel postgresql-devel sqlite-devel aspell-devel net-snmp-devel
+		sudo yum install -y bzip2-devel curl-devel gmp-devel libc-client-devel libmcrypt-devel unixODBC-devel postgresql-devel sqlite-devel aspell-devel net-snmp-devel
+		mkdir /etc/php.d
 <<NOEFFECT
 		echo The Official PHP on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
