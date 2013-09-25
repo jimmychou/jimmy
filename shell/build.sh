@@ -1,20 +1,18 @@
 #!/bin/bash
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
+OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
 if [[ $OS == "Ubuntu" ]]; then
 	sudo apt-get install -y lsb g++
-	#Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	#len=`expr length $Codename`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 else
 	sudo yum install -y redhat-lsb gcc-c++
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
+	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
 fi
-OS_SUFFIX=`uname -m` # uanme -p  uname -i
+OS_SUFFIX=`uname -m`
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
@@ -201,7 +199,7 @@ if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official Httpd on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
-		sudo yum install -y apr-util-devel
+		sudo yum install -y apr-util-devel.$OS_SUFFIX
 <<NOEFFECT
 		echo The Official Httpd on CentOS 5.9 is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
@@ -478,7 +476,7 @@ if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
 	if [[ $OS == "Ubuntu" ]]; then
 		echo The Official PHP on Ubuntu is configured as below:
 	elif [[ $OS == "CentOS" ]]; then
-		sudo yum install -y bzip2-devel curl-devel gmp-devel libc-client-devel libmcrypt-devel unixODBC-devel postgresql-devel sqlite-devel aspell-devel net-snmp-devel
+		sudo yum install -y bzip2-devel.$OS_SUFFIX curl-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX libmcrypt-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
 		mkdir /etc/php.d
 <<NOEFFECT
 		echo The Official PHP on CentOS 5.9 is configured as below:
