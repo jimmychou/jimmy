@@ -373,6 +373,7 @@ fi
 if [ ! -d php-$PHPVERSION ]; then
 	tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
 fi
+cd $SOFTWARE/php-$PHPVERSION
 if [[ $OS == "Ubuntu" ]]; then
 	echo The Official PHP on Ubuntu is configured as below:
 elif [[ $OS == "CentOS" ]]; then

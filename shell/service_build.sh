@@ -18,7 +18,23 @@ if [[ $OS_SUFFIX == "i686" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
-sudo /usr/sbin/nginx
-sudo /usr/sbin/php-fpm -y /etc/php-fpm.conf -g /var/run/php-fpm.pid
-sudo /usr/share/mysql/mysql.server start
-sudo /usr/sbin/httpd -k start
+if [ -f "/etc/init.d/nginx" ]; then
+	sudo /etc/init.d/nginx start
+elif [ -f "/usr/sbin/nginx" ]; then
+	sudo /usr/sbin/nginx
+fi
+if [ -f "/etc/init.d/php-fpm" ]; then
+	sudo /etc/init.d/php-fpm start
+elif [ -f "/usr/sbin/php-fpm" ]; then
+	sudo /usr/sbin/php-fpm -y /etc/php-fpm.conf -g /var/run/php-fpm.pid
+fi
+if [ -f "/etc/init.d/mysqld" ]; then
+	sudo /etc/init.d/mysqld start
+elif [ -f "/usr/share/mysql/mysql.server" ]; then
+	sudo /usr/share/mysql/mysql.server start
+fi
+if [ -f "/etc/init.d/httpd" ]; then
+	sudo /etc/init.d/httpd start
+elif [ -f "/usr/sbin/httpd" ]; then
+	sudo /usr/sbin/httpd -k start
+fi

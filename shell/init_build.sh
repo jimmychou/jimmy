@@ -18,3 +18,46 @@ if [[ $OS_SUFFIX == "i686" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
+
+sudo chmod 755 /home/jimmychou
+#	755是web目录可以访问的最低要求，不要再试图744等
+
+
+#Nginx
+sudo cp ~/workspace/jimmy/os/centos/init.d/nginx /etc/init.d/
+sudo cp ~/workspace/jimmy/os/build/`done`/init/nginx/local.conf /etc/ld.so.conf.d/
+#	否则报错：error while loading shared libraries: libprofiler.so.0: cannot open shared object file: No such file or directory
+sudo /sbin/ldconfig -v
+sudo groupadd nginx && sudo useradd -M -g nginx nginx
+#	否则报错 nginx: [emerg] getpwnam("nginx") failed
+#	相反的用法是： sudo userdel -r nginx ## 一般情况下，如此删除用户后，连组也删除了
+#	sudo groupdel nginx
+sudo mkdir -p /var/cache/nginx
+sudo mkdir /etc/nginx/conf.d
+sudo cp ~/workspace/jimmy/os/extra.conf /etc/nginx/conf.d/
+sudo cp ~/workspace/jimmy/os/build/`done`/conf/nginx/ /etc/nginx/nginx.conf
+sudo /etc/init.d/nginx start
+sudo chkconfig --add nginx
+sudo chkconfig nginx on
+sudo ln -s ~/workspace/ /usr/share/nginx/html/jimmychou
+
+
+#MySQL
+sudo groupadd mysql && sudo useradd -M -g mysql mysql
+sudo mysql_install_db --user=mysql
+sudo cp ~/workspace/jimmy/os/build/`done`/conf/mysql/my.cnf /etc/my.cnf
+sudo cp ~/workspace/jimmy/os/build/`done`/init.d/mysqld /etc/init.d/mysqld
+sudo /etc/init.d/mysqld start
+mysqladmin -u root -p password 'penny7531'
+mysqladmin -u root -h localhost.localdomain -p password 'penny7531'
+sudo chkconfig --add mysqld
+sudo chkconfig mysqld on
+
+
+
+#PHP
+sudo cp ~/workspace/jimmy/os/build/`done`/conf/php/php.ini /etc/ 
+sudo cp ~/workspace/jimmy/os/build/`done`/conf/php/php-fpm.conf /etc/
+sudo mkdir /etc/php.d
+sudo cp ~/workspace/jimmy/os/build/`done`/conf/php/php.d/* /etc/php.d/
+sudo /usr/sbin/php-fpm -y /etc/php-fpm.conf -g /var/run/php-fpm.pid
