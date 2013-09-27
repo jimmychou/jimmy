@@ -378,7 +378,9 @@ if [[ $OS == "Ubuntu" ]]; then
 	echo The Official PHP on Ubuntu is configured as below:
 elif [[ $OS == "CentOS" ]]; then
 	sudo yum install -y bzip2-devel.$OS_SUFFIX curl-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX libmcrypt-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+if [ ! -d "/etc/php.d" ]; then
 	mkdir /etc/php.d
+fi
 <<NOEFFECT
 	echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
 	./configure --build=i386-redhat-linux-gnu \
@@ -596,6 +598,7 @@ NOEFFECT
 		--prefix=/usr \
 		--exec-prefix=/usr \
 		--datadir=/usr/share/ \
+		--sysconfdir=/etc \
 		--cache-file=../config.cache \
 		--with-libdir=lib \
 		--with-config-file-path=/etc \

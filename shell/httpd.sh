@@ -1,7 +1,7 @@
 #!/bin/bash
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
 if [[ $OS == "Ubuntu" ]]; then
-	sudo apt-get install -y lsb g++
+#	sudo apt-get install -y lsb g++
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
