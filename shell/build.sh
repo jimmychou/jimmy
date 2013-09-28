@@ -253,6 +253,25 @@ NOEFFECT
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y apr-util-devel.$OS_SUFFIX
+			if [ ! -d "/etc/httpd/logs" ]; then
+				sudo ln -sf /var/log/httpd /etc/httpd/logs
+			fi
+			if [ ! -d "/etc/httpd/modules" ]; then
+				sudo ln -sf /usr/lib/httpd/modules /etc/httpd/modules
+			fi
+			if [ ! -d "/usr/lib/httpd/modules" ]; then
+				sudo mkdir /usr/lib/httpd/modules
+			fi
+			if [ ! -d "/var/log/httpd" ];then
+				sudo mkdir /var/log/httpd
+				sudo chmod 700 /var/log/httpd
+			fi
+			if [ ! -d "/etc/httpd/conf.d" ]; then
+				sudo mkdir /etc/httpd/conf.d
+			fi
+			if [ ! -d "/var/www/html" ]; then
+				sudo mkdir -p /var/www/html
+			fi
 			if [[ $Version == "5.9" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
 				echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:

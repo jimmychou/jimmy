@@ -48,10 +48,11 @@ sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
 sudo groupadd apache && sudo useradd -M -g apache apache
 sudo cp ~/workspace/jimmy/os/build/done/conf/httpd/httpd.conf /etc/httpd/conf/
 sudo cp ~/workspace/jimmy/os/build/done/init.d/httpd /etc/init.d/
-if [ ! -d "/var/run/httpd" ]; then
-	sudo mkdir /var/run/httpd
-	sudo chown apache:root /var/run/httpd	#	否则	/etc/init.d/httpd stop	不能正常工作
-fi
+	#	以下后来不需要了，按照标准yum安装的目录，从	/var/run/httpd/httpd.pid	移到了	/var/run/httpd.pid
+#if [ ! -d "/var/run/httpd" ]; then
+#	sudo mkdir /var/run/httpd
+#	sudo chown apache:root /var/run/httpd	#	否则	/etc/init.d/httpd stop	不能正常工作
+#fi
 sudo /etc/init.d/httpd start
 sudo chkconfig --add httpd
 sudo chkconfig httpd on
