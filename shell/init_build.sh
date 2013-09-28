@@ -19,6 +19,7 @@ if [[ $OS_SUFFIX == "i686" ]]; then
 	fi
 fi
 
+SOFTWARE=~/software
 sudo chmod 755 /home/jimmychou
 #	755是web目录可以访问的最低要求，不要再试图744等
 
@@ -42,7 +43,9 @@ sudo cp ~/workspace/jimmy/os/build/done/conf/nginx/nginx.conf /etc/nginx/nginx.c
 sudo /etc/init.d/nginx start
 sudo chkconfig --add nginx
 sudo chkconfig nginx on
-sudo ln -s ~/workspace/ /usr/share/nginx/html/jimmychou
+sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
+sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
+cp ~/workspace/jimmy/os/build/done/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 
 #MySQL
 sudo groupadd mysql && sudo useradd -M -g mysql mysql
@@ -50,20 +53,25 @@ sudo mysql_install_db --user=mysql
 sudo cp ~/workspace/jimmy/os/build/done/conf/mysql/my.cnf /etc/my.cnf
 sudo cp ~/workspace/jimmy/os/build/done/init.d/mysqld /etc/init.d/mysqld
 sudo /etc/init.d/mysqld start
-#mysqladmin -u root -p password 'penny7531'
-#mysqladmin -u root -h localhost.localdomain -p password 'penny7531'	#	貌似比较奇怪的一种命令
+sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
+	#	除非指定	-h	为	127.0.0.1，否则	mysql	-uroot	都会报上述错误，phpMyAdmin也是同样的道理
+#sudo mysqladmin -u root -h localhost.localdomain -p password 'penny7531'	#	貌似比较奇怪的一种命令
 sudo chkconfig --add mysqld
 sudo chkconfig mysqld on
 
 #PHP
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.ini /etc/ 
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php-fpm.conf /etc/
+if [ !-d "/var/log/php-fpm" ]; then
+	sudo mkdir /var/log/php-fpm
+fi
+	#	否则会报错：failed to open error_log (/var/log/php-fpm/error.log): No such file or directory
+sudo groupadd apache && sudo useradd -M -g apache apache	#	否则启动时会报错：cannot get uid for user 'apache'
 if [ ! -d "/etc/php.d" ]; then
 	sudo mkdir /etc/php.d
 fi
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.d/* /etc/php.d/
 sudo cp ~/workspace/jimmy/os/build/done/init.d/php-fpm /etc/init.d/
 sudo /etc/init.d/php-fpm start
-#sudo /usr/sbin/php-fpm -y /etc/php-fpm.conf -g /var/run/php-fpm.pid
 sudo chkconfig --add php-fpm
 sudo chkconfig php-fpm on
