@@ -52,6 +52,10 @@ sudo groupadd mysql && sudo useradd -M -g mysql mysql
 sudo mysql_install_db --user=mysql
 sudo cp ~/workspace/jimmy/os/build/done/conf/mysql/my.cnf /etc/my.cnf
 sudo cp ~/workspace/jimmy/os/build/done/init.d/mysqld /etc/init.d/mysqld
+if [ ! -d "/var/run/mysqld" ]; then
+	sudo mkdir /var/run/mysqld
+	sudo chown mysql:root /var/run/mysqld
+fi
 sudo /etc/init.d/mysqld start
 sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
 	#	除非指定	-h	为	127.0.0.1，否则	mysql	-uroot	都会报上述错误，phpMyAdmin也是同样的道理
@@ -62,7 +66,7 @@ sudo chkconfig mysqld on
 #PHP
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.ini /etc/ 
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php-fpm.conf /etc/
-if [ !-d "/var/log/php-fpm" ]; then
+if [ ! -d "/var/log/php-fpm" ]; then
 	sudo mkdir /var/log/php-fpm
 fi
 	#	否则会报错：failed to open error_log (/var/log/php-fpm/error.log): No such file or directory
