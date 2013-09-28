@@ -259,15 +259,20 @@ NOEFFECT
 			if [ ! -d "/etc/httpd/modules" ]; then
 				sudo ln -sf /usr/lib/httpd/modules /etc/httpd/modules
 			fi
+			if [ ! -d "/etc/httpd/run" ]; then
+				sudo ln -sf /var/run /etc/httpd/run
+			fi
+<<NOEFFECT
 			if [ ! -d "/usr/lib/httpd/modules" ]; then
-				sudo mkdir /usr/lib/httpd/modules
+				sudo mkdir -p /usr/lib/httpd/modules
 			fi
 			if [ ! -d "/var/log/httpd" ];then
-				sudo mkdir /var/log/httpd
+				sudo mkdir -p /var/log/httpd
 				sudo chmod 700 /var/log/httpd
 			fi
+NOEFFECT
 			if [ ! -d "/etc/httpd/conf.d" ]; then
-				sudo mkdir /etc/httpd/conf.d
+				sudo mkdir -p /etc/httpd/conf.d
 			fi
 			if [ ! -d "/var/www/html" ]; then
 				sudo mkdir -p /var/www/html
@@ -275,18 +280,23 @@ NOEFFECT
 			if [[ $Version == "5.9" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
 				echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:
-				./configure --prefix=/etc/httpd \
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i386-redhat-linux-gnu \
+					--prefix=/etc/httpd \
 					--exec-prefix=/usr \
 					--mandir=/usr/share/man \
 					--datadir=/var/www \
 					--datarootdir=/var/www/html \
-					--libdir=/usr/lib/httpd/modules \
+					--libdir=/usr/lib \
 					--includedir=/usr/include/httpd \
 					--bindir=/usr/bin \
 					--sbindir=/usr/sbin \
 					--with-suexec-bin=/usr/sbin/suexec \
 					--enable-so \
 					--enable-info \
+					--libexecdir=/usr/lib/httpd/modules \
+					--sysconfdir=/etc/httpd/conf \
 					--enable-rewrite=shared \
 					--enable-speling=shared && make && sudo make install
 			fi
