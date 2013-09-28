@@ -23,7 +23,6 @@ SOFTWARE=~/software
 sudo chmod 755 /home/jimmychou
 #	755是web目录可以访问的最低要求，不要再试图744等
 
-
 #Nginx
 sudo cp ~/workspace/jimmy/os/build/done/init.d/nginx /etc/init.d/
 sudo cp ~/workspace/jimmy/os/build/done/init/nginx/local.conf /etc/ld.so.conf.d/
@@ -44,6 +43,19 @@ sudo /etc/init.d/nginx start
 sudo chkconfig --add nginx
 sudo chkconfig nginx on
 sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
+
+#HTTPD
+sudo groupadd apache && sudo useradd -M -g apache apache
+sudo cp ~/workspace/jimmy/os/build/done/conf/httpd/httpd.conf /etc/httpd/conf/
+sudo cp ~/workspace/jimmy/os/build/done/init.d/httpd /etc/init.d/
+if [ ! -d "/var/run/httpd" ]; then
+	sudo mkdir /var/run/httpd
+	sudo chown apache:root /var/run/httpd	#	否则	/etc/init.d/httpd stop	不能正常工作
+fi
+sudo /etc/init.d/httpd start
+sudo chkconfig --add httpd
+sudo chkconfig httpd on
+sudo ln -sf ~/workspace/ /var/www/htdocs/jimmychou
 sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
 cp ~/workspace/jimmy/os/build/done/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 
@@ -54,7 +66,7 @@ sudo cp ~/workspace/jimmy/os/build/done/conf/mysql/my.cnf /etc/my.cnf
 sudo cp ~/workspace/jimmy/os/build/done/init.d/mysqld /etc/init.d/mysqld
 if [ ! -d "/var/run/mysqld" ]; then
 	sudo mkdir /var/run/mysqld
-	sudo chown mysql:root /var/run/mysqld
+	sudo chown mysql:root /var/run/mysqld	#	否则	/etc/init.d/mysqld stop	不能正常工作
 fi
 sudo /etc/init.d/mysqld start
 sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
@@ -64,13 +76,14 @@ sudo chkconfig --add mysqld
 sudo chkconfig mysqld on
 
 #PHP
+#	/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.ini /etc/ 
 sudo cp ~/workspace/jimmy/os/build/done/conf/php/php-fpm.conf /etc/
 if [ ! -d "/var/log/php-fpm" ]; then
 	sudo mkdir /var/log/php-fpm
 fi
 	#	否则会报错：failed to open error_log (/var/log/php-fpm/error.log): No such file or directory
-sudo groupadd apache && sudo useradd -M -g apache apache	#	否则启动时会报错：cannot get uid for user 'apache'
+#sudo groupadd apache && sudo useradd -M -g apache apache	#	否则启动时会报错：cannot get uid for user 'apache'
 if [ ! -d "/etc/php.d" ]; then
 	sudo mkdir /etc/php.d
 fi
