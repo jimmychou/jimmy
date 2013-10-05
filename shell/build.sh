@@ -691,5 +691,29 @@ NOEFFECT
 					--with-recode=shared,/usr
 			fi
 		fi
+	elif [[ $i == "memcached" ]]; then
+		# Memcached编译
+		MEMCACHEDVERSION=1.4.15
+		MEMCACHEDSUFFIX=tar.gz
+		cd $SOFTWARE
+		if [ ! -f memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX ]; then
+			wget http://memcached.googlecode.com/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+		fi
+		if [ ! -d memcached-$MEMCACHEDVERSION ]; then
+			tar -zvxf memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+		fi
+		cd $SOFTWARE/memcached-$MEMCACHEDVERSION
+		if [[ $OS == "Ubuntu" ]]; then
+			if [[ $Codename == "precise" ]]; then
+				echo The Official Memcached on Ubuntu 12.04 is configured as below:
+			fi
+		elif [[ $OS == "CentOS" ]]; then
+			if [[ $Version == "6.4" ]]; then
+				echo The Official Memcached on CentOS 6.4 is configured as below:
+			elif [[ $Version == "5.9" ]]; then
+				echo The Current Memcached on CentOS 5.9 is configured as below:
+			#	./configure && make && sudo make install
+			fi
+		fi
 	fi
 done
