@@ -126,5 +126,14 @@ for i in $*; do
 		sudo /etc/init.d/php-fpm start
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
+	elif [[ $i == "memcached" ]]; then
+		sudo groupadd memcached && sudo useradd -M -g memcached memcached
+		sudo cp ~/workspace/jimmy/os/build/done/init.d/memcached /etc/init.d/
+		if [ ! -d "/var/run/memcached" ]; then
+			sudo mkdir /var/run/memcached
+		fi
+		sudo /etc/init.d/memcached start
+		sudo chkconfig --add memcached
+		sudo chkconfig memcached on
 	fi
 done

@@ -26,29 +26,52 @@ for i in $*; do
 	if [[ $i == "nginx" ]]; then
 		if [ -f "/etc/init.d/nginx" ]; then
 			sudo /etc/init.d/nginx restart
+			echo Restart Progress Nginx Finish!
 		elif [ -f "/usr/sbin/nginx" ]; then
 			sudo /usr/sbin/nginx -s reload
+			echo Restart Progress Nginx Finish!
 		fi
 	elif [[ $i == "httpd" ]]; then
 		if [ -f "/etc/init.d/httpd" ]; then
 			sudo /etc/init.d/httpd restart
+			echo Restart Progress Httpd Finish!
 		elif [ -f "/usr/sbin/httpd" ]; then
 			sudo /usr/sbin/httpd -k restart
+			echo Restart Progress Httpd Finish!
 		fi
 	elif [[ $i == "mysql" ]]; then
 		if [ -f "/etc/init.d/mysqld" ]; then
 			sudo /etc/init.d/mysqld restart
+			echo Restart Progress Mysqld Finish!
 		elif [ -f "/usr/share/mysql/mysql.server" ]; then
 			sudo mysqladmin -u root -p shutdown
+			echo Kill Progress Mysqld Finish!
 			sudo mysqld_safe &
+			echo Start Progress Mysqld Finish!
 		fi
 	elif [[ $i == "php" ]]; then
 		if [ -f "/etc/init.d/php-fpm" ]; then
 			sudo /etc/init.d/php-fpm restart
+			echo Restart Progress FPM Finish!
 		elif [ -f "/usr/sbin/php-fpm" ]; then
 			sudo kill -INT `cat /var/run/php-fpm/php-fpm.pid`
+			sudo rm -f /var/run/php-fpm/php-fpm.pid	#	这是必需的么？
+			echo Kill Progress FPM Finish!
 			sudo /usr/sbin/php-fpm -y /etc/php-fpm.conf -g /var/run/php-fpm/php-fpm.pid
+			echo Start Progress FPM Finish!
 			#sudo kill -USR2 `cat /var/run/php-fpm/php-fpm.pid`
+		fi
+	elif [[ $i == "memcached" ]]; then
+		if [ -f "/etc/init.d/memcached" ]; then
+			sudo /etc/init.d/memcached restart
+			echo Restart Progress Memcached Finish!
+		elif [ -f "/usr/bin/memcached" ]; then
+			#sudo killall memcached
+			sudo kill -INT `cat /var/run/memcached/memcached.pid`
+			sudo rm -f /var/run/memcached/memcached.pid
+			echo Kill Progress Memcached Finish!
+			sudo /usr/bin/memcached -d -p 11211 -u memcached -m 64 -c 1024 -P /var/run/memcached/memcached.pid
+			echo Start Progress Memcached Finish!
 		fi
 	fi
 done
