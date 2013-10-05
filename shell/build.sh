@@ -708,11 +708,20 @@ NOEFFECT
 				echo The Official Memcached on Ubuntu 12.04 is configured as below:
 			fi
 		elif [[ $OS == "CentOS" ]]; then
+			sudo yum install libevent-devel.$OS_SUFFIX
 			if [[ $Version == "6.4" ]]; then
 				echo The Official Memcached on CentOS 6.4 is configured as below:
 			elif [[ $Version == "5.9" ]]; then
 				echo The Current Memcached on CentOS 5.9 is configured as below:
-			#	./configure && make && sudo make install
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i386-redhat-linux-gnu \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--mandir=/usr/share/man \
+					--includedir=/usr/include/memcached && make && sudo make install
 			fi
 		fi
 	fi
