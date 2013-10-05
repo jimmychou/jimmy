@@ -713,15 +713,16 @@ NOEFFECT
 				echo The Official Memcached on CentOS 6.4 is configured as below:
 			elif [[ $Version == "5.9" ]]; then
 				echo The Current Memcached on CentOS 5.9 is configured as below:
-				./configure --build=i386-redhat-linux-gnu \
-					--host=i386-redhat-linux-gnu \
-					--target=i386-redhat-linux-gnu \
-					--prefix=/usr \
+#				Why these cannot use?
+#				./configure --build=i386-redhat-linux-gnu \
+#					--host=i386-redhat-linux-gnu \
+#					--target=i386-redhat-linux-gnu \
+				./configure --prefix=/usr \
 					--exec-prefix=/usr \
 					--bindir=/usr/bin \
 					--sbindir=/usr/sbin \
 					--mandir=/usr/share/man \
-					--includedir=/usr/include/memcached && make && sudo make install
+					--includedir=/usr/include && make && sudo make install
 			fi
 		fi
 	fi
