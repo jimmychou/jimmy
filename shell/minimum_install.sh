@@ -123,12 +123,13 @@ else
 			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install git.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch
+			yum install git.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch yum-plugin-priorities.noarch
 			# git.$OS_SUFFIX : Fast Version Control System
 			# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
 			# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
+			##yum-plugin-priorities.noarch : plugin to give priorities to packages from different repos
 		fi
 		yum install mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
@@ -136,8 +137,9 @@ else
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
-	yum install gcc-c++.$OS_SUFFIX php.$OS_SUFFIX php-devel.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
+	yum install gcc-c++.$OS_SUFFIX ntp.$OS_SUFFIX php.$OS_SUFFIX php-devel.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
 	# gcc-c++.$OS_SUFFIX : C++ support for GCC
+	##ntp.$OS_SUFFIX : The NTP daemon and utilities
 	# php.$OS_SUFFIX : PHP scripting language for creating dynamic web sites
 	# php-devel.$OS_SUFFIX : Files needed for building PHP extensions
 	# vim-enhanced.$OS_SUFFIX : A version of the VIM editor which includes recent enhancements
