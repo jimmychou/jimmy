@@ -55,7 +55,8 @@ $datas = array(
 		'inner_prefix'=>'http://10.11.155.23/',
 		'outer_prefix'=>'http://123.125.116.124/',
 		'lists'=>array( 
-			array( 'title'=>'安卓(jimmy)','url'=>'jimmy/android/www/index.php' )
+			array( 'title'=>'CodeIgniter','url'=>'jimmy/CodeIgniter/index.php' )
+			,array( 'title'=>'安卓(jimmy)','url'=>'jimmy/android/www/index.php' )
 			,array( 'title'=>'安卓(root)','url'=>'androidmgr/v1/www/index.php' )
 			,array( 'title'=>'日志上传接口','url'=>'http://192.168.99.93/pigeon/statzrheeuwp/main.php','special'=>'1' )
 			,array( 'title'=>'支付','url'=>'paymgr/v1/www/index.php' )
