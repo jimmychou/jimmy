@@ -27,8 +27,9 @@ if [[ $OS == "Ubuntu" ]]; then
 		# git-core - fast, scalable, distributed revision control system
 		# php5-memcache - memcache extension module for PHP5
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install git-core php5-memcached
+		apt-get install git-core php5-cli php5-memcached
 		# git-core - fast, scalable, distributed revision control system
+		# php5-cli - command-line interpreter for the php5 scripting language
 		# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	elif [[ $Codename == "precise" ]]; then
 		apt-get install git php5-fpm php5-memcached
