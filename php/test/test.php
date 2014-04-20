@@ -763,3 +763,23 @@ foreach( $test2 as $key=>$value ){
 
 
 //两个整型变量赋值，是一个存储空间么？
+
+             function relativePath($aPath, $bPath) {
+                 $aArr = explode('/', $aPath);    //explode函数用于切分字符串,返回切分后的数组,此处用'/'切分字符串
+                 $bArr = explode('/', $bPath);
+                 $aDiffToB = array_diff_assoc($aArr, $bArr);    //array_diff_assoc()用于获取A数组与B数组之间元素的差集,Key和Value都不相同视为不同元素,此处返回在A数组中且与B数组不相同的元素
+                 $count = count($aDiffToB);
+
+                 $path = '';
+                 for($i = 0; $i < $count - 1; $i++){
+                     $path .= '../'; 
+                 }
+
+                 $path .= implode('/', $aDiffToB);    //implode()用于使用指定字符串连接数组元素,此处返回用'/'连接数组元素后的字符串
+
+                 return $path;
+             }
+
+             echo relativePath('/a/b/c/d/a.php', '/a/b/1/2/b.php');
+
+var_dump( intval( 0.58 * 100) );
