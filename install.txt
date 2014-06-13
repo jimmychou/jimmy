@@ -1,0 +1,73 @@
+sudo yum install subversion
+
+sudo yum install phpmyadmin
+nginx配置phpmyadmin段location，包括php和css等
+更改phpmyadmin配置文件
+$cfg['blowfish_secret'] = 'abcdefghijklmn';
+加一个blowfish_secret即可
+此时可用root登录
+用jimmychou用户登录需要
+GRANT CREATE,DROP,ALTER,SELECT,INSERT,UPDATE,DELETE ON test.* TO 'jimmychou'@'localhost' IDENTIFIED BY 'penny7531';
+GRANT CREATE,DROP,ALTER,SELECT,INSERT,UPDATE,DELETE ON employees.* TO 'jimmychou'@'localhost' IDENTIFIED BY 'penny7531';
+
+ALTER DATABASE `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+ALTER DATABASE `employees` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER DATABASE `test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+drop database employees;
+drop database test;
+
+CREATE DATABASE `jimmychou` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT CREATE,DROP,ALTER,SELECT,INSERT,UPDATE,DELETE ON jimmychou.* TO 'jimmychou'@'localhost' IDENTIFIED BY 'penny7531';
+
+ALTER DATABASE `jimmychou` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+ALTER DATABASE `jimmychou` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+
+ CREATE TABLE `jimmychou`.`jimmychou` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
+`name` VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+COMMENT '名称',
+UNIQUE (
+`name`
+)
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'jimmychou的测试表' 
+
+插入一条数据后
+
+ ALTER TABLE `jimmychou` ENGINE = InnoDB; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+It is not safe to rely on the system's timezone settings
+sudo vim /etc/php.ini
+date.timezone = 'Asia/Chongqing'
+kill -USR2 `cat /var/run/php-fpm/php-fpm.pid`
+
+master进程可以理解以下信号
+INT, TERM 立刻终止
+QUIT 平滑终止
+USR1 重新打开日志文件
+USR2 平滑重载所有worker进程并重新载入配置和二进制模块
+
+
+
