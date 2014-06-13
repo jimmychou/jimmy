@@ -30,6 +30,8 @@ class Tools
 			krsort( $str_array );
 			return $str_array;
 		}
+		//2014.06.13	add	below
+		//explode by ' ' then array_reverse and implode at last 
 	}
 	public function __autoload( $classname )
 	{
@@ -762,8 +764,9 @@ foreach( $test2 as $key=>$value ){
 //var_dump( $tools->db_connect() );
 
 
-//两个整型变量赋值，是一个存储空间么？
+//两个整型变量赋值，是不是一个存储空间？
 
+//相对路径
              function relativePath($aPath, $bPath) {
                  $aArr = explode('/', $aPath);    //explode函数用于切分字符串,返回切分后的数组,此处用'/'切分字符串
                  $bArr = explode('/', $bPath);
@@ -780,6 +783,25 @@ foreach( $test2 as $key=>$value ){
                  return $path;
              }
 
-             echo relativePath('/a/b/c/d/a.php', '/a/b/1/2/b.php');
+             echo relativePath('/a/b/c/d/a.php', '/a/b/1/2/b.php')."\n";
 
-var_dump( intval( 0.58 * 100) );
+//var_dump( intval( 0.58 * 100) );
+
+/*
+$str = '{"pagesCount":1,"topicList":[{"topicId":"59","isNew":false,"image":"http:\/\/imgsdown.1mobile.com\/group2\/M00\/B5\/59\/S36rZFOETbKAYI53AAFgkty2G2g084.jpg","name":"Flappy Bird Like","summary":"Click! Click! Click! Let your pets to fly farther!","releaseTime":"1969-12-31","view":0,"total":10,"type":"3"}]}{"pagesCount":1,"topicList":[{"topicId":"59","isNew":false,"image":"http:\/\/imgsdown.1mobile.com\/group2\/M00\/B5\/59\/S36rZFOETbKAYI53AAFgkty2G2g084.jpg","name":"Flappy Bird Like","summary":"Click! Click! Click! Let your pets to fly farther!","releaseTime":"1969-12-31","view":0,"total":10,"type":"3"}]}';
+$arr = json_decode($str);
+print_r( $arr );
+*/
+
+/*
+$str = '"Im OK"';
+//$link = mysql_connect( "127.0.0.1:3306","onemobile","need4speed_ok" );
+$link = mysql_connect( "localhost","onemobile" );
+if (!$link) {
+    die('Could not connect: ' . mysql_error()."\n");
+}
+echo 'Connected successfully'."\n";
+//mysql_close($link);
+echo addslashes( $str )."\n";
+echo mysql_real_escape_string( $str )."\n";
+*/
