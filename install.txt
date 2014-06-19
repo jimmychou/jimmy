@@ -39,25 +39,6 @@ UNIQUE (
  ALTER TABLE `jimmychou` ENGINE = InnoDB; 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 It is not safe to rely on the system's timezone settings
 sudo vim /etc/php.ini
 date.timezone = 'Asia/Chongqing'
@@ -70,4 +51,4 @@ USR1 重新打开日志文件
 USR2 平滑重载所有worker进程并重新载入配置和二进制模块
 
 
-
+sudo yum install dos2unix
