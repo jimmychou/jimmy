@@ -833,3 +833,23 @@ function float_add()
 {
     //  @todo:bcmath
 }
+function image()
+{
+    header( "content-type:image/jpg" );
+    $imageData = file_get_contents( '../image.jpg' );
+    echo $imageData;
+    //$info = gd_info();
+    //echo '<pre>';print_r( $info );echo "\n";
+    $img = imagecreatetruecolor( 200,200 );
+    $white = imagecolorallocate( $img,255,255,255 );
+    $black = imagecolorallocate( $img,0,0,0 );
+    imagearc( $img,100,100,150,150,0,360,$black );
+    imagepng( $img );
+    imagedestroy( $img );
+    $im = @imagecreatetruecolor(50, 100)
+        or die("Cannot Initialize new GD image stream");
+    $text_color = imagecolorallocate($im, 233, 14, 91);
+    imagestring($im, 1, 5, 5,  "A Simple Text String", $text_color);
+    imagepng($im);
+    imagedestroy($im);
+}
