@@ -1,6 +1,5 @@
-sudo yum install subversion
+sudo yum install memcached subversion phpmyadmin
 
-sudo yum install phpmyadmin
 nginx配置phpmyadmin段location，包括php和css等
 更改phpmyadmin配置文件
 $cfg['blowfish_secret'] = 'abcdefghijklmn';
@@ -23,8 +22,6 @@ GRANT CREATE,DROP,ALTER,SELECT,INSERT,UPDATE,DELETE ON jimmychou.* TO 'jimmychou
 ALTER DATABASE `jimmychou` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
 ALTER DATABASE `jimmychou` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-
-
  CREATE TABLE `jimmychou`.`jimmychou` (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
 `name` VARCHAR( 40 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
@@ -36,8 +33,7 @@ UNIQUE (
 
 插入一条数据后
 
- ALTER TABLE `jimmychou` ENGINE = InnoDB; 
-
+ALTER TABLE `jimmychou` ENGINE = InnoDB; 
 
 It is not safe to rely on the system's timezone settings
 sudo vim /etc/php.ini
@@ -51,4 +47,61 @@ USR1 重新打开日志文件
 USR2 平滑重载所有worker进程并重新载入配置和二进制模块
 
 
-sudo yum install dos2unix
+wget https://fastdfs.googlecode.com/files/FastDFS_v4.06.tar.gz
+tar -zvxf FastDFS_v4.06.tar.gz
+cd FastDFS
+./make.sh
+sudo ./make.sh install
+
+
+
+[jimmychou@localhost ~]$ rpm-qa | grep mysql      
+mysql-libs-5.1.73-3.el6_5.i686
+
+这个不能再卸载了
+
+make安装php
+
+sudo yum install zlib-devel libxml2-devel libcurl-devel
+./configure --with-gmp --with-zlib --with-curl --enable-fpm
+
+编译php的memcached扩展：
+cd /home/jimmychou/memcached-2.1.0
+
+/usr/local/bin/phpize
+
+configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers
+
+wget http://sourceforge.net/projects/re2c/files/re2c/0.13.5/re2c-0.13.5.tar.gz
+tar -zxvf re2c-0.13.5.tar.gz
+cd re2c-0.13.5
+./configure && make && make install
+
+sudo yum install perl-Memcached-libmemcached
+/usr/include/libmemcached/memcached.h
+./configure --with-libmemcached-dir=/usr/include/libmemcached
+错误：libmemcached-1.0/memcached.h：没有那个文件或目录
+建个软链，sudo ln -s /usr/include/libmemcached/ /usr/include/libmemcached-1.0
+
+zend_class_entry’没有名为‘default_prope
+
+到这步报错“php_gearman.c:3630:错误：’zend_class_entry’没有名为’default_properties’成员”
+解决：替换default_properties为default_properties_table
+sed -i ‘s/default_properties/default_properties_table/g’ php_gearman.c
+
+[jimmychou@localhost memcached-1.0.0]$ sudo make install
+Installing shared extensions:     /usr/local/lib/php/extensions/no-debug-non-zts-20121212/
+
+php -i | more
+Configuration File (php.ini) Path => /usr/local/lib
+
+sudo mv /usr/local/php/etc/php.ini /usr/local/lib/php.ini
+sudo cp /home/jimmychou/php-5.5.14/sapi/fpm/php-fpm.conf /usr/local/etc/php-fpm.conf
+sudo /usr/local/sbin/php-fpm
+
+
+最好不要多个软件版本混在一起，容易混乱
+
+
+sudo yum erase httpd nginx mysql mysql-server php php-pecl-memcache php-gd php-pear phpmyadmin php-mcrypt php-common php-cli php-pdo php-mbstring php-mysql memcached libmemcached-devel libmemcache-devel libmemcached libmemcache httpd-tools gmp-devel cyrus-sasl-plain cyrus-sasl-devel cyrus-sasl-gssapi cyrus-sasl-md5
+sudo rm -fr /etc/httpd /etc/nginx /usr/share/nginx /usr/lib/mysql /usr/share/mysql

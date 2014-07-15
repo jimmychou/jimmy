@@ -783,7 +783,9 @@ foreach( $test2 as $key=>$value ){
                  return $path;
              }
 
-             echo relativePath('/a/b/c/d/a.php', '/a/b/1/2/b.php')."\n";
+//             echo relativePath('/a/b/c/d/a.php', '/a/b/1/2/b.php')."\n";
+
+
 
 //var_dump( intval( 0.58 * 100) );
 
@@ -805,3 +807,29 @@ echo 'Connected successfully'."\n";
 echo addslashes( $str )."\n";
 echo mysql_real_escape_string( $str )."\n";
 */
+
+function special_charactar($str)
+{
+    echo "json_encode the charactar $str is ".json_encode($str)."\n";
+    echo "urlencode the charactar $str is ".urlencode($str)."\n";
+    echo "json_encode(json_encode) the charactar $str is ".json_encode(json_encode($str))."\n";
+}
+
+special_charactar('&');
+
+function same_key_in_array(array $sample)
+{
+    print_r($sample);
+}
+$sample = array('a'=>'nice','b'=>'ok','a'=>'niceagain');
+same_key_in_array($sample);
+//same_key_in_array("ok");
+
+function restrict(int $int,array $array,string $string,object $object,null $null,float $float,bool $bool)//,resource $resource)
+{
+}
+
+function float_add()
+{
+    //  @todo:bcmath
+}
