@@ -1,0 +1,122 @@
+Ubuntu14.04安装记录：
+
+1.
+变成文本模式
+sudo gedit /etc/default/grub
+更改以下两行：
+GRUB_CMDLINE_LINUX="text"
+GRUB_CMDLINE_LINUX_DEFAULT=”quiet splash text”
+sudo update-grub2
+重启后即可进入命令行模式
+
+2.
+在终端输入export LANG=en_US
+xdg-user-dirs-gtk-update后选择为英文
+
+3.
+sshd安装并开启。sudo apt-get install openssh-server vim git lrzsz
+Ubuntu14.04(VMware)
+无线113：
+00:0C:29:0A:1C:59
+
+
+4.
+sudo vim /etc/apt/sources.list
+
+deb http://mirrors.sohu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+sudo apt-get update
+
+5.
+ssh-keygen
+mkdir ~/workspace
+rz -y将密钥文件传到~/.ssh目录
+chmod 600 ~/.ssh/id_rsa
+cd ~/workspace && git clone git@github.com:jimmychou/jimmy.git
+
+
+6.
+sudo apt-get install nginx mysql-server php5-fpm php5 php5-cli phpmyadmin
+mysql
+root:pe
+
+7.
+把my.conf文件加入/etc/nginx/sites-enabled/下（已经配置了phpmyadmin的路径）
+win8 hosts写权限 属性 安全 User/jimmychou 加入修改和写入权限
+怎么/home/jimmychou文件夹已经是755了，什么时候改的？
+此时html文件和xml文件已经可以直接访问，还差php文件。
+再打开php5-fpm段，并将include fastcgi_params;改为include my_fastcgi_params;即可
+
+8.
+phpmyadmin
+FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream
+
+#fastcgi_param  SCRIPT_FILENAME         $request_filename;
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+http://ubuntu.jimmychou.com/phpmyadmin/index.php
+
+NOT FOUND!WHY
+把nginx变量写入日志察看是为什么。
+
+$request_filename
+$document_root$fastcgi_script_name
+
+/home/jimmychou/workspace/jimmy/php     /phpmyadmin/index.php   /home/jimmychou/workspace/jimmy/php/phpmyadmin/index.php
+
+$document_root
+/home/jimmychou/workspace/jimmy/php
+
+$fastcgi_script_name
+/phpmyadmin/index.php
+
+$request_filename
+/home/jimmychou/workspace/jimmy/php/phpmyadmin/index.php
+难怪NOT FOUND
+最后解决方案是：
+#fastcgi_param  SCRIPT_FILENAME         $document_root$fastcgi_script_name;         
+#fastcgi_param  SCRIPT_FILENAME         /usr/share/phpmyadmin/$fastcgi_script_name; 
+fastcgi_param   SCRIPT_FILENAME         /usr/share/$fastcgi_script_name;   
+
+结果css,js等文件还是无法加载，只能
+location ~* \.(gif|jpg|jpeg|png|css|js|ico)${
+        root /usr/share;
+} 
+
+9.
+命令行更新 linux-generic
+sudo apt-get dist-upgrade
+jimmychou@jimmychou-virtual-machine:~$ uname -a
+Linux jimmychou-virtual-machine 3.13.0-24-generic #47-Ubuntu SMP Fri May 2 23:31:42 UTC 2014 i686 i686 i686 GNU/Linux
+jimmychou@jimmychou-virtual-machine:~$ uname -a
+Linux jimmychou-virtual-machine 3.13.0-29-generic #53-Ubuntu SMP Wed Jun 4 21:02:19 UTC 2014 i686 i686 i686 GNU/Linux
+
+10.
+没有安装php5-mysql时，mysql_real_escape_string不会生效。
+root权限
+create databases jimmychou;
+用root用户登录后：
+GRANT CREATE,DROP,SELECT,INSERT,UPDATE,DELETE,INDEX ON jimmychou.* TO 'jimmychou'@'localhost' IDENTIFIED BY 'penny7531' WITH GRANT OPTION;
+CREATE TABLE IF NOT EXISTS `jimmychou` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `name` text NOT NULL COMMENT '用来存储json串',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='jimmychou的测试表' AUTO_INCREMENT=1 ;
+11.
+sudo apt-get install subversion
+sudo apt-get install php5-curl
+sudo apt-get install php5-gmp
+sudo apt-get install php5-memcached
+sudo apt-get install memcached
+sudo apt-get install libmemcached-dev
+sudo apt-get install curl
+sudo apt-get install php5-mcrypt（遭遇诡异的配置文件不生效问题）
