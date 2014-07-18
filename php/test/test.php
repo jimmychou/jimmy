@@ -466,6 +466,19 @@ class Tools
 		var_export( $a );
 		print_r( $a );
 	}
+    //  各种编码总结
+    function multi_code()
+    {
+        $str = "anzhi market";
+        echo "the encoding of str is ".mb_detect_encoding($str)." and it's value is $str and it's size is ".sizeof($str)."\n";
+        //$str_trans = mb_convert_encoding($str,'EUC-KR','UTF-8');
+        $str_trans = mb_convert_encoding($str,'UTF-8','ASCII');
+        echo "the encoding of str_trans is ".mb_detect_encoding($str_trans)." and it's value is $str_trans and it's size is ".sizeof($str_trans)."\n";
+        $str_zh = "安智市场";
+        echo "the encoding of str_zh is ".mb_detect_encoding($str_zh)." and it's value is $str_zh and it's size is ".sizeof($str_zh)."\n";
+        $str_zh_trans = mb_convert_encoding($str_zh,'EUC-KR','UTF-8');
+        echo "the encoding of str_zh_trans is ".mb_detect_encoding($str_zh_trans)." and it's value is $str_zh_trans and it's size is ".sizeof($str_zh_trans)."\n";
+    }
 }
 $tools = new Tools();
 //$json = '';

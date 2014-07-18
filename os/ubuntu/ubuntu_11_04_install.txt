@@ -59,14 +59,10 @@ win8 hosts写权限 属性 安全 User/jimmychou 加入修改和写入权限
 8.
 phpmyadmin
 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream
-
+更改nginx配置如下后并重启服务：
 #fastcgi_param  SCRIPT_FILENAME         $request_filename;
 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-
-http://ubuntu.jimmychou.com/phpmyadmin/index.php
-
-NOT FOUND!WHY
-把nginx变量写入日志察看是为什么。
+访问链接：http://ubuntu.jimmychou.com/phpmyadmin/index.php，结果是404 NOT FOUND！WHY？把nginx变量写入日志，查看到底是什么原因。
 
 $request_filename
 $document_root$fastcgi_script_name
@@ -81,20 +77,18 @@ $fastcgi_script_name
 
 $request_filename
 /home/jimmychou/workspace/jimmy/php/phpmyadmin/index.php
-难怪NOT FOUND
+难怪是404 NOT FOUND
 最后解决方案是：
 #fastcgi_param  SCRIPT_FILENAME         $document_root$fastcgi_script_name;         
 #fastcgi_param  SCRIPT_FILENAME         /usr/share/phpmyadmin/$fastcgi_script_name; 
 fastcgi_param   SCRIPT_FILENAME         /usr/share/$fastcgi_script_name;   
-
 结果css,js等文件还是无法加载，只能
 location ~* \.(gif|jpg|jpeg|png|css|js|ico)${
         root /usr/share;
 } 
 
 9.
-命令行更新 linux-generic
-sudo apt-get dist-upgrade
+命令行更新 linux-generic    sudo apt-get dist-upgrade
 jimmychou@jimmychou-virtual-machine:~$ uname -a
 Linux jimmychou-virtual-machine 3.13.0-24-generic #47-Ubuntu SMP Fri May 2 23:31:42 UTC 2014 i686 i686 i686 GNU/Linux
 jimmychou@jimmychou-virtual-machine:~$ uname -a
@@ -102,7 +96,7 @@ Linux jimmychou-virtual-machine 3.13.0-29-generic #53-Ubuntu SMP Wed Jun 4 21:02
 
 10.
 没有安装php5-mysql时，mysql_real_escape_string不会生效。
-root权限
+用mysql的root用户执行以下SQL语句：
 create databases jimmychou;
 用root用户登录后：
 GRANT CREATE,DROP,SELECT,INSERT,UPDATE,DELETE,INDEX ON jimmychou.* TO 'jimmychou'@'localhost' IDENTIFIED BY 'penny7531' WITH GRANT OPTION;
@@ -111,12 +105,47 @@ CREATE TABLE IF NOT EXISTS `jimmychou` (
   `name` text NOT NULL COMMENT '用来存储json串',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='jimmychou的测试表' AUTO_INCREMENT=1 ;
-11.
+
+
+A.
+nginx配置的插件：
+0.cd ~/.vim/
+1.unzip nerdtree.zip
+2.unzip emmet-vim.zip
+3.unzip neocomplcache-8.0.zip
+4.unzip taglist_46.zip
+5.~/.vim/syntax/php.vim
+6.~/.vim/colors/desert.vim
+7.~/.vim/autoload/php-doc.vim
+8.sudo apt-get install exuberant-ctags
+9.scp 192.168.4.219:~/.vimrc ~/
+10.更改~/.vimrc第行
+11.在~/workspace下执行ctags -R
+
+若需还原
+1.rm -fr ~/.vim
+2.rm -f ~/.vimrc
+3.rm -f ~/workspace/tags
+
+ctags有时候会错乱，而且不会自动更新，为何非得在workspace生成才有效呢？是因为~/.vimrc里有语句set tags=/home/jimmychou/workspace/tags。
+从goapk跳至filter_server/GoPHP/helper/
+cd /home/jimmychou/workspace/goapk/trunk && ctags -R
+然后在~/.vimrc里将上面语句改为
+set tags=/home/jimmychou/workspace/goapk/trunk/tags
+能否再添加一个呢？
+
+sudo vim /etc/nginx/sites-enabled/ubuntu_14_04.conf会出现报错：
+neocomplcache disabled: "sudo vim" is detected and $HOME is set to your user's home. You may want to use the sudo.vim plugin, the "-H" option with "sudo" or set always_set_home in /etc/sudoers instead.
+
+B.
+配置goapk工作环境
 sudo apt-get install subversion
 sudo apt-get install php5-curl
 sudo apt-get install php5-gmp
 sudo apt-get install php5-memcached
 sudo apt-get install memcached
-sudo apt-get install libmemcached-dev
 sudo apt-get install curl
 sudo apt-get install php5-mcrypt（遭遇诡异的配置文件不生效问题）
+误区：
+sudo apt-get purge php5-mcrypt时，竟然顺便把phpmyadmin也删除了，而且还把php5-mysql当成autoremove需要清理的软件包，后来清除后，goapk工作不正常，最后定位在类GoUcenterModel的do_uc_login_request，$channel = $this->findOne($option);这一条语句上，如果取不到值，为空就是了，为何不报错也不往下执行呢，这程序的容错性做得不好啊。还好我英明，想到了是数据库的原因。
+sudo apt-get install php5-mysql
