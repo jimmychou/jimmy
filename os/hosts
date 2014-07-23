@@ -8,6 +8,13 @@ ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
+192.168.4.219   local.anzhi.com         #   CeontOS_6.5 Local
+192.168.4.232   local.anzhi.com         #   Ubuntu_14.04    Local
+192.168.4.219   gomarket.goapk.com      #   CentOS_6.5
+192.168.4.219   centos.jimmychou.com    #   CentOS_6.5
+42.62.4.166     user.anzhi.com          #   UCenter Test
+118.26.224.12   hqwebgrind.goapk.com    #   Monitor
+
 ##Google北京服务器
 203.208.45.209 www.google.cn  
 ##Chrome 网上应用店

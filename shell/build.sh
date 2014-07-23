@@ -28,15 +28,14 @@ SOFTWARE=~/software
 if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
-
 for i in $*; do 
 	if [[ $i == "nginx" ]]; then
 		# Nginx模块 google_perftools_module
-		GPERFTOOLSVERSION=2.1
+		GPERFTOOLSVERSION=2.0
 		GPERFTOOLSSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX ]; then
-			wget http://gperftools.googlecode.com/files/gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
+			wget --content-disposition http://gperftools.googlecode.com/files/gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
 		fi
 		if [ ! -d gperftools-$GPERFTOOLSSUFFIX ]; then
 			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
@@ -48,7 +47,7 @@ for i in $*; do
 		NGINXSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
-			wget http://nginx.org/download/nginx-$NGINXVERSION.$NGINXSUFFIX
+			wget --content-disposition http://nginx.org/download/nginx-$NGINXVERSION.$NGINXSUFFIX
 		fi
 		if [ ! -d nginx-$NGINXVERSION ]; then
 			tar -zvxf nginx-$NGINXVERSION.$NGINXSUFFIX
@@ -234,6 +233,46 @@ NOEFFECT
 					--with-mail \
 					--with-mail_ssl_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+			elif [[ $Version == "6.5" ]]; then
+				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
+				echo The Current Nginx 1.4.1 on CentOS 6.5 is configured as below:
+				./configure --prefix=/usr/share/nginx \
+					--sbin-path=/usr/sbin/nginx \
+					--conf-path=/etc/nginx/nginx.conf \
+					--error-log-path=/var/log/nginx/error.log \
+					--http-log-path=/var/log/nginx/access.log \
+					--pid-path=/var/run/nginx.pid \
+					--lock-path=/var/run/nginx.lock \
+					--http-client-body-temp-path=/var/cache/nginx/client_temp \
+					--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+					--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+					--user=nginx \
+					--group=nginx \
+					--with-http_addition_module \
+					--with-http_degradation_module \
+					--with-http_perl_module \
+					--with-http_flv_module \
+					--with-http_geoip_module \
+					--with-google_perftools_module \
+					--with-http_gzip_static_module \
+					--with-http_gunzip_module \
+					--with-http_image_filter_module \
+					--with-http_mp4_module \
+					--with-http_random_index_module \
+					--with-http_realip_module \
+					--with-http_secure_link_module \
+					--with-http_ssl_module \
+					--with-http_stub_status_module \
+					--with-http_sub_module \
+					--with-http_dav_module \
+					--with-http_xslt_module \
+					--with-ipv6 \
+					--with-file-aio \
+					--with-mail \
+					--with-mail_ssl_module \
+					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			fi
 		fi
 	elif [[ $i == "httpd" ]]; then
@@ -243,7 +282,7 @@ NOEFFECT
 		HTTPDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
-			wget http://mirror.bit.edu.cn/apache/httpd/httpd-$HTTPDVERSION.$HTTPDSUFFIX
+			wget --content-disposition http://mirror.bit.edu.cn/apache/httpd/httpd-$HTTPDVERSION.$HTTPDSUFFIX
 		fi
 		if [ ! -d httpd-$HTTPDVERSION ]; then
 			tar -zvxf httpd-$HTTPDVERSION.$HTTPDSUFFIX
@@ -285,9 +324,17 @@ NOEFFECT
 		MYSQLVERSION=5.0.96
 		MYSQLSUFFIX=tar.gz
 		cd $SOFTWARE
-		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ]; then
-			wget http://dev.mysql.com/get/Downloads/MySQL-$MYSQLBIGVERSION/mysql-$MYSQLVERSION.$MYSQLSUFFIX/from/http://cdn.mysql.com/
+#   SHELL的if语句，多条件使用要注意
+		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && ! -f index.html ]; then      #   NOT OK
+		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a ! -f index.html ]; then      #   OK?
+		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ ! -f index.html ]; then   #   OK
+			wget --content-disposition http://dev.mysql.com/get/Downloads/MySQL-$MYSQLBIGVERSION/mysql-$MYSQLVERSION.$MYSQLSUFFIX/from/http://cdn.mysql.com/
 		fi
+		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && -f index.html ]; then        #   NOT OK
+		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a -f index.html ]; then        #   OK?
+		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ -f index.html ]; then     #   OK
+            mv index.html mysql-$MYSQLVERSION.$MYSQLSUFFIX
+        fi
 		if [ ! -d mysql-$MYSQLVERSION ]; then
 			tar -zvxf mysql-$MYSQLVERSION.$MYSQLSUFFIX
 		fi
@@ -383,16 +430,60 @@ NOEFFECT
 					build_alias=i386-redhat-linux-gnu \
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu && make && sudo make install
+			elif [[ $Version == "6.5" ]]; then
+				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
+				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
+				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
+				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i386-redhat-linux-gnu \
+					--program-prefix= \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--sysconfdir=/etc \
+					--datadir=/usr/share \
+					--includedir=/usr/include \
+					--libdir=/usr/lib \
+					--libexecdir=/usr/libexec \
+					--localstatedir=/var \
+					--sharedstatedir=/usr/com \
+					--mandir=/usr/share/man \
+					--infodir=/usr/share/info \
+					--with-readline \
+					--with-openssl \
+					--without-debug \
+					--enable-shared \
+					--with-bench \
+					--localstatedir=/var/lib/mysql \
+					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+					--with-mysqld-user=mysql \
+					--with-extra-charsets=all \
+					--with-innodb \
+					--with-berkeley-db \
+					--enable-community-features \
+					--enable-local-infile \
+					--enable-largefile \
+					--enable-profiling \
+					--enable-thread-safe-client \
+					--disable-dependency-tracking \
+					--with-named-thread-libs=-lpthread \
+					build_alias=i386-redhat-linux-gnu \
+					host_alias=i386-redhat-linux-gnu \
+					target_alias=i386-redhat-linux-gnu && make && sudo make install
 			fi
 		fi
 	elif [[ $i == "php" ]]; then
 		# PHP编译
 		# 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
-		PHPVERSION=5.5.3
+		#PHPVERSION=5.5.3
+		PHPVERSION=5.5.14
 		PHPSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
-			wget http://cn2.php.net/get/php-$PHPVERSION.$PHPSUFFIX/from/this/mirror
+			wget --content-disposition -nc http://cn2.php.net/get/php-$PHPVERSION.$PHPSUFFIX/from/this/mirror
 		fi
 		if [ ! -d php-$PHPVERSION ]; then
 			tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
@@ -401,13 +492,14 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official PHP on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y bzip2-devel.$OS_SUFFIX curl-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX libmcrypt-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			sudo yum install -y bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX libmcrypt-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
 			if [[ $Version == "5.9" ]]; then
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
+                sudo yum install curl-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -686,18 +778,124 @@ NOEFFECT
 					--with-unixODBC=shared,/usr \
 					--enable-fileinfo=shared \
 					--enable-intl=shared \
+					--enable-fpm \
+					--with-mcrypt=shared,/usr \
 					--with-icu-dir=/usr \
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
+			elif [[ $Version == "6.5" ]]; then
+				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
+		        #PHPVERSION=5.5.14
+                sudo yum install libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i686-redhat-linux-gnu \
+					--program-prefix= \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--sysconfdir=/etc \
+					--datadir=/usr/share \
+					--includedir=/usr/include \
+					--libdir=/usr/lib \
+					--libexecdir=/usr/libexec \
+					--localstatedir=/var \
+					--sharedstatedir=/var/lib \
+					--mandir=/usr/share/man \
+					--infodir=/usr/share/info \
+					--cache-file=../config.cache \
+					--with-libdir=lib \
+					--with-config-file-path=/etc \
+					--with-config-file-scan-dir=/etc/php.d \
+					--disable-debug \
+					--with-pic \
+					--disable-rpath \
+					--without-pear \
+					--with-bz2 \
+					--with-freetype-dir=/usr \
+					--with-png-dir=/usr \
+					--with-xpm-dir=/usr \
+					--enable-gd-native-ttf \
+					--without-gdbm \
+					--with-gettext \
+					--with-gmp \
+					--with-iconv \
+					--with-jpeg-dir=/usr \
+					--with-openssl \
+					--with-pcre-regex=/usr \
+					--with-zlib \
+					--with-layout=GNU \
+					--enable-exif \
+					--enable-ftp \
+					--enable-sockets \
+					--enable-sysvsem \
+					--enable-sysvshm \
+					--enable-sysvmsg \
+					--with-kerberos \
+					--enable-shmop \
+					--enable-calendar \
+					--with-libxml-dir=/usr \
+					--enable-xml \
+					--enable-pcntl \
+					--with-imap-ssl \
+					--enable-mbstring=shared \
+					--enable-mbregex \
+					--with-gd=shared \
+					--enable-bcmath=shared \
+					--enable-dba=shared \
+					--with-db4=/usr \
+					--with-xmlrpc=shared \
+					--with-ldap=shared \
+					--with-ldap-sasl \
+					--with-mysql=shared,/usr \
+					--with-mysqli=shared,/usr/bin/mysql_config \
+					--enable-dom=shared \
+					--with-pgsql=shared \
+					--enable-wddx=shared \
+					--with-snmp=shared,/usr \
+					--enable-soap=shared \
+					--with-xsl=shared,/usr \
+					--enable-xmlreader=shared \
+					--enable-xmlwriter=shared \
+					--with-curl=shared,/usr \
+					--enable-pdo=shared \
+					--with-pdo-odbc=shared,unixODBC,/usr \
+					--with-pdo-mysql=shared,/usr/bin/mysql_config \
+					--with-pdo-pgsql=shared,/usr \
+					--with-pdo-sqlite=shared,/usr \
+					--with-sqlite3=shared,/usr \
+					--enable-json=shared \
+					--enable-zip=shared \
+					--without-readline \
+					--with-libedit \
+					--with-pspell=shared \
+					--enable-phar=shared \
+					--with-tidy=shared,/usr \
+					--enable-sysvmsg=shared \
+					--enable-sysvshm=shared \
+					--enable-sysvsem=shared \
+					--enable-posix=shared \
+					--with-unixODBC=shared,/usr \
+					--enable-fileinfo=shared \
+					--enable-intl=shared \
+					--enable-fpm \
+					--with-mcrypt=shared,/usr \
+					--with-icu-dir=/usr \
+					--with-enchant=shared,/usr \
+					--with-recode=shared,/usr
+                make && sudo make install
 			fi
 		fi
 	elif [[ $i == "memcached" ]]; then
 		# Memcached编译
-		MEMCACHEDVERSION=1.4.15
+		#MEMCACHEDVERSION=1.4.15
+		MEMCACHEDVERSION=1.4.20
 		MEMCACHEDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX ]; then
-			wget http://memcached.googlecode.com/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+			#wget http://memcached.googlecode.com/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+            wget --content-disposition http://www.memcached.org/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
 		fi
 		if [ ! -d memcached-$MEMCACHEDVERSION ]; then
 			tar -zvxf memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
@@ -717,6 +915,14 @@ NOEFFECT
 #				./configure --build=i386-redhat-linux-gnu \
 #					--host=i386-redhat-linux-gnu \
 #					--target=i386-redhat-linux-gnu \
+				./configure --prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--mandir=/usr/share/man \
+					--includedir=/usr/include && make && sudo make install
+			elif [[ $Version == "6.5" ]]; then
+				echo The Current Memcached on CentOS 5.9 is configured as below:
 				./configure --prefix=/usr \
 					--exec-prefix=/usr \
 					--bindir=/usr/bin \
