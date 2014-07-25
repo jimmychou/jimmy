@@ -137,6 +137,15 @@ set tags=/home/jimmychou/workspace/goapk/trunk/tags
 sudo vim /etc/nginx/sites-enabled/ubuntu_14_04.conf会出现报错：
 neocomplcache disabled: "sudo vim" is detected and $HOME is set to your user's home. You may want to use the sudo.vim plugin, the "-H" option with "sudo" or set always_set_home in /etc/sudoers instead.
 
+https://github.com/bolasblack/.vim说明：
+
+这是由于插件 neocomplcache 不支持 sudo vim 方式编辑文件，可见文档 https://github.com/Shougo/neocomplcache/blob/master/doc/neocomplcache.txt#L1355 。
+解决方案是已经配置在 pluginManager.vim 文件中的 sudo.vim 插件，打开文件时使用命令 vim sudo:/path/to/file 或者保存文件时使用命令 :SudoWrite % 。
+如果不想使用 sudo.vim 插件，可以在用普通权限编辑完文件后使用 :w ! sudo tee % 命令来保存
+
+github里的https://github.com/Shougo/neocomplcache.vim不能用，覆盖后各种报错，后悔没备份。
+只能cd ~ && rm -fr .vimrc .vim .neocomplcache
+
 B.
 配置goapk工作环境
 sudo apt-get install subversion
