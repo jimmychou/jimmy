@@ -148,6 +148,13 @@ github里的https://github.com/Shougo/neocomplcache.vim不能用，覆盖后各�
 
 配置XShell颜色方案，cp ~/workspace/jimmy/os/.bash_profile ~/
 
+Ubuntu用一样的方法shrink(用CentOS上vmtools的源代码)：
+7.26G(off)->7.76G(on)->4.1G(df -lh)->3.8(df -lh after clean)->4.89(on)->4.39G(off)
+update some software:
+4.46G(off)->4.99G(on)->4.85G(after clean on)->4.35(off)
+shrink again:
+3.8(df -lh)->4.85(on)->4.78(after shrink / && /boot)->4.28G(off)
+
 B.
 配置goapk工作环境
 sudo apt-get install subversion

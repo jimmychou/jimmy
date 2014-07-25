@@ -242,3 +242,55 @@ sudo chkconfig php-fpm on
 总结一下：
 502先后由PHP扩展出现段错误，数据库连接报错被隐藏等排查很久。
 504则基本是网络超时问题。
+
+测试安卓游戏LOGIN_NEW接口时遇到问题：
+先是500看/var/log/nginx/yx.error.log
+是没有GoPHP库，复制到相关目录后
+然后是task.helper.php里GearmanClient类未定义的报错。
+要先装libgearman
+yum search libgearman找不到
+http://pecl.php.net/package/gearman
+下载gearman-1.0.0编译安装。
+configure: error: Couldn't find uuid/uuid.h. Try installing libuuid
+development packages
+sudo yum install libuuid-devel
+[jimmychou@localhost gearmand-0.21]
+configure: error: cannot find Boost headers version >= 1.39.0
+
+sudo yum install boost-devel(1.41.0)后再编译gearmand-0.21通过
+装php扩展
+[jimmychou@localhost gearman-1.0.0]$ sudo make install
+Installing shared extensions:     /usr/lib/20121212/
+将gearman.so加入php.ini并重启php-fpm
+
+sudo vmware-toolbox-cmd disk list
+sudo vmware-toolbox-cmd disk shrinkonly不管用啊
+sudo vmware-toolbox-cmd disk shrink /
+sudo vmware-toolbox-cmd disk shrink /boot管用
+
+mount /dev/cdrom /mnt/cdrom，此命令会报错，无视
+cp /mnt/VMwareTools-9.2.3-1031360.tar.gz ~
+sudo ./vm
+
+5.52G(off)->6.02G(on)->4.97G(on after shrink /)->3.7G(df -lh)->4.2G(df -lh after install vmtools，vmtools安装后就自动同步时间了，再也不用ntpdate cn.pool.ntp.org了。)->4.47G(off)
+各种clean,rm后
+3.0G(df -lh)->4.97G(on)->3.77G(on after shrink /)->3.27(off)
+
+清理内核文件
+[jimmychou@localhost boot]$ ll /boot/
+-rwxr-xr-x  1 root root  4002240 1月   4 2014 vmlinuz-2.6.32-431.3.1.el6.i686
+[jimmychou@localhost boot]$ rpm -qa | grep 2.6.32-431.3.1
+kernel-2.6.32-431.3.1.el6.i686
+
+sudo yum erase kernel-2.6.32-431.3.1.el6.i686 kernel-2.6.32-431.5.1.el6.i686
+kernel-2.6.32-431.11.2.el6.i686 kernel-2.6.32-431.17.1.el6.i686
+
+3.0G(df -lh)->4.14G(on)->3.77G(on after shrink /)->3.68G(on after shrink /boot)->3.18G(off，此时USED=3.0G，这180M去哪里了？)
+
+XShell颜色设置 :
+在XShell的工具->配色方案导入solarized-dark.xcs
+然后把下面的文本加入后~/.bash_profile，在命令行执行 source
+~/.bash_profile即可。
+alias ls='ls --color=auto'
+LS_COLORS='no=00:fi=00:di=00;34:ln=00;36:pi=40;33:so=00;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=00;32:*.cmd=00;32:*.exe=00;32:*.com=00;32:*.btm=00;32:*.bat=00;32:*.sh=00;32:*.csh=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.bz=00;31:*.tz=00;31:*.rpm=00;31:*.cpio=00;31:*.jpg=00;35:*.gif=00;35:*.bmp=00;35:*.xbm=00;35:*.xpm=00;35:*.png=00;35:*.tif=00;35:'
+export LS_COLORS
