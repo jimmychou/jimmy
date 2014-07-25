@@ -144,7 +144,9 @@ https://github.com/bolasblack/.vim说明：
 如果不想使用 sudo.vim 插件，可以在用普通权限编辑完文件后使用 :w ! sudo tee % 命令来保存
 
 github里的https://github.com/Shougo/neocomplcache.vim不能用，覆盖后各种报错，后悔没备份。
-只能cd ~ && rm -fr .vimrc .vim .neocomplcache
+只能cd ~ && rm -fr .vimrc .vim .neocomplcache，暂时不会用Ubuntu14.04来当测试机，于是放弃了。
+
+配置XShell颜色方案，cp ~/workspace/jimmy/os/.bash_profile ~/
 
 B.
 配置goapk工作环境
