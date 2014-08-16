@@ -11,8 +11,8 @@
  * $ci->show();
  * </code>
  *
- * @author 张荣杰
- * @version 2012.8.9
+ * @author 
+ * @version 2014.08.16
  */
 class CombineImage {
 	/**
@@ -56,12 +56,12 @@ class CombineImage {
 	 * 当前高度
 	 */
 	private $cur_height = 0;
-    private $horizontal = array();
-    private $vertical = array();
-    private $srcImageLines = array();
+	private $horizontal = array();
+	private $vertical = array();
+	private $srcImageLines = array();
 	private $lastWidth = 0;
 	private $lastHeight = 0;
-    private $ratio = 0.1;
+	private $ratio = 0.1;
 	/**
 	 * 构造函数，传入原图地址数组和目标图片地址
 	 */
@@ -87,33 +87,36 @@ class CombineImage {
 	 * 合并图片
 	 */
 	public function combine() {
-		if (empty($this->srcImages)	|| $this->width==0 || $this->height==0) {
+		if(empty($this->srcImages)||$this->width==0||$this->height==0){
 			return;
 		}
 		$this->createCanvas();
-		for($i=0; $i<count($this->srcImages); $i++) {
+		for($i=0; $i<count($this->srcImages); $i++){
 			$srcImage = $this->srcImages[$i];
 			$srcImageInfo = getimagesize($srcImage);
 			// 如果能够正确的获取原图的基本信息
-			if ($srcImageInfo) {
+			if($srcImageInfo){
 				$srcWidth = $srcImageInfo[0];
 				$srcHeight = $srcImageInfo[1];
 				$fileType = $srcImageInfo[2];
-				if ($fileType == 2) {
+				if($fileType == 2){
 					// 原图是 jpg 类型
 					$srcImage = imagecreatefromjpeg($srcImage);
-				} else if ($fileType == 3) {
+				}
+				elseif($fileType == 3){
 					// 原图是 png 类型
 					$srcImage = imagecreatefrompng($srcImage);
-				} else {
+				}
+				else{
 					// 无法识别的类型
 					continue;
 				}
 				// 计算当前原图片应该位于画布的哪个位置
-				if ($this->mode == self::COMBINE_MODE_HORIZONTAL) {
+				if($this->mode == self::COMBINE_MODE_HORIZONTAL){
 					$destX = $i * $this->width;
 					$desyY = 0;
-				} elseif ($this->mode == self::COMBINE_MODE_VERTICAL) {
+				}
+				elseif($this->mode == self::COMBINE_MODE_VERTICAL){
 					$destX = 0;
 					$desyY = $i * $this->height;
 				}
@@ -121,7 +124,7 @@ class CombineImage {
 			}
 		}
 		// 如果有指定目标地址，则输出到文件
-		if ( ! empty($this->destImage)) {
+		if(!empty($this->destImage)){
 			$this->output();
 		}
 	}
@@ -129,21 +132,22 @@ class CombineImage {
 	 * 合并图片，保持原图比例并缩放，一维数组
 	 */
 	public function combine_ratio() {
-		if (empty($this->srcImages)	|| $this->width==0 || $this->height==0) {
+		if(empty($this->srcImages)||$this->width==0||$this->height==0){
 			return;
 		}
 		$this->createCanvas_ratio();
 		foreach($this->srcImages as $srcImage){
 			list($ori_srcWidth,$ori_srcHeight,$fileType) = getimagesize($srcImage);
-            $srcWidth = round($ori_srcWidth*$this->ratio);
-            $srcHeight = round($ori_srcHeight*$this->ratio);
-            $tmp_image = imagecreatetruecolor($srcWidth, $srcHeight);   //  新图片
-            imagecopyresampled($tmp_image,imagecreatefromjpeg($srcImage), 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
-			if ($this->mode == self::COMBINE_MODE_HORIZONTAL) {
+			$srcWidth = round($ori_srcWidth*$this->ratio);
+			$srcHeight = round($ori_srcHeight*$this->ratio);
+			$tmp_image = imagecreatetruecolor($srcWidth, $srcHeight);   //  新图片
+			imagecopyresampled($tmp_image,imagecreatefromjpeg($srcImage), 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
+			if($this->mode == self::COMBINE_MODE_HORIZONTAL){
 				$destX = $this->cur_width;
 				$this->cur_width += $srcWidth;
 				$desyY = 0;
-			} elseif ($this->mode == self::COMBINE_MODE_VERTICAL) {
+			}
+			elseif ($this->mode == self::COMBINE_MODE_VERTICAL){
 				$destX = 0;
 				$desyY = $this->cur_height;
 				$this->cur_height += $srcHeight;
@@ -152,7 +156,7 @@ class CombineImage {
 			//imagecopyresized($this->canvas, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
 		}
 		// 如果有指定目标地址，则输出到文件
-		if ( ! empty($this->destImage)) {
+		if( ! empty($this->destImage)){
 			$this->output();
 		}
 	}
@@ -160,37 +164,48 @@ class CombineImage {
 	 * 合并图片，保持原图比例并缩放，二维数组
 	 */
 	public function combine_ratio_array() {
-		if (empty($this->srcImages)	|| $this->width==0 || $this->height==0) {
+		if(empty($this->srcImages)||$this->width==0||$this->height==0){
 			return;
 		}
 		$this->createCanvas_ratio_array();
-        foreach($this->srcImages as $horizontal=>$srcImageLines){
-            $destX = $desyY = $this->cur_width = $this->cur_height = 0;
-            $srcImageLine = imagecreatetruecolor($this->horizontal[$horizontal],$this->vertical[$horizontal]);
-            foreach($srcImageLines as $vertical=>$srcImage){
-                list($ori_srcWidth,$ori_srcHeight,$fileType) = getimagesize($srcImage);
-                $srcWidth = round($ori_srcWidth*$this->ratio);
-                $srcHeight = round($ori_srcHeight*$this->ratio);
-                $tmp_image = imagecreatetruecolor($srcWidth, $srcHeight);   //  新图片
-                imagecopyresampled($tmp_image,imagecreatefromjpeg($srcImage), 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
-                if ($this->mode == self::COMBINE_MODE_HORIZONTAL) {
-                    $destX = $this->cur_width;
-                    $this->cur_width += $srcWidth;
-                    $desyY = 0;
-                } elseif ($this->mode == self::COMBINE_MODE_VERTICAL) {
-                    $destX = 0;
-                    $desyY = $this->cur_height;
-                    $this->cur_height += $srcHeight;
-                }
-                imagecopyresampled($srcImageLine, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
-                $filename = '/home/jimmychou/workspace/jimmy/php/try'.$horizontal.'.jpg';
-                imagejpeg($srcImageLine,$filename);
-                //imagecopyresampled($this->canvas, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
-            }
-            $this->srcImageLines[$horizontal] = $srcImageLine;
-        }
+		foreach($this->srcImages as $horizontal=>$srcImageLines){
+			//if($horizontal>0)continue;	//	调试用
+			$destX = $desyY = $this->cur_width = $this->cur_height = 0;
+			$srcImageLine = imagecreatetruecolor($this->horizontal[$horizontal],$this->vertical[$horizontal]);
+			foreach($srcImageLines as $vertical=>$srcImage){
+				list($ori_srcWidth,$ori_srcHeight,$fileType) = getimagesize($srcImage);
+				$srcWidth = round($ori_srcWidth*$this->ratio);
+				$srcHeight = round($ori_srcHeight*$this->ratio);
+				$tmp_image = imagecreatetruecolor($srcWidth, $srcHeight);   //  缩放后新图片
+				imagecopyresampled($tmp_image,imagecreatefromjpeg($srcImage), 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
+				//imagecopyresampled($tmp_image,$srcImage, 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
+				if($this->mode == self::COMBINE_MODE_HORIZONTAL){
+					$destX = $this->cur_width;
+					$this->cur_width += $srcWidth;
+					$desyY = 0;
+				}
+				elseif($this->mode == self::COMBINE_MODE_VERTICAL){
+					$destX = 0;
+					$desyY = $this->cur_height;
+					$this->cur_height += $srcHeight;
+				}
+				imagecopyresampled($srcImageLine, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
+				$filename = '/home/jimmychou/workspace/jimmy/php/try_'.$horizontal.'.jpg';
+				imagejpeg($srcImageLine,$filename);
+			}
+			$this->srcImageLines[$horizontal] = $filename;
+		}
+		foreach($this->srcImageLines as $horizontal=>$srcImage){
+			list($srcWidth,$srcHeight,$fileType) = getimagesize($srcImage);
+			$destX = 0;
+			$desyY = $this->cur_height;
+			$this->cur_height += $srcHeight;
+			imagecopyresampled($this->canvas,imagecreatefromjpeg($srcImage), $destX, $desyY, 0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
+		}
+		$filename = '/home/jimmychou/workspace/jimmy/php/try.jpg';
+		imagejpeg($this->canvas,$filename);
 		// 如果有指定目标地址，则输出到文件
-		if ( ! empty($this->destImage)) {
+		if( ! empty($this->destImage)){
 			$this->output();
 		}
 	}
@@ -249,8 +264,8 @@ class CombineImage {
 			$maxWidth = max($maxWidth,round($width*$this->ratio));
 			$maxHeight = max($maxHeight,round($height*$this->ratio));
 		}
-        $totalWidth = round($totalWidth*$this->ratio);
-        $totalHeight = round($totalHeight*$this->ratio);
+		$totalWidth = round($totalWidth*$this->ratio);
+		$totalHeight = round($totalHeight*$this->ratio);
 		if ($this->mode == self::COMBINE_MODE_HORIZONTAL) {
 			$width = $totalWidth;
 			$height = $maxHeight;
@@ -265,27 +280,50 @@ class CombineImage {
 		imagecolortransparent($this->canvas, $white);
 	}
 	
-    /**
+	/**
 	 * 私有函数，创建画布，二维数组
 	 */
 	private function createCanvas_ratio_array() {
-        $lastWidth = $lastHeight = 0;
+		$lastWidth = $lastHeight = 0;
 		foreach($this->srcImages as $horizontal=>$srcImageLines){
-		    $totalWidth = $maxWidth = $maxHeight = 0;
-            foreach($srcImageLines as $vertical=>$tmpImage){
-                $tmp = getimagesize($tmpImage);
-                list($width,$height) = getimagesize($tmpImage);
-                $maxWidth = max($maxWidth,$width);
-                $totalWidth += round($width*$this->ratio);
-                $maxHeight = max($maxHeight,round($height*$this->ratio));
-            }
-            $this->horizontal[$horizontal] = $maxWidth; //  每一行的最大宽度，为拉伸做准备
-            $this->vertical[$horizontal] = $maxHeight;  //  每一行的最大高度，为拉伸做准备
-            $lastWidth = max($lastWidth,$totalWidth);
-            $lastHeight += $maxHeight;
+			$totalWidth = $maxWidth = $maxHeight = 0;
+			foreach($srcImageLines as $vertical=>$tmpImage){
+				$tmp = getimagesize($tmpImage);
+				list($width,$height) = getimagesize($tmpImage);
+				//$this->srcImages[$horizontal][$vertical] = imagecreatefromjpeg($tmpImage);
+				echo "the width is $width and the height is $height\n";
+				if($width>$height){	//	宽比高长则顺时针旋转90度
+					$rotate = imagerotate(imagecreatefromjpeg($tmpImage),270,0);
+					$filename = '/home/jimmychou/workspace/jimmy/php/rotate_'.$horizontal.'_'.$vertical.'.jpg';
+					imagejpeg($rotate,$filename);
+					imagedestroy($rotate);
+					$this->srcImages[$horizontal][$vertical] = $filename;
+					list($width,$height) = getimagesize($filename);
+					/*;
+					$width = imagesx($rotate);
+					$height = imagesy($rotate);
+					*/
+					echo "the new_width is $width and the new_height is $height\n";
+					
+				}
+				$maxWidth = max($maxWidth,$width);
+				if($width>1000){
+					$totalWidth += round($width*$this->ratio);
+					$maxHeight = max($maxHeight,round($height*$this->ratio));
+				}
+				else{
+					$totalWidth += round($width*$this->ratio*5);
+					$maxHeight = max($maxHeight,round($height*$this->ratio*5));
+				}
+			}
+			$this->horizontal[$horizontal] = $totalWidth; //  每一行的最大宽度，为拉伸做准备
+			$this->vertical[$horizontal] = $maxHeight;  //  每一行的最大高度，为拉伸做准备
+			echo "the horizontal is $totalWidth and the vertical is $maxHeight\n";
+			$lastWidth = max($lastWidth,$totalWidth);
+			$lastHeight += $maxHeight;
 		}
-        $this->lastWidth = $lastWidth;
-        $this->lastHeight = $lastHeight;
+		$this->lastWidth = $lastWidth;
+		$this->lastHeight = $lastHeight;
 		$this->canvas = imagecreatetruecolor($lastWidth, $lastHeight);
 		// 使画布透明
 		$white = imagecolorallocate($this->canvas, 255, 255, 255);
