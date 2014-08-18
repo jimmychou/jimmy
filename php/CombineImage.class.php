@@ -51,14 +51,16 @@ class CombineImage {
 	/**
 	 * 当前宽度
 	 */
-	private $cur_width;
-	//private $cur_width = 0;
+	private $cur_width = 0;
 	/**
 	 * 当前高度
 	 */
-	private $cur_height;
-	//private $cur_height = 0;
-
+	private $cur_height = 0;
+    private $horizontal = array();
+    private $vertical = array();
+    private $srcImageLines = array();
+	private $lastWidth = 0;
+	private $lastHeight = 0;
     private $ratio = 0.1;
 	/**
 	 * 构造函数，传入原图地址数组和目标图片地址
@@ -155,6 +157,44 @@ class CombineImage {
 		}
 	}
 	/**
+	 * 合并图片，保持原图比例并缩放，二维数组
+	 */
+	public function combine_ratio_array() {
+		if (empty($this->srcImages)	|| $this->width==0 || $this->height==0) {
+			return;
+		}
+		$this->createCanvas_ratio_array();
+        foreach($this->srcImages as $horizontal=>$srcImageLines){
+            $destX = $desyY = $this->cur_width = $this->cur_height = 0;
+            $srcImageLine = imagecreatetruecolor($this->horizontal[$horizontal],$this->vertical[$horizontal]);
+            foreach($srcImageLines as $vertical=>$srcImage){
+                list($ori_srcWidth,$ori_srcHeight,$fileType) = getimagesize($srcImage);
+                $srcWidth = round($ori_srcWidth*$this->ratio);
+                $srcHeight = round($ori_srcHeight*$this->ratio);
+                $tmp_image = imagecreatetruecolor($srcWidth, $srcHeight);   //  新图片
+                imagecopyresampled($tmp_image,imagecreatefromjpeg($srcImage), 0, 0, 0, 0, $srcWidth, $srcHeight, $ori_srcWidth, $ori_srcHeight);
+                if ($this->mode == self::COMBINE_MODE_HORIZONTAL) {
+                    $destX = $this->cur_width;
+                    $this->cur_width += $srcWidth;
+                    $desyY = 0;
+                } elseif ($this->mode == self::COMBINE_MODE_VERTICAL) {
+                    $destX = 0;
+                    $desyY = $this->cur_height;
+                    $this->cur_height += $srcHeight;
+                }
+                imagecopyresampled($srcImageLine, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
+                $filename = '/home/jimmychou/workspace/jimmy/php/try'.$horizontal.'.jpg';
+                imagejpeg($srcImageLine,$filename);
+                //imagecopyresampled($this->canvas, $tmp_image, $destX, $desyY,0, 0, $srcWidth, $srcHeight, $srcWidth, $srcHeight);
+            }
+            $this->srcImageLines[$horizontal] = $srcImageLine;
+        }
+		// 如果有指定目标地址，则输出到文件
+		if ( ! empty($this->destImage)) {
+			$this->output();
+		}
+	}
+	/**
 	 * 输出结果到浏览器
 	 */
 	public function show() {
@@ -200,17 +240,14 @@ class CombineImage {
 	 * 私有函数，创建画布
 	 */
 	private function createCanvas_ratio() {
-		$totalImage = $totalWidth = $totalHeight = $maxWidth = $maxHeight = $minWidth = $minHeight = 0;
+		$totalWidth = $totalHeight = $maxWidth = $maxHeight = 0;
 		foreach($this->srcImages as $tmpImage){
 			$tmp = getimagesize($tmpImage);
 			list($width,$height) = getimagesize($tmpImage);
 			$totalWidth += $width;
 			$totalHeight += $height;
-			$totalImage ++;
 			$maxWidth = max($maxWidth,round($width*$this->ratio));
 			$maxHeight = max($maxHeight,round($height*$this->ratio));
-			$minWidth = min($minWidth,round($width*$this->ratio));
-			$minHeight = min($minHeight,round($height*$this->ratio));
 		}
         $totalWidth = round($totalWidth*$this->ratio);
         $totalHeight = round($totalHeight*$this->ratio);
@@ -222,6 +259,34 @@ class CombineImage {
 			$height = $totalHeight;
 		}
 		$this->canvas = imagecreatetruecolor($width, $height);
+		// 使画布透明
+		$white = imagecolorallocate($this->canvas, 255, 255, 255);
+		imagefill($this->canvas, 0, 0, $white);
+		imagecolortransparent($this->canvas, $white);
+	}
+	
+    /**
+	 * 私有函数，创建画布，二维数组
+	 */
+	private function createCanvas_ratio_array() {
+        $lastWidth = $lastHeight = 0;
+		foreach($this->srcImages as $horizontal=>$srcImageLines){
+		    $totalWidth = $maxWidth = $maxHeight = 0;
+            foreach($srcImageLines as $vertical=>$tmpImage){
+                $tmp = getimagesize($tmpImage);
+                list($width,$height) = getimagesize($tmpImage);
+                $maxWidth = max($maxWidth,$width);
+                $totalWidth += round($width*$this->ratio);
+                $maxHeight = max($maxHeight,round($height*$this->ratio));
+            }
+            $this->horizontal[$horizontal] = $maxWidth; //  每一行的最大宽度，为拉伸做准备
+            $this->vertical[$horizontal] = $maxHeight;  //  每一行的最大高度，为拉伸做准备
+            $lastWidth = max($lastWidth,$totalWidth);
+            $lastHeight += $maxHeight;
+		}
+        $this->lastWidth = $lastWidth;
+        $this->lastHeight = $lastHeight;
+		$this->canvas = imagecreatetruecolor($lastWidth, $lastHeight);
 		// 使画布透明
 		$white = imagecolorallocate($this->canvas, 255, 255, 255);
 		imagefill($this->canvas, 0, 0, $white);

@@ -16,16 +16,16 @@ if(!empty($files)){
 //			continue;
 		}
 		$i++;
-		echo "file is $file\n";
+//		echo "file is $file\n";
 		$deal_files[]=$file;
 	}
 }
 $size = 10;
 $deal_files = array_chunk($deal_files,$size);
-print_r($deal_files);exit;
+//print_r($deal_files);exit;
 $ci = new CombineImage($deal_files);
 //$ci->combine();
-$ci->combine_ratio();
-//$ci->combine_ratio_array();
+//$ci->combine_ratio();
+$ci->combine_ratio_array();
 //$ci->show();
-$ci->output_file('/home/jimmychou/workspace/jimmy/php/try.jpg');
+//$ci->output_file('/home/jimmychou/workspace/jimmy/php/try.jpg');
