@@ -190,6 +190,7 @@ NOEFFECT
 					--with-http_secure_link_module \
 					--with-http_stub_status_module \
 					--with-mail \
+					--with-debug \
 					--with-mail_ssl_module \
 					--with-file-aio \
 					--with-ipv6 \
@@ -231,6 +232,8 @@ NOEFFECT
 					--with-ipv6 \
 					--with-file-aio \
 					--with-mail \
+					--with-debug \
+					--with-http_stub_status_module \
 					--with-mail_ssl_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			elif [[ $Version == "6.5" ]]; then
@@ -271,6 +274,8 @@ NOEFFECT
 					--with-ipv6 \
 					--with-file-aio \
 					--with-mail \
+					--with-debug \
+					--with-http_stub_status_module \
 					--with-mail_ssl_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			fi

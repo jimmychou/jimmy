@@ -23,7 +23,9 @@ if (isset($argv[2])) {
 }
 $plain_body = array('VR' => $vr);
 $imei = $deviceid = '528748979873541';
-$channel =  'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20'; //debug inner
+$channel =  'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20'; //    debug inner
+//$channel =  '0575e7d4630a893242bb71d04c2fc436fb1e4fc6'; //  指奥3
+//$channel =  '33c70bb8a5b88a7420cd10eb22d992d4e9319eec'; //  指奥4
 $timestamp = time();
 $plain_key = array(
 	'LOGIN' => 1,
@@ -149,13 +151,13 @@ function login()
 {
 	global $header, $imei, $deviceid, $timestamp, $channel, $version, $plain_body, $vr, $dh_arr, $login_key;
 	$merge_data = array(
-        'USER' => 'GOAPKGFUSER_@#!',
 		'USER' => 'honking',
 		'PWD' => '654321hq',
 		'USER' => 'zhuxuefei',
 		'PWD' => '042311',
 		'USER' => 'jimmychou',
 		'PWD' => '123456',
+        'USER' => 'GOAPKGFUSER_@#!',
 		'VERSION_CODE' => $version,
 		'SUPPLIERS' => $channel,
 		'FIRMWARE' => 18,
@@ -210,6 +212,7 @@ function login()
 		echo "md5:{$md5}\n";
 		$dh_arr['K'] = array($hex, $md5);
 	}
+//print_r($result);
 	if(!$result) exit('登陆错误');
 //	$header[] = 'cookie: PHPSESSID='. $result['SESSIONID'];
 //    $header[] = 'cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867';
