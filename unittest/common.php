@@ -18,8 +18,8 @@ $version = 5100;
 $header = array();
 //$header = array('cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867');
 $vr = 0;
-if (isset($argv[2])) {
-    $vr = $argv[2];
+if (isset($argv[3])) {
+    $vr = $argv[3];
 }
 $plain_body = array('VR' => $vr);
 $imei = $deviceid = '528748979873541';
@@ -37,12 +37,33 @@ $plain_key = array(
 	'REGISTER' => 1,
 	'G_REGISTER' => 1,
 	'PAD_REGISTER' => 1,
+	'REGISTER_NEW' => 1,
+	'G_REGISTER_NEW' => 1,
+	'PAD_REGISTER_NEW' => 1,
 	'RK_LN' => 1,
+//	'RECOVER_PASSWORD' => 1,
 	'LOGIN_TV' => 1,
 	'SYNC_SESSION' => 1,
 	'SYNC_SESSION_TEST' => 1,
 );
 $dh_arr = array();
+
+function my_export($data)
+{
+    if($data!==NULL){
+        var_export($data);
+    }
+}
+
+function list_element_compare($element_a,$element_b)
+{
+    if(is_array($element_a)){
+        return ($element_a === $element_b) ? 0 : 1 ;
+    }
+    elseif(gettype($element_a) === 'string'){
+        return strcmp($element_a,$element_b);
+    }
+}
 
 function r()
 {
@@ -136,14 +157,18 @@ function request($data, $jsoned = true)
 	if ($gzcompress) {
 		$return = gzdecode($return);
 	}
-	echo $return, "\n";
+//	echo $return, "\n"; //  暂时不打印源数据，XShell源于此
 	$result = json_decode($return, true);
 	echo "------------------------------------- response {$data['KEY']} -----------------------\n";
-	if (!$result) {
-		echo $raw, "\n";
-	} else {
-		var_export(json_decode($return, true));
-	}
+    global $argv;
+    if(isset($argv[2])&&$argv[2]==1){   //  解决go_dump无输出的问题
+        if(!$result){
+            echo $raw, "\n";
+        }
+        else{
+            var_export(json_decode($return, true));
+        }
+    }
 	return $result;
 }
 
@@ -155,7 +180,7 @@ function login()
 		'PWD' => '654321hq',
 		'USER' => 'zhuxuefei',
 		'PWD' => '042311',
-		'USER' => 'jimmychou',
+		'USER' => 'jimmychou1',
 		'PWD' => '123456',
         'USER' => 'GOAPKGFUSER_@#!',
 		'VERSION_CODE' => $version,
@@ -165,7 +190,7 @@ function login()
 		'DEVICEID' => $deviceid,
 		'IMEI' => $imei,
 		'ABI' => 3,
-		'VR' => 11,
+		'VR' => 5,
 		'PID' => 1,
 		"NET_TYPE" => "UNIWAP",
 		'IMSI' => 460015880656596,
@@ -212,11 +237,11 @@ function login()
 		echo "md5:{$md5}\n";
 		$dh_arr['K'] = array($hex, $md5);
 	}
-//print_r($result);
 	if(!$result) exit('登陆错误');
 //	$header[] = 'cookie: PHPSESSID='. $result['SESSIONID'];
 //    $header[] = 'cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867';
 	$plain_body['SID'] = $result['SESSIONID'];
+    return $result;
 }
 function rc4_crypt($key, $msg) {
     return rc4($key, $msg);
@@ -260,17 +285,19 @@ function post($post_data)
 {
 	global $header, $timestamp, $imei, $url, $plain_body;
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);   
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	$content = curl_exec($ch);
+//    print_r($content);
 	$info = curl_getinfo($ch);
-	echo "{$info['http_code']} {$info['size_download']}\n";
+//    print_r($info);
+//    echo curl_error($ch);exit;
+	echo "\nStatus {$info['http_code']}\t{$info['size_download']} Bytes\n";
 	curl_close($ch);
-//	file_put_contents("1.log", $post_data);
 	return $content;
 }
 

@@ -887,6 +887,7 @@ NOEFFECT
 					--enable-fpm \
 					--with-mcrypt=shared,/usr \
 					--with-icu-dir=/usr \
+					--enable-bcmath \
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
                 make && sudo make install

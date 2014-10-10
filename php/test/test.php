@@ -866,3 +866,114 @@ function image()
     imagepng($im);
     imagedestroy($im);
 }
+function tt()
+{
+    //$str = "\u6cd5\u5f8b\u95ee\u9898";
+    $str = "中文";
+    $utf8_str = utf8_encode($str);
+    $invert_str = utf8_decode($utf8_str);
+    echo "str = $str and utf8_str = $utf8_str and invert_str = $invert_str"."\n";
+
+}
+
+function whatyear()
+{
+    for($i=1970;$i<=2014;$i++){
+        $time = strtotime("$i:01:01 00:00:00");
+        $L = date('L',$time);
+        $whatyear = ($L==1)? '闰年' : '平年';
+        echo "the time is $time and the year $i is $whatyear\n";
+    }
+}
+
+whatyear();
+//strtoupper对中文会如何？
+
+
+n bar($x) {
+          if ($x > 0) {
+                            bar($x - 1);
+                                            }
+}
+
+function foo() {
+          for ($idx = 0; $idx < 2; $idx++ ) {
+                            bar($idx);
+                                              $x = strlen("abc");
+                                                                  }
+}
+
+// start profiling
+xhprof_enable();
+
+// run program
+foo();
+
+// stop profiler
+$xhprof_data = xhprof_disable();
+
+// display raw xhprof data for the profiler run
+print_r($xhprof_data);
+
+
+
+
+//  stream
+
+//echo file_get_contents('php://')."\n";
+//echo file_get_contents('file://')."\n";
+
+
+//
+
+//echo "\a\b\t\n";
+//$max=128
+
+/*;
+$max=1024;
+for($i=0;$i<$max;$i++){
+        echo chr($i)."\n";
+}
+*/
+
+
+//  exit能否打印
+exit('haha');
+
+
+//  static
+
+$a = "nice to meet you";
+function printt($a)
+{
+        //global $a;
+            static $a;
+                echo $a."\n";
+}
+printt('how do you do');
+
+
+
+//  error
+$result = array();
+for($i=0;$i<3;$i++){
+        $tmp = array(
+                    $i+1,$i+2
+                                );
+            $tmp[] = '恒定';
+                $result[] = $tmp;
+}
+print_r($result);
+
+
+#   last_group_name变量覆盖问题
+
+foreach($infos as $k=>$info){
+    $group_index = $wanted[$softid][0];
+    $group_name = $type2groupname[$type][$group_index];
+    $last_group_index = $group_index;
+    $last_group_name = $group_name;
+}
+
+$str = '{"data":"XawrFkW3uLpRNm9\/hUw+oPGNA1+GgDedtLp4\/k\/zfrWoBZDjSQPuFPR0qALRW5l4QnQnLewR82gJsYfs3dK9LEARPsFb7fMW","serviceId":"007","serviceVersion":"V5.3","serviceType":"0","device":"{\"deviceid\":\"528748979873541\",\"osver\":18,\"nettype\":\"UNIWAP\",\"netserver\":0,\"screen\":\"1080*1920\",\"imsi\":4.600158806566e+14,\"mac\":\"0c:37:dc:68:07:8b\",\"ip\":\"127.0.0.1\",\"abi\":null}"}';
+print_r(json_decode(json_decode($str,true)['device'],true));

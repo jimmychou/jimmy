@@ -321,3 +321,37 @@ make: *** [test] 错误 2
 
 sudo make PREFIX=/usr install
 即把redis-benchmark redis-check-aof redis-check-dump    redis-cli   redis-server这五个命令安装在/usr/bin下面
+
+sudo mkdir /var/log/redis
+sudo mkdir -p /etc/redis
+sudo cp ~/workspace/jimmy/os/centos/build/done/conf/redis/redis* /etc/redis/
+
+启动redis集群：
+sudo redis-server /etc/redis/redis.conf
+sudo redis-server /etc/redis/redis_6380.conf
+sudo redis-server /etc/redis/redis_6381.conf
+sudo redis-server /etc/redis/redis_6382.conf
+sudo redis-server /etc/redis/redis_6383.conf
+
+nutcracker
+用Chrome里的ProxySwitch里的斯里兰卡代理下载了version 0.3.0的release版本后
+configure
+make
+sudo make install
+
+sudo cp ~/workspace/jimmy/os/centos/build/done/conf/nutcracker/nutcracker.yml
+/etc/nutcracker.yml
+
+[jimmychou@localhost redis]$ nutcracker -c /etc/nutcracker.yml -t
+nutcracker: configuration file '/etc/nutcracker.yml' syntax is ok
+
+nutcracker -c /etc/nutcracker.yml -d
+启动服务时用sudo会报错找不到命令，可能跟root用户的环境变量有关系。
+
+redis-benchmark -h 127.0.0.1 -p 6380 -q -t
+set,get,incr,lpush,lpop,sadd,spop,lpush,lrange -c 100 -p 6379
+redis-benchmark -h 127.0.0.1 -p 6380 -q -t
+set,get,incr,lpush,lpop,sadd,spop,lpush,lrange -c 100 -p 22122
+
+使用代理：
+redis-cli -h 127.0.0.1 -p 22122
