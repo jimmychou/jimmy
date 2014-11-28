@@ -284,7 +284,7 @@ NOEFFECT
 	elif [[ $i == "httpd" ]]; then
 		# HTTPD编译
 		#HTTPDVERSION=2.4.6  # Some software is not compatible with the configure condition on CentOS 5.9
-		HTTPDVERSION=2.2.25
+		HTTPDVERSION=2.2.29
 		HTTPDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
@@ -503,6 +503,7 @@ NOEFFECT
 				sudo mkdir /etc/php.d
 			fi
 			if [[ $Version == "5.11" ]]; then
+				sudo yum install -y curl-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
                 sudo yum install curl-devel.$OS_SUFFIX
