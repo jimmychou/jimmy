@@ -298,7 +298,7 @@ NOEFFECT
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y apr-util-devel.$OS_SUFFIX
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
 				echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -349,7 +349,7 @@ NOEFFECT
 			echo The Official MySQL on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y ncurses-devel.$OS_SUFFIX
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -502,7 +502,7 @@ NOEFFECT
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
                 sudo yum install curl-devel.$OS_SUFFIX
