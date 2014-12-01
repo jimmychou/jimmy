@@ -20,7 +20,8 @@ OS_SUFFIX=`uname -m`
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
-	if [[ $Version == "5.9" ]]; then
+#	if [[ $Version == "5.9" ]]; then	#	应该是5而不是每个细小的版本	
+	if [[ $Version == "5.11" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
@@ -125,8 +126,8 @@ for i in $*; do
 					# --add-module=/build/buildd/nginx-1.2.6/debian/modules/nginx-dav-ext-module
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			if [[ $Version == "5.9" ]]; then
-				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+			if [[ $Version == "5.11" ]]; then
+				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
 				./configure --prefix=/etc/nginx \
@@ -196,7 +197,7 @@ NOEFFECT
 					--with-ipv6 \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 NOEFFECT
-				echo The Current Nginx 1.4.1 on CentOS 5.9 is configured as below:
+				echo The Current Nginx 1.4.1 on CentOS 5.9 or 5.11 is configured as below:
 				./configure --prefix=/usr/share/nginx \
 					--sbin-path=/usr/sbin/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
@@ -283,7 +284,7 @@ NOEFFECT
 	elif [[ $i == "httpd" ]]; then
 		# HTTPD编译
 		#HTTPDVERSION=2.4.6  # Some software is not compatible with the configure condition on CentOS 5.9
-		HTTPDVERSION=2.2.25
+		HTTPDVERSION=2.2.29
 		HTTPDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
@@ -297,7 +298,7 @@ NOEFFECT
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y apr-util-devel.$OS_SUFFIX
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
 				echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -348,7 +349,7 @@ NOEFFECT
 			echo The Official MySQL on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y ncurses-devel.$OS_SUFFIX
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -501,7 +502,8 @@ NOEFFECT
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
-			if [[ $Version == "5.9" ]]; then
+			if [[ $Version == "5.11" ]]; then
+				sudo yum install -y curl-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
                 sudo yum install curl-devel.$OS_SUFFIX
