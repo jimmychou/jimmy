@@ -32,6 +32,7 @@ $plain_key = array(
 	'G_LOGIN' => 1,
 	'PAD_LOGIN' => 1,
 	'LOGIN_NEW' => 1,
+	'SYNC_SESSION' => 1,
 	'G_LOGIN_NEW' => 1,
 	'PAD_LOGIN_NEW' => 1,
 	'REGISTER' => 1,
@@ -142,7 +143,9 @@ function request($data, $jsoned = true)
 	$request .= $plain_txt;
 	$request .= $post_data;
 	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
+//    print_r($plain_body);
 	$raw = post($request);
+//    print_r($request);
 	$return = $raw;
 	if (!isset($plain_key[$data['KEY']])) {
 		switch($vr) {
@@ -172,6 +175,83 @@ function request($data, $jsoned = true)
 	return $result;
 }
 
+function requestnew($data, $jsoned = true)
+{
+	global $deviceid, $imei, $timestamp, $plain_key, $vr, $version, $plain_body, $dh_arr;
+	if ($jsoned) {
+		$data = str_replace("'", '"', $data);
+		$post_data = $data;
+		$data = json_decode($data, true);
+	} else {
+		$post_data = json_encode($data);
+	}
+	$gzcompress = false;
+	if ($vr > 0) {
+		$gzcompress = true;
+	}
+	if ($gzcompress) {
+		$post_data = gzencode($post_data);
+	}
+	$plain_txt = json_encode($plain_body);
+	if (!isset($plain_key[$data['KEY']])) {
+		switch($vr) {
+			case 2:
+				$post_data = rc4_crypt($dh_arr['K'][1], $post_data);
+			break;
+			
+			default:
+				$post_data = go_decrypt_linear($post_data, $deviceid, $timestamp);
+		}
+	} else {
+		if ($vr ==0) {
+			$plain_txt = $post_data;
+			$post_data = '';
+		}
+	}
+	$plain_size = strlen($plain_txt);
+	$request = 'AnZhiM';
+	$request .= int2bin($version, 4);
+	$request .= int2bin($plain_size, 4);
+	$request .= $plain_txt;
+	$request .= $post_data;
+	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
+//    print_r($plain_body);
+    /*
+    echo "vr=$vr\n";
+    print_r($data);
+    print_r($plain_key);
+    print_r($post_data);
+    */
+	$raw = post($request);
+//    print_r($request);
+	$return = $raw;
+	if (!isset($plain_key[$data['KEY']])) {
+		switch($vr) {
+			case 2:
+				$return = rc4_crypt($dh_arr['K'][1], $raw);
+			break;
+			
+			default:
+				$return = go_decrypt_linear($raw, $imei, $timestamp);
+		}
+	}
+	if ($gzcompress) {
+		$return = gzdecode($return);
+	}
+//	echo $return, "\n"; //  暂时不打印源数据，XShell源于此
+	$result = json_decode($return, true);
+	echo "------------------------------------- response {$data['KEY']} -----------------------\n";
+    global $argv;
+    if(isset($argv[2])&&$argv[2]==1){   //  解决go_dump无输出的问题
+        if(!$result){
+            echo $raw, "\n";
+        }
+        else{
+            var_export(json_decode($return, true));
+        }
+    }
+	return $result;
+}
 function login()
 {
 	global $header, $imei, $deviceid, $timestamp, $channel, $version, $plain_body, $vr, $dh_arr, $login_key;
@@ -180,9 +260,9 @@ function login()
 		'PWD' => '654321hq',
 		'USER' => 'zhuxuefei',
 		'PWD' => '042311',
-		'USER' => 'jimmychou1',
+		'USER' => 'jimmychou2',
 		'PWD' => '123456',
-        'USER' => 'GOAPKGFUSER_@#!',
+//        'USER' => 'GOAPKGFUSER_@#!',
 		'VERSION_CODE' => $version,
 		'SUPPLIERS' => $channel,
 		'FIRMWARE' => 18,
@@ -190,7 +270,7 @@ function login()
 		'DEVICEID' => $deviceid,
 		'IMEI' => $imei,
 		'ABI' => 3,
-		'VR' => 5,
+		'VR' => $vr,
 		'PID' => 1,
 		"NET_TYPE" => "UNIWAP",
 		'IMSI' => 460015880656596,
@@ -291,6 +371,18 @@ function post($post_data)
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+//    $cookie = 'PHPSESSID=bpne9i5iu62s921eeqnnc2vo04';   //  @todo:  will read from /tmp/session
+//    $cookie = 'PHPSESSID:bpne9i5iu62s921eeqnnc2vo04';   //  @todo:  will read from /tmp/session
+//	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+    
+    /*
+    $post_header = array('PHPSESSID'=>'0gce3gjl0keolnn10rjj615ls6');
+    $post_header = array('Cookie'=>'PHPSESSID=3bphjudskg5fspiphg2poni0c6');
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
+    */
+//    print_r($post_data);
+//    exit;
 	$content = curl_exec($ch);
 //    print_r($content);
 	$info = curl_getinfo($ch);

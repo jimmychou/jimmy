@@ -59,10 +59,13 @@ request($query);
 
 //  //  全军出击
 $query = '{"LIST_INDEX_SIZE":10,"ID":1836554,"PATH":"1048576,1048578,2031616,2031618","VR":13,"KEY":"DOWNLOAD_RECOMMEND","LIST_INDEX_START":0,"PACKAGE_NAME":"changyuan.game.td.anzhi"}';
-request($query);
+//request($query);
 
 //  媚三国
 $query = '{"LIST_INDEX_SIZE":10,"ID":1838017,"PATH":"1048576,1048578,2031616,2031618","VR":13,"KEY":"DOWNLOAD_RECOMMEND","LIST_INDEX_START":0,"PACKAGE_NAME":"com.joypiegame.msg.anzhi"}';
+//request($query);
+
+$query = '{"LIST_INDEX_SIZE":10,"ID":1898693,"PATH":"1048576,1048578,2031616,2031618","VR":13,"KEY":"DOWNLOAD_RECOMMEND","LIST_INDEX_START":0,"PACKAGE_NAME":"com.ejiuwu.qpbuyu.anzhi"}';
 request($query);
 
 function list_compare($a,$b)

@@ -6,7 +6,10 @@ $login_key = array(
 );
 include 'common.php';
 login();
-//$query = '{"SIGN":"218151532,-1185945285","VR":3,"APK_MD5":"55b9b3c48de01f93c38d6a46383b3d5c","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","VERSION_CODE":5400,"REQ_ATC_TMS":1,"SYNC":2,"FIRMWARE":"345678","PATH":"","KEY":"MARKET_UPDATE","ALLOW_DELTA":1,"NATIVE_LOADED":1,"TYPE":"app"}';
+/*
+$query = '{"SIGN":"218151532,-1185945285","VR":3,"APK_MD5":"55b9b3c48de01f93c38d6a46383b3d5c","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","VERSION_CODE":5400,"REQ_ATC_TMS":1,"SYNC":2,"FIRMWARE":"345678","PATH":"","KEY":"MARKET_UPDATE","ALLOW_DELTA":1,"NATIVE_LOADED":1,"TYPE":"app"}';
+request($query);
+*/
 
 //  通用渠道所有版本测试
 /*
@@ -18,6 +21,12 @@ foreach($version_codes as $version_code){
 */
 
 //  推动力3渠道测试
+/*
 $version_code = 5300;
 $query = '{"SIGN":"218151532,-1185945285","VR":3,"APK_MD5":"55b9b3c48de01f93c38d6a46383b3d5c","SUPPLIERS":"f15231992b516c6292607d5d66af4d5d03a2c389","VERSION_CODE":'.$version_code.',"REQ_ATC_TMS":1,"SYNC":2,"FIRMWARE":"345678","PATH":"","KEY":"MARKET_UPDATE","ALLOW_DELTA":1,"NATIVE_LOADED":1,"TYPE":"app"}';
+request($query);
+*/
+
+//  5.4.1
+$query = '{"SIGN":"218151532,-1185945285","VR":3,"APK_MD5":"7909dc4aeaba5e5877695ff7f8a530a6","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","VERSION_CODE":5410,"REQ_ATC_TMS":1,"SYNC":2,"FIRMWARE":"345678","PATH":"","KEY":"MARKET_UPDATE","ALLOW_DELTA":1,"NATIVE_LOADED":1,"TYPE":"app"}';
 request($query);

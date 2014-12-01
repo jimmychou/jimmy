@@ -6,7 +6,9 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$start = 100;
+$start = 20;
 $size = 20;
 $query = "{'KEY':'HOME_SOARING','LIST_INDEX_START':'".$start."','LIST_INDEX_SIZE':'".$size."','VR':'13'}";
-request($query);
+$result = request($query);
+//print_r($result);
+//var_dump($result);

@@ -355,3 +355,39 @@ set,get,incr,lpush,lpop,sadd,spop,lpush,lrange -c 100 -p 22122
 
 使用代理：
 redis-cli -h 127.0.0.1 -p 22122
+
+配置phpredmin:
+
+http://gomarket.goapk.com/phpredmin/public/
+需要配一个location
+
+cd ~/workspace/goapk/trunk/newgomarket.goapk.com/
+git clone https://github.com/sasanrose/phpredmin
+
+cd ~/workspace/goapk/trunk/newgomarket.goapk.com/phpredmin/libraries/
+ln -s /tmp/logs ~/workspace/goapk/trunk/newgomarket.goapk.com/phpredmin/logs
+sudo mkdir -p /tmp/logs/cli && sudo chown -R nginx:nginx /tmp/logs/cli
+ln -s /tmp/logs ~/workspace/goapk/trunk/newgomarket.goapk.com//phpredmin/cli
+
+mkdir -p /tmp/logs/fpm-fcgi
+sudo chown -R nginx:nginx /tmp/logs/fpm-fcgi/
+
+只有上面这个不够，/tmp/logs还是jimmychou:jimmychou
+
+sudo chown -R nginx:nginx /tmp/logs
+
+配置config
+
+
+sudo php index.php cron/index
+    
+    crontab -e
+    * * * * * root cd
+    * /home/jimmychou/workspace/goapk/trunk/newgomarket.goapk.com/phpredmin/public
+    * && php index.php cron/index
+
+
+mysql启动
+sudo mkdir /var/run/mysqld/
+sudo chown -R mysql:root /var/run/mysqld/
+sudo mysqld_safe &

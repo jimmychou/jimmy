@@ -6,5 +6,5 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = "{'KEY':'EBOOK_TOP_APP_LIST','LIST_INDEX_START':'0','LIST_INDEX_SIZE':'10','TYPE':'1','PATH':'0','VR':'10'}";
+$query = "{'KEY':'EBOOK_TOP_APP_LIST','LIST_INDEX_START':'0','LIST_INDEX_SIZE':'2','TYPE':'1','PATH':'0','VR':'10'}";
 request($query);
