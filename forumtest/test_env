@@ -1,0 +1,150 @@
+{"CODE":200,"KEY":"SYNC_SESSION","SESSIONID":"4592207cb405e3ea8046a1286928fc57","ENCODING_SWITCH":1,"CLIENT_IP":"192.168.0.17","CFG_TMS":1417744034,"ACCESS_API_IP":"","FAV_CNT":-1,"SN":"MjI3MjYxNDd8MTQxNzc0Mzc1OHwwMDd8TU9WRV9URVJNSU5BTHw1NTE3OTg=","TMS":1417744034,"UCENTER_SID":"MjI3MjYxNDd8MTQxNzc0Mzc1OHwwMDd8TU9WRV9URVJNSU5BTHw1NTE3OTg=","UID":22726147,"SEND":1,"MSG":"","MIDAS":"AF\/IkBwlB8P4+EkJSm3ebY4YOz+juDb3njjmLCUVWlQ8","WQ":"fdd289934f5c698774b59988192b5d98","SIGN_STATE":0,"LOGIN_CREDITS_MSG":""}
+------------------------------------- response SYNC_SESSION -----------------------
+array (
+  'CODE' => 200,
+  'KEY' => 'SYNC_SESSION',
+  'SESSIONID' => '4592207cb405e3ea8046a1286928fc57',
+  'ENCODING_SWITCH' => 1,
+  'CLIENT_IP' => '192.168.0.17',
+  'CFG_TMS' => 1417744034,
+  'ACCESS_API_IP' => '',
+  'FAV_CNT' => -1,
+  'SN' => 'MjI3MjYxNDd8MTQxNzc0Mzc1OHwwMDd8TU9WRV9URVJNSU5BTHw1NTE3OTg=',
+  'TMS' => 1417744034,
+  'UCENTER_SID' => 'MjI3MjYxNDd8MTQxNzc0Mzc1OHwwMDd8TU9WRV9URVJNSU5BTHw1NTE3OTg=',
+  'UID' => 22726147,
+  'SEND' => 1,
+  'MSG' => '',
+  'MIDAS' => 'AF/IkBwlB8P4+EkJSm3ebY4YOz+juDb3njjmLCUVWlQ8',
+  'WQ' => 'fdd289934f5c698774b59988192b5d98',
+  'SIGN_STATE' => 0,
+  'LOGIN_CREDITS_MSG' => '',
+){"CODE":200,"KEY":"CHAT_LIST","DATA":[["863966","jimmychou11","22726146","","2014-12-01 17:13:07","just so so",2],["863970","jimmychou11","22726146","","2014-12-03 18:43:35","fad[url=what fuck]uu[\/url]which code",2],["863971","jimmychou11","22726146","","2014-12-03 18:44:04","What",2],["863972","jimmychou11","22726146","","2014-12-03 18:44:35","\u767e\u5ea6\u4e00\u4e0b\uff0c\u4f60\u5c31\u77e5\u9053",2],["863973","jimmychou11","22726146","","2014-12-03 18:45:20","baidu,you just know",2],["863974","jimmychou11","22726146","","2014-12-03 18:53:58","",2],["863975","jimmychou11","22726146","","2014-12-03 18:57:42",null,2],["863976","jimmychou11","22726146","","2014-12-03 18:59:06",null,2],["863977","jimmychou11","22726146","","2014-12-04 15:00:07",null,2],["863978","jimmychou11","22726146","","2014-12-04 15:12:02",null,2],["863979","jimmychou11","22726146","","2014-12-04 15:13:47",null,2],["863980","jimmychou11","22726146","","2014-12-04 18:13:49","\u6700\u540e\u6d4b\u4e00\u6b21\u4e86",2]]}
+------------------------------------- response CHAT_LIST -----------------------
+array (
+  'CODE' => 200,
+  'KEY' => 'CHAT_LIST',
+  'DATA' => 
+  array (
+    0 => 
+    array (
+      0 => '863966',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-01 17:13:07',
+      5 => 'just so so',
+      6 => 2,
+    ),
+    1 => 
+    array (
+      0 => '863970',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:43:35',
+      5 => 'fad[url=what fuck]uu[/url]which code',
+      6 => 2,
+    ),
+    2 => 
+    array (
+      0 => '863971',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:44:04',
+      5 => 'What',
+      6 => 2,
+    ),
+    3 => 
+    array (
+      0 => '863972',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:44:35',
+      5 => '百度一下，你就知道',
+      6 => 2,
+    ),
+    4 => 
+    array (
+      0 => '863973',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:45:20',
+      5 => 'baidu,you just know',
+      6 => 2,
+    ),
+    5 => 
+    array (
+      0 => '863974',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:53:58',
+      5 => '',
+      6 => 2,
+    ),
+    6 => 
+    array (
+      0 => '863975',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:57:42',
+      5 => NULL,
+      6 => 2,
+    ),
+    7 => 
+    array (
+      0 => '863976',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-03 18:59:06',
+      5 => NULL,
+      6 => 2,
+    ),
+    8 => 
+    array (
+      0 => '863977',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-04 15:00:07',
+      5 => NULL,
+      6 => 2,
+    ),
+    9 => 
+    array (
+      0 => '863978',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-04 15:12:02',
+      5 => NULL,
+      6 => 2,
+    ),
+    10 => 
+    array (
+      0 => '863979',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-04 15:13:47',
+      5 => NULL,
+      6 => 2,
+    ),
+    11 => 
+    array (
+      0 => '863980',
+      1 => 'jimmychou11',
+      2 => '22726146',
+      3 => '',
+      4 => '2014-12-04 18:13:49',
+      5 => '最后测一次了',
+      6 => 2,
+    ),
+  ),
+)
