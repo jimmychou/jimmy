@@ -154,7 +154,7 @@ function request($data, $jsoned = true,$return_header = false)
 		}
 	}
     */
-//    print_r($return);
+    print_r($return);
 	if ($gzcompress) {
 		$return = gzdecode($return);    //  @todo:  tempory commit
 	}
