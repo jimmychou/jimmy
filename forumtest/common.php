@@ -154,7 +154,7 @@ function request($data, $jsoned = true,$return_header = false)
 		}
 	}
     */
-    print_r($return);
+//    print_r($return);
 	if ($gzcompress) {
 		$return = gzdecode($return);    //  @todo:  tempory commit
 	}
@@ -187,10 +187,6 @@ function login()
 {
 	global $header, $imei, $deviceid, $timestamp, $channel, $version, $plain_body, $vr, $dh_arr, $login_key;
 	$merge_data = array(
-		'USER' => 'honking',
-		'PWD' => '654321hq',
-		'USER' => 'zhuxuefei',
-		'PWD' => '042311',
 		'USER' => 'jimmychou12',
 //		'USER' => '我是一棵菠菜002',
 		'PWD' => '123456',
