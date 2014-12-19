@@ -886,37 +886,38 @@ function whatyear()
     }
 }
 
-whatyear();
+//whatyear();
 //strtoupper对中文会如何？
 
 
-n bar($x) {
-          if ($x > 0) {
-                            bar($x - 1);
-                                            }
+function bar($x) {
+    if ($x > 0) {
+        bar($x - 1);
+    }
 }
 
 function foo() {
-          for ($idx = 0; $idx < 2; $idx++ ) {
-                            bar($idx);
-                                              $x = strlen("abc");
-                                                                  }
+    for ($idx = 0; $idx < 2; $idx++ ) {
+        bar($idx);
+        $x = strlen("abc");
+    }
 }
 
 // start profiling
-xhprof_enable();
+if(function_exists('xhprof_enable')){
+    xhprof_enable();
+}
 
 // run program
 foo();
 
 // stop profiler
-$xhprof_data = xhprof_disable();
+if(function_exists('xhprof_disable')){
+    $xhprof_data = xhprof_disable();
+    print_r($xhprof_data);
+}
 
 // display raw xhprof data for the profiler run
-print_r($xhprof_data);
-
-
-
 
 //  stream
 
@@ -938,42 +939,350 @@ for($i=0;$i<$max;$i++){
 
 
 //  exit能否打印
-exit('haha');
+//exit('haha');
 
 
 //  static
 
-$a = "nice to meet you";
+$a = "nice to meet you\n";
 function printt($a)
 {
         //global $a;
             static $a;
                 echo $a."\n";
 }
-printt('how do you do');
+printt("how do you do\n");
 
 
 
 //  error
 $result = array();
 for($i=0;$i<3;$i++){
-        $tmp = array(
-                    $i+1,$i+2
-                                );
-            $tmp[] = '恒定';
-                $result[] = $tmp;
+    $tmp = array($i+1,$i+2);
+    $tmp[] = '恒定';
+    $result[] = $tmp;
 }
 print_r($result);
 
 
 #   last_group_name变量覆盖问题
-
-foreach($infos as $k=>$info){
-    $group_index = $wanted[$softid][0];
-    $group_name = $type2groupname[$type][$group_index];
-    $last_group_index = $group_index;
-    $last_group_name = $group_name;
+$infos = array();
+if(!empty($infos)){
+    foreach($infos as $k=>$info){
+        $group_index = $wanted[$softid][0];
+        $group_name = $type2groupname[$type][$group_index];
+        $last_group_index = $group_index;
+        $last_group_name = $group_name;
+    }
 }
-
 $str = '{"data":"XawrFkW3uLpRNm9\/hUw+oPGNA1+GgDedtLp4\/k\/zfrWoBZDjSQPuFPR0qALRW5l4QnQnLewR82gJsYfs3dK9LEARPsFb7fMW","serviceId":"007","serviceVersion":"V5.3","serviceType":"0","device":"{\"deviceid\":\"528748979873541\",\"osver\":18,\"nettype\":\"UNIWAP\",\"netserver\":0,\"screen\":\"1080*1920\",\"imsi\":4.600158806566e+14,\"mac\":\"0c:37:dc:68:07:8b\",\"ip\":\"127.0.0.1\",\"abi\":null}"}';
 print_r(json_decode(json_decode($str,true)['device'],true));
+
+function system_function()
+{
+    echo php_uname().PHP_EOL;
+    echo PHP_OS.PHP_EOL;
+}
+
+function protocal()
+{
+    /*
+    // Set the limit to 5 MB.
+    $fiveMBs = 5 * 1024 * 1024;
+    $fp = fopen("php://temp/maxmemory:$fiveMBs", 'r+');
+
+    fputs($fp, "hello\n");
+
+    // Read what we have written.
+    rewind($fp);
+    echo stream_get_contents($fp);
+     */
+
+    $url = 'http://www.baidu.com/index.php';
+    $fp = fopen($url,'r');
+    $meta_data = stream_get_meta_data($fp);
+    foreach ($meta_data['wrapper_data'] as $response){
+        /* 我们是否被重定向了？ */
+        if (strtolower(substr($response, 0, 10)) == 'location: '){
+            /* 更新我们被重定向后的 $url */
+            $url = substr($response, 10);
+        }
+    }
+    echo "url=$url\n";
+}
+
+function time_function()
+{
+    print_r(gettimeofday());
+    echo 'the time is '.gettimeofday(true)."\n";
+    echo "日出时间是".date_sunrise(time(), SUNFUNCS_RET_STRING, 38.4, -9, 90, 1)."\n";
+    echo "日落时间是".date_sunset(time(), SUNFUNCS_RET_STRING, 38.4, -9, 90, 1)."\n";
+}
+
+function preg_function()
+{
+    $str = '<a href="forum.php?mod=forumdisplay&fid=386"><img src="http://attach.anzhi.com/common/39/common_386_icon.png" align="left" alt="" /></a>';
+    $tmp1 = explode('src=',$str);
+    print_r($tmp1);
+    $tmp2 = explode('"',$tmp1[1]);
+    $ret = $tmp2[1];
+    echo "the ret is $ret\n";
+}
+
+function float_function()
+{
+    $a = 1.23456789;
+    $b = 1.23456780;
+    $epsilon = 0.00001;
+
+    if(abs($a-$b) < $epsilon) {
+        echo "true\n";
+    }
+    echo gettype(19.6*100)."\n";
+    if((19.6*100)===(double)1960){
+        echo "equal\n";
+    }
+    else{
+        echo "not equal\n";
+    }
+}
+
+function bcExp($xArg, $NumDecimals)
+{
+    $x = Trim($xArg);
+    $PrevSum  = $x - 1;
+    $CurrTerm = 1;
+    $CurrSum  = bcAdd("1", $x, $NumDecimals);
+    $n        = 1;
+    echo "x=$x NumDecimals=$NumDecimals CurrTerm=$CurrTerm CurrSum=$CurrSum \n";
+    While (bcComp($CurrSum, $PrevSum, $NumDecimals))
+    {
+        $PrevSum  = $CurrSum;
+        $CurrTerm = bcDiv(bcMul($CurrTerm, $x, $NumDecimals), $n + 1, $NumDecimals);
+        $CurrSum  = bcAdd($CurrSum, $CurrTerm, $NumDecimals);
+
+        $n++;
+    }
+}
+echo $y = bcExp("1.7", 36);
+echo $y;
+
+
+function filter_function()
+{
+    $email_a = 'joe@example.com';
+    $email_b = 'bogus';
+
+    if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+        echo "This ($email_a) email address is considered valid.";
+    }
+    if (filter_var($email_b, FILTER_VALIDATE_EMAIL)) {
+        echo "This ($email_b) email address is considered valid.";
+    }
+}
+
+
+function ob_function()
+{
+    //your_benchmark_start_function();
+    ob_start ();
+    for ($i = 0; $i < 5000; $i++)
+        echo str_repeat ("your string blablabla bla bla", (rand() % 4) + 1)."<br>\n";
+    //echo your_benchmark_end_function(); 
+    ob_end_flush (); 
+}
+
+function mbstring_function()
+{
+    $string  = '漢字はユニコード';
+    $needle  = 'は';
+    $replace = 'Foo';
+
+    echo str_replace($needle, $replace, $string);
+    // outputs: 漢字Fooユニコード
+}
+
+
+function counter_function()
+{
+    function print_counter_info($counter)
+    {
+        if (is_resource($counter)) {
+            printf("计数器的名称为 '%s'，且%s进行持久化。其当前值为 %d.\n",
+                    counter_get_meta($counter, COUNTER_META_NAME),
+                    counter_get_meta($counter, COUNTER_META_IS_PERSISTENT) ? '' : '不',
+                    counter_get_value($counter));
+        } else {
+            print "计数器无效!\n";
+        }
+    }
+
+    if (($counter_one = counter_get_named("one")) === NULL) {
+        $counter_one = counter_create("one", 0, COUNTER_FLAG_PERSIST);
+    }
+    counter_bump_value($counter_one, 2);
+    $counter_two = counter_create("two", 5);
+    $counter_three = counter_get_named("three");
+    $counter_four = counter_create("four", 2, COUNTER_FLAG_PERSIST | COUNTER_FLAG_SAVE | COUNTER_FLAG_NO_OVERWRITE);
+    counter_bump_value($counter_four, 1);
+
+    print_counter_info($counter_one);
+    print_counter_info($counter_two);
+    print_counter_info($counter_three);
+    print_counter_info($counter_four);
+}
+
+function core_dump_function()
+{
+    function recurse($num){
+        recurse(++$num);
+    }
+    recurse(0);
+
+}
+
+function buffer_function()
+{
+    ob_start(); 
+    echo "1:blah\n"; 
+    ob_start(); 
+    echo "2:blah"; 
+    // ob_get_clean() returns the contents of the last buffer opened.  The first "blah" and the output of var_dump are flushed from the top buffer on exit 
+    var_dump(ob_get_clean()); 
+    exit; 
+}
+
+function tttt()
+{
+    //array_merge和+对数组中元素排序的影响
+
+    $present_list = array(11=>'p1',12=>'p2',13=>'p3');
+    //$past_list = array(21=>'a1',22=>'a2',23=>'a3');
+    $past_list = array(21=>'p1',22=>'p2',23=>'p3');
+    $first_release_list = array_merge($present_list,$past_list);
+    print_r($first_release_list);
+    $first_release_list = $present_list + $past_list;
+    print_r($first_release_list);
+    exit;
+    $new_data = array();
+    $data = array(
+            0=>array(00,01,02,03)
+            ,1=>array(10,11,12,13)
+            ,2=>array(20,21,22,23)
+            ,3=>array(30,31,32,33)
+            );
+    //$new_data = array_splice($data,1,4);
+    //$new_data = array_fill(
+    print_r($new_data);
+    exit;
+    print_r(array_slice($data,0,10));
+
+    exit;
+    $vr = 6;
+    $flg_map = array(
+            'uninstalled_download' => array(
+                1 => 1,
+                2 => 2,
+                ),
+            'installed_select' => array(
+                1 => 8,
+                2 => 16,
+                3 => 32,
+                4 => 64,
+                ),
+            'uninstalled_silent' => array(
+                1 => 4
+                ),
+            'lower_version_select' => array(
+                1 => 128,
+                2 => 256,
+                3 => 512,
+                ),
+            'lower_version_silent' => array(
+                1 => 1024
+                ),
+            );
+    $opt_flg = 0;
+    //print_r($flg_map);
+    if($vr>=5){
+        $addtion_map = array(
+                'installed_select'=>array(5=>2048),
+                'lower_version_select'=>array(4=>4096),
+                );
+        $flg_map =  array_merge_recursive($flg_map,$addtion_map);
+
+        //    $flg_map = array_merge($flg_map,$addtion_map);
+
+        /*
+           foreach($addtion_map as $col=>$val){
+           $flg_map_col = $flg_map[$col];
+           $flg_map_col = array_merge($flg_map_col,$val);
+           $flg_map[$col] = $flg_map_col;  //  如此数字索引也不正确
+
+        //以下看似相同，其实不然
+        //$flg_map[$col] = array($flg_map[$col],$val);
+        }
+         */
+
+
+        //    $flg_map['installed_select'][5] = 2048;
+        //    $flg_map['lower_version_select'][4] = 4096;
+    }
+    //print_r($flg_map);
+
+
+    $replace_map = array(
+            8=>array(
+                'installed_select'=>array(5=>3),
+                'lower_version_select'=>array(4=>2),
+                ),
+            5=>array(
+                'installed_select'=>array(5=>3),
+                'lower_version_select'=>array(4=>2),
+                ),
+            7=>array(
+                'installed_select'=>array(5=>3),
+                'lower_version_select'=>array(4=>2),
+                ),
+            1=>array(
+                'installed_select'=>array(5=>3),
+                'lower_version_select'=>array(4=>2),
+                ),
+            6=>array(
+                'installed_select'=>array(5=>3),
+                'lower_version_select'=>array(4=>2),
+                ),
+            );
+    foreach($replace_map as $index=>$value){
+        echo "the index is $index\n";
+    }
+    ksort($replace_map);
+    echo "--------------------------------------------------------------------------------\n";
+    foreach($replace_map as $index=>$value){
+        echo "the index is $index\n";
+    }
+    krsort($replace_map);
+    echo "--------------------------------------------------------------------------------\n";
+    foreach($replace_map as $index=>$value){
+        echo "the index is $index\n";
+    }
+
+}
+
+function inverse($x) {
+    if (!$x) {
+        throw new Exception('Division by zero.');
+    }
+    else return 1/$x;
+}
+
+try {
+    echo inverse(5) . "\n";
+    echo inverse(0) . "\n";
+} 
+catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
+
+// Continue execution
+echo 'Hello World';

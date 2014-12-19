@@ -391,3 +391,35 @@ mysql启动
 sudo mkdir /var/run/mysqld/
 sudo chown -R mysql:root /var/run/mysqld/
 sudo mysqld_safe &
+
+
+两个网卡：
+dmesg | grep -i eth
+
+其实ifconfig -a就能看到MAC地址，然后在
+/etc/sysconfig/network-scripts/
+下建一个ifcfg-eth1，当然eth0改为eth1，Mac地址也要改。
+
+
+/etc/udev/rules.d/70-persistent-net.rules
+
+但两种方式似乎不能同时存在！！
+
+bridge和NAT不能共存，貌似也不能Bridge和Hostonly共存，这只是公司网络的问题？
+但hostonly和NAT可以共存。
+
+
+
+以下不要尝试：
+
+[root@localhost ~]# umount /dev/VolGroup/lv_swap
+umount: /dev/VolGroup/lv_swap: not mounted
+[root@localhost ~]# lvremove /dev/VolGroup/lv_swap
+Logical volume VolGroup/lv_swap in use.
+
+[root@localhost ~]# swapoff /dev/VolGroup/lv_swap
+[root@localhost ~]# lvremove /dev/VolGroup/lv_swap
+Do you really want to remove active logical volume lv_swap? [y/n]: y
+Logical volume "lv_swap" successfully removed
+
+如此则无法启动机器了，而且CentOS删不掉！必须注销或重启Windows
