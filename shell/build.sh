@@ -3,7 +3,7 @@ if [ $# -le 0 ]; then
 	echo You need specify one parameter at least!
 	exit
 fi
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
+OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`  #   此语句仅仅对Debian系的Ubuntu有效
 if [[ $OS == "Ubuntu" ]]; then
 	sudo apt-get install -y lsb g++
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
@@ -14,14 +14,16 @@ else
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
+	SubVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SubVersion is $SubVersion
 fi
 OS_SUFFIX=`uname -m`
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
 #	if [[ $Version == "5.9" ]]; then	#	应该是5而不是每个细小的版本	
-	if [[ $Version == "5.11" ]]; then
+	if [[ $PrimaryVersion == "5" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
@@ -126,7 +128,7 @@ for i in $*; do
 					# --add-module=/build/buildd/nginx-1.2.6/debian/modules/nginx-dav-ext-module
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			if [[ $Version == "5.11" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
@@ -237,7 +239,7 @@ NOEFFECT
 					--with-http_stub_status_module \
 					--with-mail_ssl_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
-			elif [[ $Version == "6.5" ]]; then
+			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
 				echo The Current Nginx 1.4.1 on CentOS 6.5 is configured as below:
 				./configure --prefix=/usr/share/nginx \
@@ -298,9 +300,31 @@ NOEFFECT
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y apr-util-devel.$OS_SUFFIX
-			if [[ $Version == "5.11" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
-				echo The Current Httpd 2.2.25 on CentOS 5.9 is configured as below:
+				echo The Current Httpd 2.2.29 on CentOS 5.9 is configured as below:
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i386-redhat-linux-gnu \
+					--prefix=/etc/httpd \
+					--exec-prefix=/usr \
+					--mandir=/usr/share/man \
+					--datadir=/var/www \
+					--datarootdir=/var/www/html \
+					--libdir=/usr/lib \
+					--includedir=/usr/include/httpd \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--with-suexec-bin=/usr/sbin/suexec \
+					--enable-so \
+					--enable-info \
+					--libexecdir=/usr/lib/httpd/modules \
+					--sysconfdir=/etc/httpd/conf \
+					--enable-rewrite=shared \
+					--enable-speling=shared && make && sudo make install
+			elif [[ $PrimaryVersion == "6" ]]; then
+				echo The Official Httpd on CentOS 6 is configured as below:
+				echo The Current Httpd 2.2.29 on CentOS 6 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -349,7 +373,7 @@ NOEFFECT
 			echo The Official MySQL on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y ncurses-devel.$OS_SUFFIX
-			if [[ $Version == "5.11" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -436,7 +460,7 @@ NOEFFECT
 					build_alias=i386-redhat-linux-gnu \
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu && make && sudo make install
-			elif [[ $Version == "6.5" ]]; then
+			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
@@ -502,7 +526,7 @@ NOEFFECT
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
-			if [[ $Version == "5.11" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum install -y curl-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
@@ -683,7 +707,7 @@ NOEFFECT
 					--with-mcrypt=shared,/usr \
 					--with-apxs2=/usr/sbin/apxs \
 					--enable-fpm && make && sudo make install
-			elif [[ $Version == "6.4" ]]; then
+			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official PHP on CentOS 6.4 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
@@ -790,7 +814,7 @@ NOEFFECT
 					--with-icu-dir=/usr \
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
-			elif [[ $Version == "6.5" ]]; then
+			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
 		        #PHPVERSION=5.5.14
                 sudo yum install libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX
@@ -915,9 +939,9 @@ NOEFFECT
 			fi
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install libevent-devel.$OS_SUFFIX
-			if [[ $Version == "6.4" ]]; then
+			if [[ $PrimaryVersion == "6" ]]; then
 				echo The Official Memcached on CentOS 6.4 is configured as below:
-			elif [[ $Version == "5.9" ]]; then
+			elif [[ $PrimaryVersion == "5" ]]; then
 				echo The Current Memcached on CentOS 5.9 is configured as below:
 #				Why these cannot use?
 #				./configure --build=i386-redhat-linux-gnu \
@@ -929,7 +953,7 @@ NOEFFECT
 					--sbindir=/usr/sbin \
 					--mandir=/usr/share/man \
 					--includedir=/usr/include && make && sudo make install
-			elif [[ $Version == "6.5" ]]; then
+			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Current Memcached on CentOS 5.9 is configured as below:
 				./configure --prefix=/usr \
 					--exec-prefix=/usr \
