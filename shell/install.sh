@@ -6,19 +6,24 @@ if [[ $OS == "Ubuntu" ]]; then
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	#len=`expr length $Codename`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
+	SecondaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $2}'`
+	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
 else
 	yum install redhat-lsb
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
+	PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
+	SecondaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion
 fi
 OS_SUFFIX=`uname -m` # uanme -p  uname -i
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
-	if [[ $Version == "5.9" ]]; then
+	if [[ $PrimaryVersion == "5" ]]; then
 		OS_SUFFIX="i386"
 	fi
 fi
@@ -128,7 +133,7 @@ else
 		# qterm.$OS_SUFFIX : BBS client for X Window System written in Qt
 		# synaptic.$OS_SUFFIX : Graphical frontend for APT package manager
 	elif [[ $OS == "CentOS" ]]; then
-		if [[ $Version == "5.9" ]]; then
+		if [[ $PrimaryVersion == "5" ]]; then
 			yum install filezilla.$OS_SUFFIX synaptic.$OS_SUFFIX synaptics.$OS_SUFFIX
 			# filezilla.$OS_SUFFIX : FTP, FTPS and SFTP client
 			# synaptic.$OS_SUFFIX : Graphical package management program using apt
@@ -388,7 +393,7 @@ else
 		# php-ZendFramework.noarch : Leading open-source PHP framework
 		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
-		if [[ $Version == "5.9" ]]; then
+		if [[ $PrimaryVersion == "5" ]]; then
 			yum install phpmyadmin.noarch yum-fastestmirror.noarch
 			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
@@ -465,7 +470,7 @@ else
 		yum install flash-plugin.$OS_SUFFIX_SPECIAL
 		# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
 	elif [[ $OS == "CentOS" ]]; then
-		if [[ $Version == "5.9" ]]; then
+		if [[ $PrimaryVersion == "5" ]]; then
 			yum install flash-plugin.$OS_SUFFIX_SPECIAL
 			# flash-plugin.$OS_SUFFIX_SPECIAL : Adobe Flash Player 11.2
 		else
@@ -650,7 +655,7 @@ else
 			yum groupinstall "Development Tools"
 		fi
 	elif [[ $OS == "CentOS" ]]; then
-		if [[ $Version == "5.9" ]]; then
+		if [[ $PrimaryVersion == "5" ]]; then
 			yum groupinstall "GNOME Desktop Environment" "KDE (K Desktop Environment)" "XFCE-4.4"
 		else
 			yum groupinstall "Desktop" "General Purpose Desktop" "KDE Desktop"

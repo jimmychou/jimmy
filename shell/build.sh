@@ -8,15 +8,22 @@ if [[ $OS == "Ubuntu" ]]; then
 	sudo apt-get install -y lsb g++
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
+	SecondaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $2}'`
+	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
 else
 	sudo yum install -y redhat-lsb gcc-c++
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
-	PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
-	SubVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SubVersion is $SubVersion
+	if [[ $OS == "CentOS" ]]; then
+		PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
+		SecondaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
+		echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion
+	else
+		echo The current Operating System is $OS and Codename is $Codename and Version is $Version
+	fi
 fi
 OS_SUFFIX=`uname -m`
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
