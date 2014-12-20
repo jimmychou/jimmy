@@ -3,25 +3,7 @@ if [ $# -le 0 ]; then
 	echo You need specify one parameter at least!
 	exit
 fi
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
-if [[ $OS == "Ubuntu" ]]; then
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
-else
-	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
-fi
-OS_SUFFIX=`uname -m`
-OS_SUFFIX_SPECIAL=$OS_SUFFIX
-if [[ $OS_SUFFIX == "i686" ]]; then
-	OS_SUFFIX_SPECIAL=i386
-	if [[ $Version == "5.9" ]]; then
-		OS_SUFFIX="i386"
-	fi
-fi
+source ./release.sh
 for i in $*; do 
 	if [[ $i == "nginx" ]]; then
 		if [ -f "/etc/init.d/nginx" ]; then
@@ -44,7 +26,7 @@ for i in $*; do
 				fi
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			if [[ $Version == "5.9" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				if [ -f "/etc/init.d/httpd" ]; then
 					sudo /etc/init.d/httpd restart
 					echo Restart Progress Httpd Finish!
@@ -69,7 +51,7 @@ for i in $*; do
 				fi
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			if [[ $Version == "5.9" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				if [ -f "/etc/init.d/mysqld" ]; then
 					sudo /etc/init.d/mysqld restart
 					echo Restart Progress Mysqld Finish!
@@ -98,7 +80,7 @@ for i in $*; do
 				fi
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			if [[ $Version == "5.9" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				if [ -f "/etc/init.d/php-fpm" ]; then
 					sudo /etc/init.d/php-fpm restart
 					echo Restart Progress FPM Finish!

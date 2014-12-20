@@ -1,33 +1,5 @@
 #!/bin/bash
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
-if [[ $OS == "Ubuntu" ]]; then
-	apt-get install lsb
-	#Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}'` #跟Version同，如此还会有空格，必须按如下执行
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	#len=`expr length $Codename`
-	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
-	SecondaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $2}'`
-	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
-else
-	yum install redhat-lsb
-	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'` # 
-	PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
-	SecondaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion
-fi
-OS_SUFFIX=`uname -m` # uanme -p  uname -i
-OS_SUFFIX_SPECIAL=$OS_SUFFIX
-if [[ $OS_SUFFIX == "i686" ]]; then
-	OS_SUFFIX_SPECIAL=i386
-	if [[ $PrimaryVersion == "5" ]]; then
-		OS_SUFFIX="i386"
-	fi
-fi
-
+source ./release.sh
 # 一.可以用 apt-get install 命令批量安装的软件
 
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
