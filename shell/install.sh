@@ -5,14 +5,16 @@ source ./release.sh
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
-		apt-get install compiz-plugins gsynaptics openoffice.org virtualbox-ose
+		apt-get install chmsee compiz-plugins gsynaptics openoffice.org virtualbox-ose
+		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# gsynaptics - configuration tool for Synaptics touchpad driver of X server
 		# openoffice.org - office productivity suite
 		# virtualbox-ose - x86 virtualization solution - base binaries
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install arandr compiz-plugins openoffice.org software-center touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
+		apt-get install arandr chmsee compiz-plugins openoffice.org software-center touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# openoffice.org - office productivity suite
 		##software-center - Utility for browsing, installing, and removing software
@@ -22,8 +24,9 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-client-tools - Ubuntu One client tools
 		# virtualbox-ose - x86 virtualization solution - base binaries
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install arandr compiz-plugins-extra kde-config-touchpad libreoffice software-center ubuntuone-installer virtualbox
+		apt-get install arandr chmsee compiz-plugins-extra kde-config-touchpad libreoffice software-center ubuntuone-installer virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+		# chmsee - GTK+ 环境下的 chm 阅读器
 		##compiz-plugins-extra - Collection of extra plugins from OpenCompositing for Compiz
 		##?kde-config-touchpad - touchpad configuration tool (synaptiks) //其他能对应上？
 		# libreoffice - office productivity suite
@@ -31,8 +34,9 @@ if [[ $OS == "Ubuntu" ]]; then
 		##ubuntuone-installer - Ubuntu One Installer
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client ubuntuone-control-panel-qt virtualbox
+		apt-get install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client ubuntuone-control-panel-qt virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz - OpenGL 窗口和合成管理器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# compiz-plugins-extra - transitional dummy package.
@@ -45,8 +49,9 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
+		apt-get install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
+		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz - OpenGL 窗口和合成管理器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# compiz-plugins-extra - transitional dummy package.
@@ -58,10 +63,23 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-client-data - Data files for Ubuntu One
 		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
+	elif [[ $Codename == "trusty" ]]; then
+		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-touchpad libreoffice software-center ubuntuone-client-data virtualbox xchm
+		# arandr - XRandR 的一个简单的可视化前端
+		# compiz - OpenGL 窗口和合成管理器
+		# compiz-plugins - OpenGL window and compositing manager - plugins
+		# compiz-plugins-extra - transitional dummy package.
+		# compiz-plugins-main - transitional dummy package.
+		# compiz-plugins-main-default - transitional dummy package.
+		# kde-touchpad - touchpad configuration tool for KDE
+		# libreoffice - office productivity suite (metapackage)
+		##software-center - Utility for browsing, installing, and removing software
+		# ubuntuone-client-data - Data files for Ubuntu One
+		##virtualbox - x86虚拟化解决方案 - 基本二进制程序
+		# xchm - X 下的 CHM 文件查看器
 	fi
-	apt-get install camorama chmsee compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox synaptic thunderbird update-manager
+	apt-get install camorama compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox synaptic thunderbird update-manager
 	# camorama - gnome utility to view and save images from a webcam（用于查看和保存来自摄像头的图像的 gnome 应用程序）
-	# chmsee - GTK+ 环境下的 chm 阅读器
 	# compizconfig-settings-manager - Compiz configuration settings manager
 	# cssed - graphical CSS editor
 	# emma - 可扩展的 MySQL 管理助手
