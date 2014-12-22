@@ -3,30 +3,7 @@ if [ $# -le 0 ]; then
 	echo You need specify one parameter at least!
 	exit
 fi
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`  #   此语句仅仅对Debian系的Ubuntu有效
-if [[ $OS == "Ubuntu" ]]; then
-	sudo apt-get install -y lsb g++
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
-else
-	sudo yum install -y redhat-lsb gcc-c++
-	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
-	PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
-	SubVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SubVersion is $SubVersion
-fi
-OS_SUFFIX=`uname -m`
-OS_SUFFIX_SPECIAL=$OS_SUFFIX
-if [[ $OS_SUFFIX == "i686" ]]; then
-	OS_SUFFIX_SPECIAL=i386
-#	if [[ $Version == "5.9" ]]; then	#	应该是5而不是每个细小的版本	
-	if [[ $PrimaryVersion == "5" ]]; then
-		OS_SUFFIX="i386"
-	fi
-fi
+source ./readpst.sh
 SOFTWARE=~/software
 if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
@@ -926,7 +903,6 @@ NOEFFECT
 		MEMCACHEDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX ]; then
-			#wget http://memcached.googlecode.com/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
             wget --content-disposition http://www.memcached.org/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
 		fi
 		if [ ! -d memcached-$MEMCACHEDVERSION ]; then

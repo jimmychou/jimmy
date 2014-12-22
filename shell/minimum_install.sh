@@ -1,26 +1,5 @@
 #!/bin/bash
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'` 
-if [[ $OS == "Ubuntu" ]]; then
-	apt-get install lsb
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version
-else
-	yum install redhat-lsb
-	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
-	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version 
-fi
-OS_SUFFIX=`uname -m` # uanme -p  uname -i
-OS_SUFFIX_SPECIAL=$OS_SUFFIX
-if [[ $OS_SUFFIX == "i686" ]]; then
-	OS_SUFFIX_SPECIAL=i386
-	if [[ $Version == "5.9" ]]; then
-		OS_SUFFIX="i386"
-	fi
-fi
-
+source ./release.sh
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
 		apt-get install git-core php5-memcache
@@ -119,7 +98,7 @@ else
 		# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
 		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
-		if [[ $Version == "5.9" ]]; then
+		if [[ $PrimaryVersion == "5" ]]; then
 			yum install phpmyadmin.noarch yum-fastestmirror.noarch
 			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
