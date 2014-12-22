@@ -1286,3 +1286,13 @@ catch (Exception $e) {
 
 // Continue execution
 echo 'Hello World';
+
+
+foreach($forumlist as $index=>$single){
+//    $result[]['TITLE'] = iconv('ISO-8859-1','UTF-8',$single['name']);
+//    $result[]['TYPE'] = $single['type'];
+//    $result[]['ID'] = $single['fid'];
+    $result[$index]['TITLE'] = iconv('ISO-8859-1','UTF-8',$single['name']);
+    $result[$index]['TYPE'] = $single['type'];
+    $result[$index]['ID'] = $single['fid'];
+}
