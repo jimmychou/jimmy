@@ -3,7 +3,7 @@ if [ $# -le 0 ]; then
 	echo You need specify one parameter at least!
 	exit
 fi
-source ./readpst.sh
+source ./release.sh
 SOFTWARE=~/software
 if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE

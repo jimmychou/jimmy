@@ -6,5 +6,5 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = '{"KEY":"RANK_APP_LIST","VR":"14","TAB_ID":"1","LIST_INDEX_START":"0","LIST_INDEX_SIZE":"20"}';
+$query = '{"KEY":"RANK_APP_LIST","VR":"15","TAB_ID":"1","LIST_INDEX_START":"0","LIST_INDEX_SIZE":"20"}';
 request($query);
