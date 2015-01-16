@@ -6,5 +6,10 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = '{"KEY":"RANK_APP_LIST","VR":"15","TAB_ID":"1","LIST_INDEX_START":"0","LIST_INDEX_SIZE":"20"}';
+$tab_id = 16;
+//$tab_id = 12;
+$tab_id = 1;
+$start = 0;
+$size = 20;
+$query = '{"KEY":"RANK_APP_LIST","VR":"13","TAB_ID":"'.$tab_id.'","LIST_INDEX_START":"'.$start.'","LIST_INDEX_SIZE":"'.$size.'"}';
 request($query);

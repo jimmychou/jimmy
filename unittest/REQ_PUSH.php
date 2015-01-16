@@ -6,5 +6,6 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = "{'KEY':'REQ_PUSH','LEVEL':'0','VR':'3'}";
+//$query = "{'KEY':'REQ_PUSH','LEVEL':'0','VR':'3'}";
+$query = "{'KEY':'REQ_PUSH','LEVEL':'0','VR':'6'}";
 request($query);

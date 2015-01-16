@@ -7,6 +7,7 @@ $login_key = array(
 include 'common.php';
 $VR = 3;
 $VR = 8;
+$VR = 10;
 //  百度地图
 //$query = "{'ID':'1762325','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 //  刀塔传奇
@@ -20,6 +21,28 @@ $query = "{'ID':'593114','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$V
 //  糖医生
 //$query = "{'ID':'1814410','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 
+//  腾讯微视
+$query = "{'ID':'1767457','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  189邮箱
+$query = "{'ID':'1706581','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  中国天气预报
+$query = "{'ID':'199220','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  乐视视频
+$query = "{'ID':'1759997','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  搜狐新闻
+$query = "{'ID':'1716679','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  百度贴吧
+$query = "{'ID':'1729438','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  变形金刚:崛起
+//  测试高清角标
+$query = "{'ID':'1769988','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  腾讯微视
+$query = "{'ID':'1767457','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 login();
 request($query);
 

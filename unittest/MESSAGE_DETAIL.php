@@ -6,5 +6,10 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = '{"KEY":"MESSAGE_DETAIL","MESSAGEID":"326"}';
+//$query = '{"KEY":"MESSAGE_DETAIL","MESSAGEID":"326"}';
+//$query = '{"KEY":"MESSAGE_DETAIL","MESSAGEID":"757"}';
+$query = '{"KEY":"MESSAGE_DETAIL","MESSAGEID":"758"}';
+
+//  two reply
+$query = '{"PATH":"","MESSAGEID":803,"VR":1,"KEY":"MESSAGE_DETAIL"}';
 request($query);

@@ -11,7 +11,8 @@ $types = array(1);//,2);// 1.首发 2.安智精选
 $type_page_list = array();
 foreach($types as $type){
     $start = 0;
-    $size = 5;
+//    $size = 5;
+    $size = 20;
     $max = $size * $page_count;
     $page = 0;
     for($start;$start<$max;$start+=$size,$page++){

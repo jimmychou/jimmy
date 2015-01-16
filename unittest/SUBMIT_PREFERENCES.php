@@ -12,6 +12,6 @@ $ID = 1707755;
 
 $ID = 1550452;
 $ID = 1640571;
-$query = "{'KEY':'SUBMIT_PREFERENCES','ID':'".$ID."','PACKAGE_NAME':'org.cocos2dx.tests','VR':'13','REQ_INFO':'1'}";
+$query = "{'KEY':'SUBMIT_PREFERENCES','ID':'".$ID."','PACKAGE_NAME':'org.cocos2dx.tests','VR':'5','REQ_INFO':'1','PASSTHROUGH':{'taskId':'1','point':'34'}}";
 $result = request($query);
-var_export($result);
+//var_export($result);

@@ -14,19 +14,44 @@ ini_set('dislay_errors', 'on');
 if (isset($argv[1])) {
 	$url = "http://{$argv[1]}/api.php?DEBUG=1&XHPROF_DEBUG=1";
 }
-$version = 5100;
+
+$login_array = array();
+/*
+$login_str = '{"REQ_BROWSER_DIR":1,"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"LF76IAndIMN1h7Gd1zP1HHT2W98ALZyCUL7K5YPnEteWDSIN3KLeGslxrjJHi44Q4YT6qtTCPjzmEtbVHwPeeQ==\",\"Rnt4hsBMGkXYVYnHpfQ6KrMvgGLuzOHFOFRZnw52iZsAsp5aNuYLAZMPtUVZOIZ9DpiMR0upKrooGOWlxKBwSw==\",\"BWNLaEMkG49T5u3Kb\\\/eJy8M0xef\\\/OcyfBfSIzmshP2cV9ev\\\/uORQLK30OrsMnFyIkmkiVeKKfoFowoKv9mP31A==\"]","CUSTOM_RESPONSE_CODE":1,"TIME_STAMP":1421376984948,"DEVICEID":"355868051768043","RESOLUTION":"1080*1920","IMEI":"355868051768043","VERSION_CODE":5410,"FIRMWARE":19,"ABI":3,"REQ_WEB_TIMESTAMP":0,"DI":["msm8960",4,"1728000",1789,"3.0",false],"MAC":"e8:99:c4:9b:4c:3b","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"HTC 802w"}';
+
+$login_array = json_decode($login_str,true);
+print_r($login_array);
+//exit;
+*/
+$now = time();
+$pid = isset($login_array['PID']) ? $login_array['PID']: 1;
+$vr = isset($login_array['VR']) ? $login_array['VR'] : 8;   //  5.5改为8
+$net_type = isset($login_array['NET_TYPE']) ? $login_array['NET_TYPE']: 'UNIWAP';
+$channel =  isset($login_array['SUPPLIERS'])? $login_array['SUPPLIERS']: 'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20';    //  channel debug inner
+$imsi = isset($login_array['IMSI']) ? $login_array['IMSI']: '460015880656596';
+$custom_response_code = isset($login_array['CUSTOM_RESPONSE_CODE']) ? $login_array['CUSTOM_RESPONSE_CODE']: 1;
+$timestamp = isset($login_array['TIME_STAMP']) ? $login_array['TIME_STAMP'] : $now;
+$deviceid = isset($login_array['DEVICEID']) ? $login_array['DEVICEID']: '528748979873541';
+$resolution = isset($login_array['RESOLUTION']) ? $login_array['RESOLUTION']: "1080*1920";
+$imei = $deviceid = isset($login_array['IMEI']) ? $login_array['IMEI']: '528748979873541';
+$version = isset($login_array['VERSION_CODE']) ? $login_array['VERSION_CODE']: 5100;
+$firmware = isset($login_array['FIRMWARE']) ? $login_array['FIRMWARE']: 18;
+$abi = isset($login_array['ABI']) ? $login_array['ABI']: 3;
+$req_web_timestamp = isset($login_array['REQ_WEB_TIMESTAMP']) ? $login_array['REQ_WEB_TIMESTAMP']: $now;
+$di = isset($login_array['DI']) ? $login_array['DI'] : array("msm8960",4,"1728000",1129,2.0,0);
+$mac = isset($login_array['MAC']) ? $login_array['MAC']: '0c:37:dc:68:07:8b';
+$md = isset($login_array['MD']) ? $login_array['MD']: 2;
+$native_loaded = isset($login_array['NATIVE_LOADED']) ? $login_array['NATIVE_LOADED']: 1;
+$model_no = isset($login_array['MODEL_NO']) ? $login_array['MODEL_NO']: 'SPH-L720';
+
+
+
 $header = array();
 //$header = array('cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867');
-$vr = 0;
 if (isset($argv[3])) {
     $vr = $argv[3];
 }
 $plain_body = array('VR' => $vr);
-$imei = $deviceid = '528748979873541';
-$channel =  'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20'; //    debug inner
-//$channel =  '0575e7d4630a893242bb71d04c2fc436fb1e4fc6'; //  指奥3
-//$channel =  '33c70bb8a5b88a7420cd10eb22d992d4e9319eec'; //  指奥4
-$timestamp = time();
 $plain_key = array(
 	'LOGIN' => 1,
 	'G_LOGIN' => 1,
@@ -143,9 +168,7 @@ function request($data, $jsoned = true)
 	$request .= $plain_txt;
 	$request .= $post_data;
 	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
-//    print_r($plain_body);
 	$raw = post($request);
-//    print_r($request);
 	$return = $raw;
 	if (!isset($plain_key[$data['KEY']])) {
 		switch($vr) {
@@ -215,7 +238,6 @@ function requestnew($data, $jsoned = true)
 	$request .= $plain_txt;
 	$request .= $post_data;
 	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
-//    print_r($plain_body);
     /*
     echo "vr=$vr\n";
     print_r($data);
@@ -223,7 +245,6 @@ function requestnew($data, $jsoned = true)
     print_r($post_data);
     */
 	$raw = post($request);
-//    print_r($request);
 	$return = $raw;
 	if (!isset($plain_key[$data['KEY']])) {
 		switch($vr) {
@@ -252,32 +273,30 @@ function requestnew($data, $jsoned = true)
     }
 	return $result;
 }
+
 function login()
 {
-	global $header, $imei, $deviceid, $timestamp, $channel, $version, $plain_body, $vr, $dh_arr, $login_key;
+	global $header, $plain_body, $dh_arr, $login_key;
+    global $pid,$vr,$net_type,$channel,$imsi,$custom_response_code,$timestamp,$deviceid,$resolution,$imei,$version,$firmware,$abi,$req_web_timestamp,$di,$mac,$md,$native_loaded,$model_no;
 	$merge_data = array(
-		'USER' => 'honking',
-		'PWD' => '654321hq',
-		'USER' => 'zhuxuefei',
-		'PWD' => '042311',
 		'USER' => 'jimmychou2',
 		'PWD' => '123456',
 //        'USER' => 'GOAPKGFUSER_@#!',
 		'VERSION_CODE' => $version,
 		'SUPPLIERS' => $channel,
-		'FIRMWARE' => 18,
-		'MODEL_NO' => 'SPH-L720',
+		'FIRMWARE' => $firmware,
+		'MODEL_NO' => $model_no,
 		'DEVICEID' => $deviceid,
 		'IMEI' => $imei,
-		'ABI' => 3,
+		'ABI' => $abi,
 		'VR' => $vr,
-		'PID' => 1,
-		"NET_TYPE" => "UNIWAP",
-		'IMSI' => 460015880656596,
-		'MAC' => '0c:37:dc:68:07:8b',
+		'PID' => $pid,
+		'NET_TYPE' => $net_type,
+		'IMSI' => $imsi,
+		'MAC' => $mac,
 		'TIME_STAMP' => $timestamp,
-		"RESOLUTION" => "1080*1920",
-		'DI' => array("msm8960",4,"1728000",1129),
+		'RESOLUTION' => $resolution,
+		'DI' => $di,
 	);
     $data = array_merge( $login_key,$merge_data );
 	if ($vr > 1) {
@@ -313,8 +332,8 @@ function login()
 		$str = pack("H*", $hex);
 		$str = str_pad($str, 64, chr(0), STR_PAD_LEFT);
 		$md5 = md5($str);
-		echo 'k:'.gmp_strval($k)."\n" ;
-		echo "md5:{$md5}\n";
+//		echo 'k:'.gmp_strval($k)."\n" ;
+//		echo "md5:{$md5}\n";
 		$dh_arr['K'] = array($hex, $md5);
 	}
 	if(!$result) exit('登陆错误');
@@ -323,6 +342,7 @@ function login()
 	$plain_body['SID'] = $result['SESSIONID'];
     return $result;
 }
+
 function rc4_crypt($key, $msg) {
     return rc4($key, $msg);
     $td = mcrypt_module_open('arcfour', '' , 'stream', '');
