@@ -6,5 +6,5 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = '{"KEY":"GET_GIFT","GIFT_ID":"7","IS_FIRST_REQUEST":"1","VR":"3","FROM":4,"PASSTHROUGH":{"taskId":"1","point":"34"}}';
+$query = '{"KEY":"GET_GIFT","GIFT_ID":"7","IS_FIRST_REQUEST":"1","VR":"3","FROM":4,"PASSTHROUGH":{"taskId":"4"}}';
 request($query);

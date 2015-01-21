@@ -6,5 +6,6 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = '{"KEY":"SHARE_RESULT","VR":"1","TYPE":1,"ID":"1","PASSTHROUGH":{"taskId":"1","point":"34"}}';
+//$query = '{"KEY":"SHARE_RESULT","VR":"1","TYPE":1,"ID":"3","PASSTHROUGH":{"taskId":"25"}}';
+$query = '{"KEY":"SHARE_RESULT","VR":"1","TYPE":1,"ID":"3","PASSTHROUGH":{"taskId":"1"}}';
 request($query);

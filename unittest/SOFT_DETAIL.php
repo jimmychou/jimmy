@@ -43,6 +43,12 @@ $query = "{'ID':'1729438','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$
 $query = "{'ID':'1769988','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 //  腾讯微视
 $query = "{'ID':'1767457','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  淘宝
+$query = "{'ID':'1725970','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  echo回声
+$query = "{'ID':'2007445','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  噬魂大掌门
+//$query = "{'ID':'1672942','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 login();
 request($query);
 

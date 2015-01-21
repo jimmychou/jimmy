@@ -16,41 +16,37 @@ if (isset($argv[1])) {
 }
 
 $login_array = array();
-/*
-$login_str = '{"REQ_BROWSER_DIR":1,"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"LF76IAndIMN1h7Gd1zP1HHT2W98ALZyCUL7K5YPnEteWDSIN3KLeGslxrjJHi44Q4YT6qtTCPjzmEtbVHwPeeQ==\",\"Rnt4hsBMGkXYVYnHpfQ6KrMvgGLuzOHFOFRZnw52iZsAsp5aNuYLAZMPtUVZOIZ9DpiMR0upKrooGOWlxKBwSw==\",\"BWNLaEMkG49T5u3Kb\\\/eJy8M0xef\\\/OcyfBfSIzmshP2cV9ev\\\/uORQLK30OrsMnFyIkmkiVeKKfoFowoKv9mP31A==\"]","CUSTOM_RESPONSE_CODE":1,"TIME_STAMP":1421376984948,"DEVICEID":"355868051768043","RESOLUTION":"1080*1920","IMEI":"355868051768043","VERSION_CODE":5410,"FIRMWARE":19,"ABI":3,"REQ_WEB_TIMESTAMP":0,"DI":["msm8960",4,"1728000",1789,"3.0",false],"MAC":"e8:99:c4:9b:4c:3b","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"HTC 802w"}';
 
+$login_str = '{"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"IwgoUfSyABbe62xHRIpJ+A0YvCBlKf7THVJf\\\/fc3KY5oNjPw+V6Zavxl4d9rIO9MrOUCL2Z0gvte4ct9fUhfhQ==\",\"ecRb7Gt\\\/W+CYIirEU5KFTvdGuGsjSh0eMBt13dR+AaO+StxanjM4YOfmxwhbEsjn+DHNla0Fij76Thg5ptDSfQ==\",\"Dbgm\\\/eBLYi0i259Yor2806khoSaEiUJG+LdrAhILe4XfRkXwnQ76oIXrEWqi2hww7lnlYhE6X80rh6Sp8\\\/gLpA==\"]","CUSTOM_RESPONSE_CODE":1,"USER":"zhuxuefei01","TIME_STAMP":1421638156134,"DEVICEID":"a0000049eef98c","SID":"MTQyMDg5NDl8MTQxOTkzNjE2MHwwMDJ8TU9WRV9URVJNSU5BTHwxNjY3ODc=","RESOLUTION":"1080*1776","IMEI":"a0000049eef98c","VERSION_CODE":5500,"FIRMWARE":19,"ABI":3,"REQ_WEB_TIMESTAMP":1421637066,"DI":["hi6620oem",4,"1795000",1874,"3.0",false],"MAC":"70:72:3c:8c:4a:4d","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"HUAWEI P7-L09"}';
+$login_str = '{"REQ_BROWSER_DIR":1,"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"FaYnbtMYclpYhWkJ3TqRurFa3B1mxzne47ePBMJUryW346xUybfgJjL1iWkIHBykczaUsWDg+rtMfjuTrRw5Ow==\",\"VMzFqW8pMPiBcNzdibCg1oc\\\/lkKXRtdUmvoE9WpeqMLBJ6gHoSSmpFIxGnyAh4eSXMNbm3rv1GsFN08Q+wZxuw==\",\"ANKVrG5RF5HD7xmnjKBJ4Y9Zjg1yvN92KPpMK8rDGo4h8tURRF8+oNf5Bhk9M2fL3ci82romtk6l7GcK+JxcTA==\"]","CUSTOM_RESPONSE_CODE":1,"USER":"haoyl","TIME_STAMP":1421722256995,"DEVICEID":"a0000033b4b604","SID":"NTM0NjQwfDE0MTgyMDc3Mjd8MDAyfE1PVkVfVEVSTUlOQUx8NDAyNDQz","RESOLUTION":"320*480","IMEI":"a0000033b4b604","VERSION_CODE":5410,"FIRMWARE":10,"ABI":1,"REQ_WEB_TIMESTAMP":0,"DI":["msm7k",1,"800000",182,"1.0",false],"MAC":"10:C6:1F:FF:1C:38","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"HUAWEI C8650+"}';
 $login_array = json_decode($login_str,true);
-print_r($login_array);
+
+//print_r($login_array);
+$client_vr = isset($argv[3]) ? $argv[3] : 7;   //  从请求中读取
 //exit;
-*/
-$now = time();
-$pid = isset($login_array['PID']) ? $login_array['PID']: 1;
-$vr = isset($login_array['VR']) ? $login_array['VR'] : 8;   //  5.5改为8
-$net_type = isset($login_array['NET_TYPE']) ? $login_array['NET_TYPE']: 'UNIWAP';
-$channel =  isset($login_array['SUPPLIERS'])? $login_array['SUPPLIERS']: 'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20';    //  channel debug inner
-$imsi = isset($login_array['IMSI']) ? $login_array['IMSI']: '460015880656596';
-$custom_response_code = isset($login_array['CUSTOM_RESPONSE_CODE']) ? $login_array['CUSTOM_RESPONSE_CODE']: 1;
-$timestamp = isset($login_array['TIME_STAMP']) ? $login_array['TIME_STAMP'] : $now;
-$deviceid = isset($login_array['DEVICEID']) ? $login_array['DEVICEID']: '528748979873541';
-$resolution = isset($login_array['RESOLUTION']) ? $login_array['RESOLUTION']: "1080*1920";
-$imei = $deviceid = isset($login_array['IMEI']) ? $login_array['IMEI']: '528748979873541';
-$version = isset($login_array['VERSION_CODE']) ? $login_array['VERSION_CODE']: 5100;
-$firmware = isset($login_array['FIRMWARE']) ? $login_array['FIRMWARE']: 18;
-$abi = isset($login_array['ABI']) ? $login_array['ABI']: 3;
-$req_web_timestamp = isset($login_array['REQ_WEB_TIMESTAMP']) ? $login_array['REQ_WEB_TIMESTAMP']: $now;
-$di = isset($login_array['DI']) ? $login_array['DI'] : array("msm8960",4,"1728000",1129,2.0,0);
-$mac = isset($login_array['MAC']) ? $login_array['MAC']: '0c:37:dc:68:07:8b';
-$md = isset($login_array['MD']) ? $login_array['MD']: 2;
-$native_loaded = isset($login_array['NATIVE_LOADED']) ? $login_array['NATIVE_LOADED']: 1;
-$model_no = isset($login_array['MODEL_NO']) ? $login_array['MODEL_NO']: 'SPH-L720';
+$now                    =   time();
+$pid                    =   isset($login_array['PID'])                  ?   $login_array['PID']                     :   1;
+$vr                     =   isset($login_array['VR'])                   ?   $login_array['VR']                      :   $client_vr;   //  5.5版本vr改为8
+$net_type               =   isset($login_array['NET_TYPE'])             ?   $login_array['NET_TYPE']                :   'UNIWAP';
+$channel                =   isset($login_array['SUPPLIERS'])            ?   $login_array['SUPPLIERS']               :   'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20';    //  channel debug inner
+$imsi                   =   isset($login_array['IMSI'])                 ?   $login_array['IMSI']                    :   '460015880656596';
+$custom_response_code   =   isset($login_array['CUSTOM_RESPONSE_CODE']) ?   $login_array['CUSTOM_RESPONSE_CODE']    :   1;
+$timestamp              =   isset($login_array['TIME_STAMP'])           ?   $login_array['TIME_STAMP']              :   $now;
+$deviceid               =   isset($login_array['DEVICEID'])             ?   $login_array['DEVICEID']                :   '528748979873541';
+$resolution             =   isset($login_array['RESOLUTION'])           ?   $login_array['RESOLUTION']              :   '1080*1920';
+$imei                   =   isset($login_array['IMEI'])                 ?   $login_array['IMEI']                    :   '528748979873541';
+$version                =   isset($login_array['VERSION_CODE'])         ?   $login_array['VERSION_CODE']            :   5100;
+$firmware               =   isset($login_array['FIRMWARE'])             ?   $login_array['FIRMWARE']                :   18;
+$abi                    =   isset($login_array['ABI'])                  ?   $login_array['ABI']                     :   3;
+$req_web_timestamp      =   isset($login_array['REQ_WEB_TIMESTAMP'])    ?   $login_array['REQ_WEB_TIMESTAMP']       :   $now;
+$di                     =   isset($login_array['DI'])                   ?   $login_array['DI']                      :   array('msm8960',4,'1728000',1129,2.0,0);
+$mac                    =   isset($login_array['MAC'])                  ?   $login_array['MAC']                     :   '0c:37:dc:68:07:8b';
+$md                     =   isset($login_array['MD'])                   ?   $login_array['MD']                      :   2;
+$native_loaded          =   isset($login_array['NATIVE_LOADED'])        ?   $login_array['NATIVE_LOADED']           :   1;
+$model_no               =   isset($login_array['MODEL_NO'])             ?   $login_array['MODEL_NO']                :   'SPH-L720';
 
-
-
-$header = array();
-//$header = array('cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867');
-if (isset($argv[3])) {
-    $vr = $argv[3];
-}
+$header =   array();
+//$header =   array('cookie: PHPSESSID=4bf336bffa08fc8d12fe92c0d9d58867');
 $plain_body = array('VR' => $vr);
 $plain_key = array(
 	'LOGIN' => 1,
@@ -180,9 +176,11 @@ function request($data, $jsoned = true)
 				$return = go_decrypt_linear($raw, $imei, $timestamp);
 		}
 	}
+//var_dump($return);
 	if ($gzcompress) {
 		$return = gzdecode($return);
 	}
+//var_dump($return);
 //	echo $return, "\n"; //  暂时不打印源数据，XShell源于此
 	$result = json_decode($return, true);
 	echo "------------------------------------- response {$data['KEY']} -----------------------\n";
@@ -276,8 +274,8 @@ function requestnew($data, $jsoned = true)
 
 function login()
 {
-	global $header, $plain_body, $dh_arr, $login_key;
-    global $pid,$vr,$net_type,$channel,$imsi,$custom_response_code,$timestamp,$deviceid,$resolution,$imei,$version,$firmware,$abi,$req_web_timestamp,$di,$mac,$md,$native_loaded,$model_no;
+	global $header, $plain_body, $dh_arr, $login_key;   //  测试脚本自身需要使用的参数
+    global $pid,$vr,$net_type,$channel,$imsi,$custom_response_code,$timestamp,$deviceid,$resolution,$imei,$version,$firmware,$abi,$req_web_timestamp,$di,$mac,$md,$native_loaded,$model_no; //  客户登录请求的参数
 	$merge_data = array(
 		'USER' => 'jimmychou2',
 		'PWD' => '123456',
