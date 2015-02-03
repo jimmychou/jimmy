@@ -49,6 +49,10 @@ $query = "{'ID':'1725970','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$
 $query = "{'ID':'2007445','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 //  噬魂大掌门
 //$query = "{'ID':'1672942','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  刀剑情仇
+$query = "{'ID':'1765902','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+$query = '{"ID":1767457,"PATH":"1048576,1048577,1114112,17825792,17825793","VR":10,"KEY":"SOFT_DETAIL","SRC_POSITION":0,"REQUIRE_PERMISSION":1}';
 login();
 request($query);
 

@@ -7,4 +7,5 @@ $login_key = array(
 include 'common.php';
 login();
 $query = "{'KEY':'MAYBE_LIKE','PACKAGE_NAME':'user.anzhi.com.test','VR':'2'}";
+$query = "{'KEY':'MAYBE_LIKE','PACKAGE_NAME':'com.octinn.birthdayplus','VR':'2'}";
 request($query);

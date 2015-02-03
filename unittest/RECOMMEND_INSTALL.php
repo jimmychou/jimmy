@@ -6,5 +6,5 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$query = "{'KEY':'RECOMMEND_INSTALL','VR':'2'}";
+$query = '{"PATH":"","VR":14,"KEY":"RECOMMEND_INSTALL"}';
 request($query);
