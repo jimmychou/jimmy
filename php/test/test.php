@@ -1296,3 +1296,20 @@ foreach($forumlist as $index=>$single){
     $result[$index]['TYPE'] = $single['type'];
     $result[$index]['ID'] = $single['fid'];
 }
+
+
+//  数组加法和merge的区别
+$a = array(
+    '323'=>'a',
+        '123'=>'a',
+        );
+$b = array(
+    '223'=>'b',
+        '323'=>'b',
+        );
+var_dump($a);
+var_dump($b);
+$c = $a+$b;
+$d = array_merge($a,$b);
+print_r($c);
+print_r($d);

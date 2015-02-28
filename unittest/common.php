@@ -27,7 +27,7 @@ $now                    =   time();
 $pid                    =   isset($login_array['PID'])                  ?   $login_array['PID']                     :   1;
 $vr                     =   isset($login_array['VR'])                   ?   $login_array['VR']                      :   $client_vr;   //  5.5版本vr改为8
 $net_type               =   isset($login_array['NET_TYPE'])             ?   $login_array['NET_TYPE']                :   'UNIWAP';
-$channel                =   isset($login_array['SUPPLIERS'])            ?   $login_array['SUPPLIERS']               :   'd0f6f1cedb47344c5a6bff4c7824a8faadc20d20';    //  channel debug inner
+$channel                =   isset($login_array['SUPPLIERS'])            ?   $login_array['SUPPLIERS']               :   'd0f6f1cedb47344c5a6bff4c7824a8faadc20d21';    //  channel debug inner
 $imsi                   =   isset($login_array['IMSI'])                 ?   $login_array['IMSI']                    :   '460015880656596';
 $custom_response_code   =   isset($login_array['CUSTOM_RESPONSE_CODE']) ?   $login_array['CUSTOM_RESPONSE_CODE']    :   1;
 $timestamp              =   isset($login_array['TIME_STAMP'])           ?   $login_array['TIME_STAMP']              :   $now;
@@ -102,7 +102,8 @@ function myhash($k)
 	return $str;
 }
 
-function go_decrypt_linear($str, $name, $timestamp) {
+function go_decrypt_linear($str, $name, $timestamp)
+{
 	$name = (string) $name;
 	$timestamp = (string) $timestamp;
 	$name_len = strlen($name);
@@ -123,7 +124,7 @@ function go_decrypt_linear($str, $name, $timestamp) {
 	return $encrypted;
 }
 
-function request($data, $jsoned = true)
+function request($data, $jsoned = true,$return_header = false)
 {
 	global $deviceid, $imei, $timestamp, $plain_key, $vr, $version, $plain_body, $dh_arr;
 	if ($jsoned) {
@@ -163,7 +164,8 @@ function request($data, $jsoned = true)
 	$request .= $plain_txt;
 	$request .= $post_data;
 	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
-	$raw = post($request);
+	$raw = post($request,$return_header);
+//var_dump($raw);
 	$return = $raw;
 	if (!isset($plain_key[$data['KEY']])) {
 		switch($vr) {
@@ -190,76 +192,6 @@ function request($data, $jsoned = true)
             var_export(json_decode($return, true));
             echo "\n";
 //            $result = var_export(json_decode($return, true),true);
-        }
-    }
-	return $result;
-}
-
-function requestnew($data, $jsoned = true)
-{
-	global $deviceid, $imei, $timestamp, $plain_key, $vr, $version, $plain_body, $dh_arr;
-	if ($jsoned) {
-		$data = str_replace("'", '"', $data);
-		$post_data = $data;
-		$data = json_decode($data, true);
-	} else {
-		$post_data = json_encode($data);
-	}
-	$gzcompress = false;
-	if ($vr > 0) {
-		$gzcompress = true;
-	}
-	if ($gzcompress) {
-		$post_data = gzencode($post_data);
-	}
-	$plain_txt = json_encode($plain_body);
-	if (!isset($plain_key[$data['KEY']])) {
-		switch($vr) {
-			case 2:
-				$post_data = rc4_crypt($dh_arr['K'][1], $post_data);
-			break;
-			
-			default:
-				$post_data = go_decrypt_linear($post_data, $deviceid, $timestamp);
-		}
-	} else {
-		if ($vr ==0) {
-			$plain_txt = $post_data;
-			$post_data = '';
-		}
-	}
-	$plain_size = strlen($plain_txt);
-	$request = 'AnZhiM';
-	$request .= int2bin($version, 4);
-	$request .= int2bin($plain_size, 4);
-	$request .= $plain_txt;
-	$request .= $post_data;
-	//file_put_contents($data['KEY']. '-'.time().'.log', $request);
-	$raw = post($request);
-	$return = $raw;
-	if (!isset($plain_key[$data['KEY']])) {
-		switch($vr) {
-			case 2:
-				$return = rc4_crypt($dh_arr['K'][1], $raw);
-			break;
-			
-			default:
-				$return = go_decrypt_linear($raw, $imei, $timestamp);
-		}
-	}
-	if ($gzcompress) {
-		$return = gzdecode($return);
-	}
-//	echo $return, "\n"; //  暂时不打印源数据，XShell源于此
-	$result = json_decode($return, true);
-	echo "------------------------------------- response {$data['KEY']} -----------------------\n";
-    global $argv;
-    if(isset($argv[2])&&$argv[2]==1){   //  解决go_dump无输出的问题
-        if(!$result){
-            echo $raw, "\n";
-        }
-        else{
-            var_export(json_decode($return, true));
         }
     }
 	return $result;
@@ -307,7 +239,7 @@ function login()
 			base64_encode(myhash($A)),
 		));
 	}
-	$result = request($data, false);
+	$result = request($data, false,true);
 	if ($vr > 1) {
 		$B = base64_decode($result['MIDAS']);
 		$B = bin2hex($B);
@@ -334,7 +266,8 @@ function login()
     return $result;
 }
 
-function rc4_crypt($key, $msg) {
+function rc4_crypt($key, $msg)
+{
     return rc4($key, $msg);
     $td = mcrypt_module_open('arcfour', '' , 'stream', '');
     mcrypt_generic_init($td, $key, null);
@@ -372,7 +305,7 @@ function rc4 ($pwd, $data)
 	return $cipher;
 }
 
-function post($post_data)
+function post($post_data,$return_header=false)
 {
 	global $header, $timestamp, $imei, $url, $plain_body;
 	$ch = curl_init();
@@ -382,7 +315,27 @@ function post($post_data)
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    
+//    curl_setopt($ch, CURLOPT_HEADER, true);
+    $save_path = session_save_path();
+    $files_string = shell_exec("ls -c $save_path");
+    $files = explode("\n",$files_string);
+    $file = isset($files[0]) ? $files[0] : null;
+    $session_id = null;
+    if($file!==null){
+        $match_count = preg_match('/^sess_\w{26,26}/',$file);
+        if(!empty($match_count)){
+            $session_id = preg_replace('/sess_/','',$file);
+            $header =   array('cookie: PHPSESSID='.$session_id);
+        }
+    }
+    /*
+    if($return_header){ //  仅仅是登录
+        curl_setopt($ch, CURLOPT_COOKIEJAR, $save_path.'/cookie');
+    }   
+    else{
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $save_path.'/cookie');
+    }
+    */
 //    $cookie = 'PHPSESSID=bpne9i5iu62s921eeqnnc2vo04';   //  @todo:  will read from /tmp/session
 //    $cookie = 'PHPSESSID:bpne9i5iu62s921eeqnnc2vo04';   //  @todo:  will read from /tmp/session
 //	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
@@ -392,6 +345,9 @@ function post($post_data)
     $post_header = array('Cookie'=>'PHPSESSID=3bphjudskg5fspiphg2poni0c6');
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $post_header);
     */
+    if(!empty($header)){
+    	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    }
 	$content = curl_exec($ch);
 	$info = curl_getinfo($ch);
 //    echo curl_error($ch);exit;
@@ -400,7 +356,8 @@ function post($post_data)
 	return $content;
 }
 
-function int2bin($val, $align) {
+function int2bin($val, $align)
+{
     $str = "";
     $n = 0;
     do {

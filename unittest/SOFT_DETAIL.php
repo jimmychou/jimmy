@@ -5,8 +5,6 @@ $login_key = array(
         'KEY' => $key
 );
 include 'common.php';
-$VR = 3;
-$VR = 8;
 $VR = 10;
 //  百度地图
 //$query = "{'ID':'1762325','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
@@ -53,6 +51,18 @@ $query = "{'ID':'2007445','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$
 //  刀剑情仇
 $query = "{'ID':'1765902','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 $query = '{"ID":1767457,"PATH":"1048576,1048577,1114112,17825792,17825793","VR":10,"KEY":"SOFT_DETAIL","SRC_POSITION":0,"REQUIRE_PERMISSION":1}';
+
+//  美团
+$query = "{'ID':'1751492','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  手机QQ
+$query = "{'ID':'1769092','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+
+//  开心消消乐online
+$query = "{'ID':'2079854','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  开心消消乐
+$query = "{'ID':'1715053','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
+//  哔哩哔哩动画online
+$query = "{'ID':'1779917','REQUIRE_PERMISSION':'0','KEY':'SOFT_DETAIL','VR':'".$VR."','SRC_POSITION':'-2'}";
 login();
 request($query);
 
