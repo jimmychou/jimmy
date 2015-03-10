@@ -485,23 +485,6 @@ $tools = new Tools();
 //print_r( $tools->utf8( $json ) );
 //print_r( $tools->get_time(  ) );
 
-/*
-$message = "Line 1\nLine 2\nLine 3";
-$message = wordwrap($message, 70);
-$success = mail( 'JimmyChou@ustc.edu','Hello world!',$message );
-if( !$success ){
-    echo "failed!\n";
-	exit;
-}
-echo "successsful!\n";
-*/
-/*
-$test = array();
-print_r( $test );
-//array_fill( 0,100,0 );
-$test = array_fill( 0,100,0 );
-print_r( $test );
-*/
 
 //$sql = 'UPDATE `data_type` SET `unsigned_tinyint`=`unsigned_tinyint`+1 WHERE `id`=1;';
 //$sql = 'UPDATE `data_type` SET `unsigned_tinyint`=`unsigned_tinyint`-1 WHERE `id`=1;';
@@ -511,8 +494,8 @@ print_r( $test );
 /*
 $text = file_get_contents( '/home/jimmychou/下载/三国演义全集(UTF-8).txt' );
 
-//  <<<EOT
-//EOT
+<<<EOT
+EOT
 
 
 //$sql = "UPDATE `data_type` SET `text`=$text WHERE `id`=1;";   // 字符串型的尤其要注意，一定要用单引号括起来
@@ -618,9 +601,11 @@ $test = 'aaaaaa';
 $abc = &$test;
 unset($test);
 echo $test;
+//var_dump($test);
 echo $abc;
+//var_dump($abc);
+exit;
 */
-
 
 /*
 $count = 5;
@@ -1313,3 +1298,60 @@ $c = $a+$b;
 $d = array_merge($a,$b);
 print_r($c);
 print_r($d);
+
+function curl_post($url,$data){
+    $ch = curl_init();
+    $header = array();
+
+    $header = array(
+            //            'Content-Type: application/json;charset=utf-8',
+            //            'Content-Type: application/json',
+            //            'Content-Type:  application/x-www-form-urlencoded;charset=utf-8',
+            //            'Content-Type:  application/x-www-form-urlencoded',
+            //            'Content-Type:  multipart/form-data;charset=utf-8',
+            //            'Content-Type:  multipart/form-data',
+            //            'Content-Length:'.strlen(json_encode($request_data)),
+            );
+
+    //  bool
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);    //  全部数据使用HTTP协议中的"POST"操作来发送。要发送文件，在文件名前面加上@前缀并使用完整路径。这个参数可以通过urlencoded后的字符串类似'para1=val1&para2=val2&...'或使用一个以字段名为键值，字段数据为值的数组。如果value是一个数组，Content-Type头将会被设置成multipart/form-data。
+    //    curl_setopt($ch, CURLOPT_VERBOSE, true);
+    curl_setopt($ch, CURLOPT_TRANSFERTEXT, false);    //  CURLOPT_TRANSFERTEXT 启用后对FTP传输使用ASCII模式。对于LDAP，它检索纯文本信息而非HTML。在Windows系统上，系统不会把STDOUT设置成binary模式。
+    //  设置为true时影响$_FILES
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    //  CURLOPT_RETURNTRANSFER 将 curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($ch, CURLOPT_NOPROGRESS, false);    //  CURLOPT_NOPROGRESS 启用时关闭curl传输的进度条，此项的默认设置为启用。
+
+    //    curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);   // CURLOPT_BINARYTRANSFER 在启用CURLOPT_RETURNTRANSFER的时候，返回原生的（Raw）输出。 
+    //    curl_setopt($ch, CURLOPT_HEADER, true); //  输出响应头
+    //    curl_setopt($ch, CURLINFO_HEADER_OUT, true); //  
+
+
+    //  integer:
+    //    curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 100000000000000000);    //  CURLOPT_LOW_SPEED_LIMIT 当传输速度小于CURLOPT_LOW_SPEED_LIMIT时(bytes/sec)，PHP会根据CURLOPT_LOW_SPEED_TIME来判断是否因太慢而取消传输。
+    //   curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 0.0000000000000001);    //  CURLOPT_LOW_SPEED_LIMIT 当传输速度小于CURLOPT_LOW_SPEED_LIMIT时(bytes/sec)，PHP会根据CURLOPT_LOW_SPEED_TIME来判断是否因太慢而取消传输。
+    curl_setopt($ch, CURLOPT_PORT, 80);    //  CURLOPT_PORT 用来指定连接端口。（可选项） 
+
+
+    //  string:
+    curl_setopt($ch, CURLOPT_COOKIE, true);    //  CURLOPT_COOKIE 设定HTTP请求中"Cookie: "部分的内容。多个cookie用分号分隔，分号后带一个空格(例如， "fruit=apple; colour=red")。
+    curl_setopt($ch, CURLOPT_VERBOSE, true);
+
+
+    $output = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    //    print_r($info);
+    curl_close($ch);
+    return $output;
+}
+$file = "/home/jimmychou/workspace/jimmy/php/image.jpg";
+$binary = file_get_contents($file);
+$base_url = "http://centos.jimmychou.com/respone.php";
+//$res = curl_post($base_url, $binary);   //  Both    $_POST and php://input
+//$res = curl_post($base_url, array('image'=>$binary));   //  Only    $_POST
+$res = curl_post($base_url, array('image'=>"@$file"));   //  Only    $_FILES
+print_r($res);

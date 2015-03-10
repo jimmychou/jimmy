@@ -6,7 +6,7 @@ $login_key = array(
 );
 include 'common.php';
 login();
-$tab_id = 16;
+$tab_id = 4;
 $start = 0;
 $size = 20;
 $query = '{"KEY":"RANK_APP_LIST","VR":"13","TAB_ID":"'.$tab_id.'","LIST_INDEX_START":"'.$start.'","LIST_INDEX_SIZE":"'.$size.'"}';

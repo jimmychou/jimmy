@@ -16,9 +16,9 @@ if (isset($argv[1])) {
 }
 
 $login_str = '{"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"IwgoUfSyABbe62xHRIpJ+A0YvCBlKf7THVJf\\\/fc3KY5oNjPw+V6Zavxl4d9rIO9MrOUCL2Z0gvte4ct9fUhfhQ==\",\"ecRb7Gt\\\/W+CYIirEU5KFTvdGuGsjSh0eMBt13dR+AaO+StxanjM4YOfmxwhbEsjn+DHNla0Fij76Thg5ptDSfQ==\",\"Dbgm\\\/eBLYi0i259Yor2806khoSaEiUJG+LdrAhILe4XfRkXwnQ76oIXrEWqi2hww7lnlYhE6X80rh6Sp8\\\/gLpA==\"]","CUSTOM_RESPONSE_CODE":1,"USER":"zhuxuefei01","TIME_STAMP":1421638156134,"DEVICEID":"a0000049eef98c","SID":"MTQyMDg5NDl8MTQxOTkzNjE2MHwwMDJ8TU9WRV9URVJNSU5BTHwxNjY3ODc=","RESOLUTION":"1080*1776","IMEI":"a0000049eef98c","VERSION_CODE":5500,"FIRMWARE":19,"ABI":3,"REQ_WEB_TIMESTAMP":1421637066,"DI":["hi6620oem",4,"1795000",1874,"3.0",false],"MAC":"70:72:3c:8c:4a:4d","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"HUAWEI P7-L09"}';
-$login_str = '{"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d20","IMSI":"000000000000000","MIDAS":"[\"Dlti29HCA5a+wDfbyE5EI\\\/3k6tozgAPNce+y330hTwJ6Dcb0h8aVOGI7eE5M4ZSFqg8cbC1pyVKxAXMf3ZaJFw==\",\"f+uo\\\/QcNprbBP5q8IyY2tTHop5oYGur2Cs4ZE5rSEFsu\\\/YguZ6ODIS30U6zPQyPwT1bfhylp1S9Iql+sJc7tIQ==\",\"VPzzi1cBylg1F+3PxoUCaa2vWTck3OvNbRJm8xWiYq5tN1viELGVJ+tqU7dBD8qwWd0RVZUH0+m8RIJO74bjOA==\"]","CUSTOM_RESPONSE_CODE":1,"TIME_STAMP":1422356481901,"DEVICEID":"866323010743697","RESOLUTION":"480*800","IMEI":"866323010743697","VERSION_CODE":5500,"FIRMWARE":15,"ABI":3,"REQ_WEB_TIMESTAMP":1422355775,"DI":["MT6517",2,"1001000",474,"1.5",false],"MAC":"0c:37:dc:8d:88:c2","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"T8830Pro"}';
+$login_str = '{"NET_TYPE":"WIFI","SUPPLIERS":"d0f6f1cedb47344c5a6bff4c7824a8faadc20d21","IMSI":"000000000000000","MIDAS":"[\"Dlti29HCA5a+wDfbyE5EI\\\/3k6tozgAPNce+y330hTwJ6Dcb0h8aVOGI7eE5M4ZSFqg8cbC1pyVKxAXMf3ZaJFw==\",\"f+uo\\\/QcNprbBP5q8IyY2tTHop5oYGur2Cs4ZE5rSEFsu\\\/YguZ6ODIS30U6zPQyPwT1bfhylp1S9Iql+sJc7tIQ==\",\"VPzzi1cBylg1F+3PxoUCaa2vWTck3OvNbRJm8xWiYq5tN1viELGVJ+tqU7dBD8qwWd0RVZUH0+m8RIJO74bjOA==\"]","CUSTOM_RESPONSE_CODE":1,"TIME_STAMP":1422356481901,"DEVICEID":"866323010743697","RESOLUTION":"480*800","IMEI":"866323010743697","VERSION_CODE":5500,"FIRMWARE":15,"ABI":3,"REQ_WEB_TIMESTAMP":1422355775,"DI":["MT6517",2,"1001000",474,"1.5",false],"MAC":"0c:37:dc:8d:88:c2","MD":2,"NATIVE_LOADED":1,"MODEL_NO":"T8830Pro"}';
 $login_array = json_decode($login_str,true);
-$login_array = array();
+//$login_array = array();
 
 //print_r($login_array);
 $client_vr = isset($argv[3]) ? $argv[3] : 8;   //  从请求中读取
@@ -202,7 +202,7 @@ function login()
 	global $header, $plain_body, $dh_arr, $login_key;   //  测试脚本自身需要使用的参数
     global $pid,$vr,$net_type,$channel,$imsi,$custom_response_code,$timestamp,$deviceid,$resolution,$imei,$version,$firmware,$abi,$req_web_timestamp,$di,$mac,$md,$native_loaded,$model_no; //  客户登录请求的参数
 	$merge_data = array(
-		'USER' => 'jimmychou2',
+		'USER' => 'jimmychou',
 		'PWD' => '123456',
 //        'USER' => 'GOAPKGFUSER_@#!',
 		'VERSION_CODE' => $version,
