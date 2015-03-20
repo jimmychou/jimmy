@@ -1,7 +1,0 @@
-#!/bin/bash
-mkdir /tmp/test_ulimit && cd /tmp/test_ulimit
-for((i=1;i<=65535;i++))
-do
-	#touch $i.txt
-	mkdir $i
-done
