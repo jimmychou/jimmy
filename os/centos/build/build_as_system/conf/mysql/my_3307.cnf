@@ -6,13 +6,13 @@ user=mysql
 symbolic-links=0
 
 character-set-server=utf8
-#character_set_client=utf8			#	wrong	segment
-
+#character-set-client=utf8			#	wrong	segment
 
 #	复制
 relay-log=slave-relay-bin
 relay-log-index=slave-relay-bin.index
 server-id=2
+replicate-do-db=test
 
 [mysql]
 default-character-set=utf8
