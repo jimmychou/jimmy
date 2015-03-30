@@ -1,0 +1,217 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+################################################################################################################################################
+#	1mobile
+
+42.62.23.95	api4.1mobile.com
+
+################################################################################################################################################
+#	安智市场
+
+#127.0.0.1	gomarket.goapk.com
+192.168.4.243	gomarket.goapk.com
+127.0.0.1	hd.goapk.com
+127.0.0.1	yx.anzhi.com
+127.0.0.1	centos.jimmychou.com
+
+192.168.1.134	session.goapk.com
+192.168.1.134	dbm.goapk.com
+192.168.1.243	dbs.goapk.com
+192.168.1.134	dummy.goapk.com
+192.168.1.134	dummy.anzhi.com
+192.168.1.134	filter.anzhi.com
+192.168.1.134	filter.redis.anzhi.com
+192.168.1.134	filter.memcache.anzhi.com
+192.168.1.161   searchapi.goapk.com
+192.168.1.18	smsapi.anzhi.com
+
+################################################################################################################################################
+
+#	安智论坛
+127.0.0.1	bbs.anzhi.com			#	CentOS_6.5
+127.0.0.1	forum.anzhi.com			#	CentOS_6.5
+
+192.168.0.87	bbsdb
+192.168.0.87	bbsmem
+192.168.0.87	bbsdbslave
+192.168.0.87	bbs.anzhi.com			#	Test
+192.168.0.87	forum.anzhi.com			#	Test
+
+58.220.10.57	api.forum.anzhi.com
+42.62.4.180	www.anzhi.com
+
+################################################################################################################################################
+
+##Google北京服务器
+203.208.45.209 www.google.cn  
+##Chrome 网上应用店
+203.208.46.146 chrome.google.com
+203.208.46.146 clients0.google.com                                ##------------------##
+203.208.46.146 clients1.google.com                                ##可能和搜索建议有关##
+203.208.46.146 clients2.google.com                                ##可能和搜索建议有关##
+203.208.46.146 clients3.google.com                                ##可能和搜索建议有关##
+203.208.46.146 clients4.google.com                                ##------------------##
+
+
+203.208.46.146 www.googleusercontent.com                          ##-----------------------------##
+203.208.46.146 lh0.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh1.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh2.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh3.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh4.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh5.googleusercontent.com                          ##网页上的图片*好多服务都要用到##
+203.208.46.146 lh6.googleusercontent.com                          ##-----------------------------##
+203.208.46.146 clients1.googleusercontent.com                     
+203.208.46.146 clients2.googleusercontent.com
+203.208.46.146 browsersync.google.com                             ##看域名可能是同步
+
+
+##网页快照
+203.208.46.146 webcache.googleusercontent.com
+
+
+##Google SSL
+203.208.46.146 encrypted.google.com
+203.208.46.146 encrypted.google.com.hk 
+
+
+##Google Docs
+203.208.46.146 docs.google.com
+203.208.46.146 docs0.google.com
+203.208.46.146 docs1.google.com
+203.208.46.146 docs2.google.com
+203.208.46.146 docs3.google.com
+203.208.46.146 spreadsheets.google.com
+203.208.46.146 spreadsheets0.google.com
+203.208.46.146 spreadsheets1.google.com
+203.208.46.146 spreadsheets2.google.com
+203.208.46.146 spreadsheets3.google.com
+
+
+#Gmail 
+203.208.46.146 mail.google.com 
+203.208.46.146 chatenabled.mail.google.com        #Gmail中Gtalk聊天服务
+
+
+##Google 搜索
+203.208.46.146 www.google.com
+
+
+##Google preview
+203.208.46.146 www.googlepreview.com
+
+
+##Google 翻译
+203.208.46.146 translate.google.com
+203.208.46.146 translate.googleapis.com
+
+
+##Google 搜索建议（IE9）
+203.208.46.146 clients5.google.com
+
+
+##Google code
+203.208.46.146 code.google.com
+
+
+##Picasa 网络相册
+203.208.46.146 picasaweb.google.com
+203.208.46.146 lh0.ggpht.com 
+203.208.46.146 lh1.ggpht.com 
+203.208.46.146 lh2.ggpht.com 
+203.208.46.146 lh3.ggpht.com 
+203.208.46.146 lh4.ggpht.com 
+203.208.46.146 lh5.ggpht.com 
+203.208.46.146 lh6.ggpht.com 
+203.208.46.146 lh7.ggpht.com 
+203.208.46.146 lh8.ggpht.com 
+203.208.46.146 lh8.ggpht.com 
+203.208.46.146 lh9.ggpht.com
+203.208.46.146 lh6.google.com
+
+
+##Google个人资料
+203.208.46.146	profiles.google.com
+
+##Google+
+203.208.46.146	talkgadget.google.com	##Google+中的聊天服务
+203.208.46.146	ssl.gstatic.com	##Google+中的聊天服务
+203.208.46.146	maps-api-ssl.google.com	##Google+中的地图定位服务
+203.208.46.146	images-pos-opensocial.googleusercontent.com	##缩略图
+203.208.46.146	images1-focus-opensocial.googleusercontent.com
+203.208.46.146	images2-focus-opensocial.googleusercontent.com
+203.208.46.146	images3-focus-opensocial.googleusercontent.com
+203.208.46.146	images4-focus-opensocial.googleusercontent.com	##不知道有没有这几条
+203.208.46.146	images5-focus-opensocial.googleusercontent.com	#-_-*
+203.208.46.146	images6-focus-opensocial.googleusercontent.com	#-_-*
+203.208.46.146	569005917268817437-a-wablog-info-s-sites.googlegroups.com ##今天突然发现的 不知道怎么会有这么一串没感的地址
+203.208.46.146	safebrowsing-cache.google.com                             ##Google+里的游戏相关
+203.208.46.146	images-oz-opensocial.googleusercontent.com
+203.208.46.146	safebrowsing-cache.google.com
+203.208.46.146	newsfeed-dot-latest-dot-rovio-ad-engine.appspot.com
+203.208.46.146	plusone.google.com
+203.208.46.146	r3085-dot-latest-dot-project-slingshot-gp.appspot.com
+203.208.46.146	apis.google.com			##Google +1 button调用的JS主域名
+203.208.46.146	plus.google.com
+
+
+##Download 下载
+203.208.46.146	dl.google.com
+74.125.237.1	dl-ssl.google.com
+
+
+##Groups
+203.208.46.146	groups.google.com
+
+
+##Google 博物馆
+203.208.46.146	www.googleartproject.com
+
+
+##Google URL Shortener
+203.208.46.146	goo.gl
+
+
+##Google app engine
+203.208.46.146	appengine.google.com
+
+
+##Google Maps
+203.208.46.146	maps.google.com
+203.208.46.146	maps.gstatic.com
+203.208.46.146	cbk0.google.com		##街景
+203.208.46.146	cbk1.google.com
+203.208.46.146	cbk2.google.com
+203.208.46.146	cbk3.google.com
+
+
+##Google 纵横
+##与Google maps通用
+203.208.46.146	mts.google.com
+203.208.46.146	mts1.google.com
+203.208.46.146	mts2.google.com
+203.208.46.146	mts3.google.com
+203.208.46.146	mts0.google.com
+203.208.46.146	s2.googleusercontent.com
+203.208.46.146	ssl.google-analytics.com
+203.208.46.146	khms0.google.com	##混合地形
+203.208.46.146	khms1.google.com
+203.208.46.146	khms2.google.com
+203.208.46.146	khms3.google.com
+
+
+##Google 协作平台
+203.208.46.146	sites.google.com
+203.208.46.146	accounts.youtube.com	##登录协作平台时发现的 不知道有什么用
+
+
+##Google Music beta
+203.208.46.146	music.google.com
+203.208.46.146	t.doc-0-0-sj.sj.googleusercontent.com	#个人音乐库
+203.208.46.146	music-streaming.l.google.com
+203.208.46.146	music.googleusercontent.com		#音乐播放器 专辑封面 等
+203.208.46.146	uploadsj.clients.google.com		#客户端上传
+203.208.46.146	large-uploads.l.google.com
+203.208.46.146	themes.googleusercontent.com
+203.208.46.146	csi.gstatic.com
+203.208.46.146	video.google.com
