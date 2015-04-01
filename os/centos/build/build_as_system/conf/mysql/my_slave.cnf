@@ -10,6 +10,7 @@ symbolic-links=0
 
 character-set-server=utf8
 #character-set-client=utf8			#	wrong	segment
+port=3311
 
 #	复制
 relay-log=slave-relay-bin
