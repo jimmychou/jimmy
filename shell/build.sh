@@ -499,7 +499,9 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official PHP on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX libmcrypt-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			sudo yum install -y bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm
+			sudo yum install libmcrypt-devel.$OS_SUFFIX
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
@@ -797,8 +799,6 @@ NOEFFECT
 				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
 		        #PHPVERSION=5.5.14
                 sudo yum install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
-		sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm
-		sudo yum install libmcrypt-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i686-redhat-linux-gnu \
