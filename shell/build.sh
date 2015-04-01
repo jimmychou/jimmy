@@ -349,7 +349,7 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official MySQL on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y ncurses-devel.$OS_SUFFIX
+			sudo yum install -y ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 			if [[ $PrimaryVersion == "5" ]]; then
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
