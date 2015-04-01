@@ -1,6 +1,9 @@
 [mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
+datadir=/var/lib/mysql_master
+#socket=/var/lib/mysql/mysql_master.sock
+
+#   Ubuntu下apt-get安装的mysql-server，socket文件在下面的位置，且名为mysqld.sock而非mysql.sock
+socket=/var/run/mysqld/mysqld_master.sock
 user=mysql
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
@@ -24,5 +27,5 @@ default-character-set=utf8
 #default-character-set=gbk_bin			#	wrong	property
 
 [mysqld_safe]
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
+log-error=/var/log/mysqld_master.log
+pid-file=/var/run/mysqld/mysqld_master.pid
