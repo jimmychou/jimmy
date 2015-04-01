@@ -684,6 +684,7 @@ NOEFFECT
 					--with-mcrypt=shared,/usr \
 					--with-apxs2=/usr/sbin/apxs \
 					--enable-fpm && make && sudo make install
+<<NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official PHP on CentOS 6.4 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -791,10 +792,13 @@ NOEFFECT
 					--with-icu-dir=/usr \
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
+NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
 		        #PHPVERSION=5.5.14
-                sudo yum install libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX
+                sudo yum install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+		sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm
+		sudo yum install libmcrypt-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i686-redhat-linux-gnu \
