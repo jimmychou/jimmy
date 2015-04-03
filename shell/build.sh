@@ -259,6 +259,9 @@ NOEFFECT
 					--with-mail_ssl_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			fi
+#            sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
+#            以上echo语句即使是sudo也无权限写入文件
+            sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
 		fi
 	elif [[ $i == "httpd" ]]; then
 		# HTTPD编译
@@ -436,7 +439,7 @@ NOEFFECT
 					--with-named-thread-libs=-lpthread \
 					build_alias=i386-redhat-linux-gnu \
 					host_alias=i386-redhat-linux-gnu \
-					target_alias=i386-redhat-linux-gnu && make && sudo make install
+					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo /sbin/ldconfig -v
 			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
@@ -479,7 +482,7 @@ NOEFFECT
 					--with-named-thread-libs=-lpthread \
 					build_alias=i386-redhat-linux-gnu \
 					host_alias=i386-redhat-linux-gnu \
-					target_alias=i386-redhat-linux-gnu && make && sudo make install
+					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
 			fi
 		fi
 	elif [[ $i == "php" ]]; then
