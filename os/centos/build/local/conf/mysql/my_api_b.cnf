@@ -17,7 +17,7 @@
 # The following options will be passed to all MySQL clients
 [client]
 port		= 3332
-socket		= /usr/local/mysql/data/run/mysql_api_b.sock
+socket		= /usr/local/mysql/data/run/mysqld_api_b.sock
 
 
 
@@ -32,7 +32,7 @@ default-character-set	=	utf8
 # The MySQL server
 [mysqld]
 port		= 3332
-socket		= /usr/local/mysql/data/run/mysql_api_b.sock
+socket		= /usr/local/mysql/data/run/mysqld_api_b.sock
 #skip-locking	#	cannot use in mysql-cluster-gpl-7.4.5
 key_buffer_size = 16K
 max_allowed_packet = 1M
@@ -113,7 +113,7 @@ no-auto-rehash
 
 
 #	Add	By	JimmyChou
-socket			= 	/usr/local/mysql/data/run/mysql_api_b.sock
+socket			= 	/usr/local/mysql/data/run/mysqld_api_b.sock
 default-character-set	=	utf8
 
 
