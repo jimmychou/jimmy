@@ -441,6 +441,8 @@ NOEFFECT
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo /sbin/ldconfig -v
 			elif [[ $PrimaryVersion == "6" ]]; then
+                yum install doxygen
+                #   --with-ndb-docs 需要，configure   时不报错，但    make    时会报错
 				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
@@ -480,6 +482,14 @@ NOEFFECT
 					--enable-thread-safe-client \
 					--disable-dependency-tracking \
 					--with-named-thread-libs=-lpthread \
+					--with-blackhole-storage-engine \
+					--with-example-storage-engine \
+					--with-archive-storage-engine \
+					--with-csv-storage-engine \
+					--with-federated-storage-engine \
+					--with-ndbcluster \
+					--with-ndb-test \
+					--with-ndb-docs \
 					build_alias=i386-redhat-linux-gnu \
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
