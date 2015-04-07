@@ -518,13 +518,10 @@ NOEFFECT
 	    				--with-ssl \
 		    			--without-debug \
 			    		--enable-shared \
-				    	--with-bench \
 					    --localstatedir=/var/lib/mysql \
     					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
 	    				--with-mysqld-user=mysql \
 		    			--with-extra-charsets=all \
-			    		--with-innodb \
-				    	--with-berkeley-db \
 					    --enable-community-features \
     					--enable-local-infile \
 	    				--enable-largefile \
@@ -532,12 +529,7 @@ NOEFFECT
 			    		--enable-thread-safe-client \
 				    	--disable-dependency-tracking \
 					    --with-named-thread-libs=-lpthread \
-    					--with-blackhole-storage-engine \
-	    				--with-example-storage-engine \
-		    			--with-archive-storage-engine \
-			    		--with-csv-storage-engine \
-				    	--with-federated-storage-engine \
-					    --with-ndbcluster \
+    					--with-plugins=partition,daemon_example,ftexample,archive,blackhole,csv,example,federated,heap,ibmdb2i,innobase,innodb_plugin,myisam,myisammrg,ndbcluster \
     					--with-ndb-test \
 	    				--with-ndb-docs \
 		    			build_alias=i386-redhat-linux-gnu \
