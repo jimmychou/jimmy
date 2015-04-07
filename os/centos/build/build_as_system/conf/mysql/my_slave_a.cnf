@@ -20,6 +20,7 @@ replicate-do-db=test
 
 [mysql]
 default-character-set=utf8
+socket=/var/run/mysqld/mysqld_slave_a.sock	#	加入此行后，用	mysql	命令无须再指定	-S	参数
 #default-character-set=latin1
 #default-character-set=gb2312
 #default-character-set=gbk
