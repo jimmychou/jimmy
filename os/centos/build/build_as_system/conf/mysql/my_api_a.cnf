@@ -36,7 +36,7 @@ socket		= /var/run/mysqld/mysqld_api_a.sock
 #skip-locking	#	cannot use in mysql-cluster-gpl-7.4.5
 key_buffer_size = 16K
 max_allowed_packet = 1M
-table_open_cache = 4
+#table_open_cache = 4	#	cannot use in mysql-5.0.96
 sort_buffer_size = 64K
 read_buffer_size = 256K
 read_rnd_buffer_size = 256K
