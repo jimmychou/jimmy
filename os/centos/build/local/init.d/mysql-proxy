@@ -21,7 +21,7 @@ prog="mysql-proxy"
 
 # Set default mysql-proxy configuration.
 #PROXY_OPTIONS="--daemon"
-PROXY_OPTIONS="--proxy-address=192.168.4.243:3306 --proxy-read-only-backend-addresses=192.168.4.202:3306 --proxy-backend-addresses=192.168.4.249:3306 --proxy-lua-script=/usr/local/lib/mysql-proxy/lua/rw-splitting.lua"
+PROXY_OPTIONS="--defaults-file=/etc/mysql-proxy.cnf"
 PROXY_PID=/var/run/mysqld/mysql-proxy.pid
 LOG_FILE=/var/log/mysql-proxy.log
 LOG_LEVEL=debug
@@ -42,7 +42,7 @@ case "$1" in
   start)
         # Start daemon.
         echo -n $"Starting $prog: "
-        $NICELEVEL $PROXY_PATH/mysql-proxy $PROXY_OPTIONS --daemon --pid-file=$PROXY_PID --user=$USER --log-level=$LOG_LEVEL --log-file=$LOG_FILE
+        $NICELEVEL $PROXY_PATH/mysql-proxy $PROXY_OPTIONS
         RETVAL=$?
         echo
         if [ $RETVAL = 0 ]; then
