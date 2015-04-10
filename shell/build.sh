@@ -21,9 +21,9 @@ for i in $*; do
 			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
 		fi
 		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION && ./configure && make && sudo make install
-#        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
-#        以上echo语句即使是sudo也无权限写入文件
-        sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
+#	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
+#	        以上echo语句即使是sudo也无权限写入文件
+	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
 	elif [[ $i == "nginx" ]]; then
 		# Nginx编译
 #		NGINXVERSION=1.4.1
@@ -228,37 +228,37 @@ NOEFFECT
 		    			--sbin-path=/usr/sbin/nginx \
 			    		--conf-path=/etc/nginx/nginx.conf \
 				    	--error-log-path=/var/log/nginx/error.log \
-					    --http-log-path=/var/log/nginx/access.log \
+					--http-log-path=/var/log/nginx/access.log \
     					--pid-path=/var/run/nginx.pid \
 	    				--lock-path=/var/run/nginx.lock \
 		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
 			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-					    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
     					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
 	    				--user=nginx \
 		    			--group=nginx \
 			    		--with-http_addition_module \
 				    	--with-http_degradation_module \
-					    --with-http_perl_module \
+					--with-http_perl_module \
     					--with-http_flv_module \
 	    				--with-http_geoip_module \
 		    			--with-google_perftools_module \
 			    		--with-http_gzip_static_module \
 				    	--with-http_gunzip_module \
-					    --with-http_image_filter_module \
+					--with-http_image_filter_module \
     					--with-http_mp4_module \
 	    				--with-http_random_index_module \
 		    			--with-http_realip_module \
 			    		--with-http_secure_link_module \
 				    	--with-http_ssl_module \
-					    --with-http_stub_status_module \
+					--with-http_stub_status_module \
     					--with-http_sub_module \
 	    				--with-http_dav_module \
 		    			--with-http_xslt_module \
 			    		--with-ipv6 \
 				    	--with-file-aio \
-					    --with-mail \
+					--with-mail \
     					--with-debug \
 	    				--with-http_stub_status_module \
 		    			--with-mail_ssl_module \
@@ -269,36 +269,36 @@ NOEFFECT
 		    			--sbin-path=/usr/sbin/nginx \
 			    		--conf-path=/etc/nginx/nginx.conf \
 				    	--error-log-path=/var/log/nginx/error.log \
-					    --http-log-path=/var/log/nginx/access.log \
+					--http-log-path=/var/log/nginx/access.log \
     					--pid-path=/var/run/nginx.pid \
 	    				--lock-path=/var/run/nginx.lock \
 		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
 			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-					    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
     					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
 	    				--user=nginx \
 		    			--group=nginx \
 			    		--with-http_addition_module \
 				    	--with-http_degradation_module \
-					    --with-http_perl_module \
+					--with-http_perl_module \
     					--with-http_flv_module \
 	    				--with-http_geoip_module \
 		    			--with-google_perftools_module \
 			    		--with-http_gzip_static_module \
-					    --with-http_image_filter_module \
+					--with-http_image_filter_module \
     					--with-http_mp4_module \
 	    				--with-http_random_index_module \
 		    			--with-http_realip_module \
 			    		--with-http_secure_link_module \
 				    	--with-http_ssl_module \
-					    --with-http_stub_status_module \
+					--with-http_stub_status_module \
     					--with-http_sub_module \
 	    				--with-http_dav_module \
 		    			--with-http_xslt_module \
 			    		--with-ipv6 \
 				    	--with-file-aio \
-					    --with-mail \
+					--with-mail \
     					--with-debug \
 	    				--with-http_stub_status_module \
 		    			--with-mail_ssl_module \
@@ -497,43 +497,43 @@ NOEFFECT
 		    			--host=i386-redhat-linux-gnu \
 			    		--target=i386-redhat-linux-gnu \
 				    	--program-prefix= \
-					    --prefix=/usr \
+					--prefix=/usr \
     					--exec-prefix=/usr \
 	    				--bindir=/usr/bin \
 		    			--sbindir=/usr/sbin \
 			    		--sysconfdir=/etc \
 				    	--datadir=/usr/share \
-					    --includedir=/usr/include \
+					--includedir=/usr/include \
     					--libdir=/usr/lib \
 	    				--libexecdir=/usr/libexec \
 		    			--localstatedir=/var \
 			    		--sharedstatedir=/usr/com \
 				    	--mandir=/usr/share/man \
-					    --infodir=/usr/share/info \
+					--infodir=/usr/share/info \
     					--with-readline \
 	    				--with-openssl \
 		    			--without-debug \
 			    		--enable-shared \
 				    	--with-bench \
-					    --localstatedir=/var/lib/mysql \
+					--localstatedir=/var/lib/mysql \
     					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
 	    				--with-mysqld-user=mysql \
 		    			--with-extra-charsets=all \
 			    		--with-innodb \
 				    	--with-berkeley-db \
-					    --enable-community-features \
+					--enable-community-features \
     					--enable-local-infile \
 	    				--enable-largefile \
 		    			--enable-profiling \
 			    		--enable-thread-safe-client \
 				    	--disable-dependency-tracking \
-					    --with-named-thread-libs=-lpthread \
+					--with-named-thread-libs=-lpthread \
     					--with-blackhole-storage-engine \
 	    				--with-example-storage-engine \
 		    			--with-archive-storage-engine \
 			    		--with-csv-storage-engine \
 				    	--with-federated-storage-engine \
-					    --with-ndbcluster \
+					--with-ndbcluster \
     					--with-ndb-test \
 	    				--with-ndb-docs \
 		    			build_alias=i386-redhat-linux-gnu \
@@ -544,34 +544,34 @@ NOEFFECT
 		    			--host=i386-redhat-linux-gnu \
 			    		--target=i386-redhat-linux-gnu \
 				    	--program-prefix= \
-					    --prefix=/usr \
+					--prefix=/usr \
     					--exec-prefix=/usr \
 	    				--bindir=/usr/bin \
 		    			--sbindir=/usr/sbin \
 			    		--sysconfdir=/etc \
 				    	--datadir=/usr/share \
-					    --includedir=/usr/include \
+					--includedir=/usr/include \
     					--libdir=/usr/lib \
 	    				--libexecdir=/usr/libexec \
 		    			--localstatedir=/var \
 			    		--sharedstatedir=/usr/com \
 				    	--mandir=/usr/share/man \
-					    --infodir=/usr/share/info \
+					--infodir=/usr/share/info \
     					--with-readline \
 	    				--with-ssl \
 		    			--without-debug \
 			    		--enable-shared \
-					    --localstatedir=/var/lib/mysql \
+					--localstatedir=/var/lib/mysql \
     					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
 	    				--with-mysqld-user=mysql \
 		    			--with-extra-charsets=all \
-					    --enable-community-features \
+					--enable-community-features \
     					--enable-local-infile \
 	    				--enable-largefile \
 		    			--enable-profiling \
 			    		--enable-thread-safe-client \
 				    	--disable-dependency-tracking \
-					    --with-named-thread-libs=-lpthread \
+					--with-named-thread-libs=-lpthread \
     					--with-plugins=partition,daemon_example,ftexample,archive,blackhole,csv,example,federated,heap,ibmdb2i,innobase,innodb_plugin,myisam,myisammrg,ndbcluster \
     					--with-ndb-test \
 	    				--with-ndb-docs \
