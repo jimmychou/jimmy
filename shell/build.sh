@@ -9,7 +9,7 @@ if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
 for i in $*; do 
-	if [[ $i == "nginx" ]]; then
+	if [[ $i == "google_perftools" ]]; then
 		# Nginx模块 google_perftools_module
 		GPERFTOOLSVERSION=2.0
 		GPERFTOOLSSUFFIX=tar.gz
@@ -21,9 +21,13 @@ for i in $*; do
 			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
 		fi
 		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION && ./configure && make && sudo make install
-
+#        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
+#        以上echo语句即使是sudo也无权限写入文件
+        sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
+	elif [[ $i == "nginx" ]]; then
 		# Nginx编译
-		NGINXVERSION=1.4.1
+#		NGINXVERSION=1.4.1
+		NGINXVERSION=1.0.14
 		NGINXSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
@@ -218,50 +222,89 @@ NOEFFECT
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
-				echo The Current Nginx 1.4.1 on CentOS 6.5 is configured as below:
-				./configure --prefix=/usr/share/nginx \
-					--sbin-path=/usr/sbin/nginx \
-					--conf-path=/etc/nginx/nginx.conf \
-					--error-log-path=/var/log/nginx/error.log \
-					--http-log-path=/var/log/nginx/access.log \
-					--pid-path=/var/run/nginx.pid \
-					--lock-path=/var/run/nginx.lock \
-					--http-client-body-temp-path=/var/cache/nginx/client_temp \
-					--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-					--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-					--user=nginx \
-					--group=nginx \
-					--with-http_addition_module \
-					--with-http_degradation_module \
-					--with-http_perl_module \
-					--with-http_flv_module \
-					--with-http_geoip_module \
-					--with-google_perftools_module \
-					--with-http_gzip_static_module \
-					--with-http_gunzip_module \
-					--with-http_image_filter_module \
-					--with-http_mp4_module \
-					--with-http_random_index_module \
-					--with-http_realip_module \
-					--with-http_secure_link_module \
-					--with-http_ssl_module \
-					--with-http_stub_status_module \
-					--with-http_sub_module \
-					--with-http_dav_module \
-					--with-http_xslt_module \
-					--with-ipv6 \
-					--with-file-aio \
-					--with-mail \
-					--with-debug \
-					--with-http_stub_status_module \
-					--with-mail_ssl_module \
-					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+			    if [ $NGINXVERSION == "1.4.1" ]; then
+    				echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+	    			./configure --prefix=/usr/share/nginx \
+		    			--sbin-path=/usr/sbin/nginx \
+			    		--conf-path=/etc/nginx/nginx.conf \
+				    	--error-log-path=/var/log/nginx/error.log \
+					    --http-log-path=/var/log/nginx/access.log \
+    					--pid-path=/var/run/nginx.pid \
+	    				--lock-path=/var/run/nginx.lock \
+		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
+			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+					    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+	    				--user=nginx \
+		    			--group=nginx \
+			    		--with-http_addition_module \
+				    	--with-http_degradation_module \
+					    --with-http_perl_module \
+    					--with-http_flv_module \
+	    				--with-http_geoip_module \
+		    			--with-google_perftools_module \
+			    		--with-http_gzip_static_module \
+				    	--with-http_gunzip_module \
+					    --with-http_image_filter_module \
+    					--with-http_mp4_module \
+	    				--with-http_random_index_module \
+		    			--with-http_realip_module \
+			    		--with-http_secure_link_module \
+				    	--with-http_ssl_module \
+					    --with-http_stub_status_module \
+    					--with-http_sub_module \
+	    				--with-http_dav_module \
+		    			--with-http_xslt_module \
+			    		--with-ipv6 \
+				    	--with-file-aio \
+					    --with-mail \
+    					--with-debug \
+	    				--with-http_stub_status_module \
+		    			--with-mail_ssl_module \
+			    		--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+			    elif [ $NGINXVERSION == "1.0.14" ]; then
+    				echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+	    			./configure --prefix=/usr/share/nginx \
+		    			--sbin-path=/usr/sbin/nginx \
+			    		--conf-path=/etc/nginx/nginx.conf \
+				    	--error-log-path=/var/log/nginx/error.log \
+					    --http-log-path=/var/log/nginx/access.log \
+    					--pid-path=/var/run/nginx.pid \
+	    				--lock-path=/var/run/nginx.lock \
+		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
+			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+					    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+	    				--user=nginx \
+		    			--group=nginx \
+			    		--with-http_addition_module \
+				    	--with-http_degradation_module \
+					    --with-http_perl_module \
+    					--with-http_flv_module \
+	    				--with-http_geoip_module \
+		    			--with-google_perftools_module \
+			    		--with-http_gzip_static_module \
+					    --with-http_image_filter_module \
+    					--with-http_mp4_module \
+	    				--with-http_random_index_module \
+		    			--with-http_realip_module \
+			    		--with-http_secure_link_module \
+				    	--with-http_ssl_module \
+					    --with-http_stub_status_module \
+    					--with-http_sub_module \
+	    				--with-http_dav_module \
+		    			--with-http_xslt_module \
+			    		--with-ipv6 \
+				    	--with-file-aio \
+					    --with-mail \
+    					--with-debug \
+	    				--with-http_stub_status_module \
+		    			--with-mail_ssl_module \
+			    		--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+                fi
 			fi
-#            sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
-#            以上echo语句即使是sudo也无权限写入文件
-            sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
 		fi
 	elif [[ $i == "httpd" ]]; then
 		# HTTPD编译
@@ -330,10 +373,10 @@ NOEFFECT
 		# MySQL编译，从5.5开始使用cmake来编译
 		#MYSQLBIGVERSION=5.6
 		#MYSQLVERSION=5.6.14
-		#MYSQLBIGVERSION=5.0
-		#MYSQLVERSION=5.0.96
-		MYSQLBIGVERSION=5.1
-		MYSQLVERSION=5.1.51
+		MYSQLBIGVERSION=5.0
+		MYSQLVERSION=5.0.96
+		#MYSQLBIGVERSION=5.1
+		#MYSQLVERSION=5.1.51
 		MYSQLSUFFIX=tar.gz
 		cd $SOFTWARE
 #   SHELL的if语句，多条件使用要注意
