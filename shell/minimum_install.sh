@@ -2,31 +2,31 @@
 source ./release.sh
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
-		apt-get install git-core php5-memcache
+		sudo apt-get $INSTALL_OPTION install git-core php5-memcache
 		# git-core - fast, scalable, distributed revision control system
 		# php5-memcache - memcache extension module for PHP5
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install git-core php5-cli php5-memcached
+		sudo apt-get $INSTALL_OPTION install git-core php5-cli php5-memcached
 		# git-core - fast, scalable, distributed revision control system
 		# php5-cli - command-line interpreter for the php5 scripting language
 		# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install git php5-fpm php5-memcached
+		sudo apt-get $INSTALL_OPTION install git php5-fpm php5-memcached
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install git php5-fpm php5-memcached
+		sudo apt-get $INSTALL_OPTION install git php5-fpm php5-memcached
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install git php5-fpm php5-memcached
+		sudo apt-get $INSTALL_OPTION install git php5-fpm php5-memcached
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php5-memcached - memcached extension module for PHP5, uses libmemcached
 	fi
-	apt-get install apache2 g++ libapache2-mod-php5 memcached mysql-server nginx php5 php5-cgi php5-dev php5-mysql phpmyadmin vim
+	sudo apt-get $INSTALL_OPTION install apache2 g++ libapache2-mod-php5 memcached mysql-server nginx php5 php5-cgi php5-dev php5-mysql phpmyadmin vim
 	# apache2 - Apache HTTP Server metapackage
 	# g++ - GNU C++ compiler
 	# libapache2-mod-php5 - server-side, HTML-embedded scripting language (Apache 2 module)

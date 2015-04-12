@@ -222,88 +222,88 @@ NOEFFECT
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
-			    if [ $NGINXVERSION == "1.4.1" ]; then
-    				echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
-	    			./configure --prefix=/usr/share/nginx \
-		    			--sbin-path=/usr/sbin/nginx \
-			    		--conf-path=/etc/nginx/nginx.conf \
-				    	--error-log-path=/var/log/nginx/error.log \
-					--http-log-path=/var/log/nginx/access.log \
-    					--pid-path=/var/run/nginx.pid \
-	    				--lock-path=/var/run/nginx.lock \
-		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
-			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-    					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-	    				--user=nginx \
-		    			--group=nginx \
-			    		--with-http_addition_module \
-				    	--with-http_degradation_module \
-					--with-http_perl_module \
-    					--with-http_flv_module \
-	    				--with-http_geoip_module \
-		    			--with-google_perftools_module \
-			    		--with-http_gzip_static_module \
-				    	--with-http_gunzip_module \
-					--with-http_image_filter_module \
-    					--with-http_mp4_module \
-	    				--with-http_random_index_module \
-		    			--with-http_realip_module \
-			    		--with-http_secure_link_module \
-				    	--with-http_ssl_module \
-					--with-http_stub_status_module \
-    					--with-http_sub_module \
-	    				--with-http_dav_module \
-		    			--with-http_xslt_module \
-			    		--with-ipv6 \
-				    	--with-file-aio \
-					--with-mail \
-    					--with-debug \
-	    				--with-http_stub_status_module \
-		    			--with-mail_ssl_module \
-			    		--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
-			    elif [ $NGINXVERSION == "1.0.14" ]; then
-    				echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
-	    			./configure --prefix=/usr/share/nginx \
-		    			--sbin-path=/usr/sbin/nginx \
-			    		--conf-path=/etc/nginx/nginx.conf \
-				    	--error-log-path=/var/log/nginx/error.log \
-					--http-log-path=/var/log/nginx/access.log \
-    					--pid-path=/var/run/nginx.pid \
-	    				--lock-path=/var/run/nginx.lock \
-		    			--http-client-body-temp-path=/var/cache/nginx/client_temp \
-			    		--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-				    	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-    					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-	    				--user=nginx \
-		    			--group=nginx \
-			    		--with-http_addition_module \
-				    	--with-http_degradation_module \
-					--with-http_perl_module \
-    					--with-http_flv_module \
-	    				--with-http_geoip_module \
-		    			--with-google_perftools_module \
-			    		--with-http_gzip_static_module \
-					--with-http_image_filter_module \
-    					--with-http_mp4_module \
-	    				--with-http_random_index_module \
-		    			--with-http_realip_module \
-			    		--with-http_secure_link_module \
-				    	--with-http_ssl_module \
-					--with-http_stub_status_module \
-    					--with-http_sub_module \
-	    				--with-http_dav_module \
-		    			--with-http_xslt_module \
-			    		--with-ipv6 \
-				    	--with-file-aio \
-					--with-mail \
-    					--with-debug \
-	    				--with-http_stub_status_module \
-		    			--with-mail_ssl_module \
-			    		--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
-                fi
+				if [ $NGINXVERSION == "1.4.1" ]; then
+					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+					./configure --prefix=/usr/share/nginx \
+						--sbin-path=/usr/sbin/nginx \
+						--conf-path=/etc/nginx/nginx.conf \
+						--error-log-path=/var/log/nginx/error.log \
+						--http-log-path=/var/log/nginx/access.log \
+						--pid-path=/var/run/nginx.pid \
+						--lock-path=/var/run/nginx.lock \
+						--http-client-body-temp-path=/var/cache/nginx/client_temp \
+						--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+						--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+						--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+						--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+						--user=nginx \
+						--group=nginx \
+						--with-http_addition_module \
+						--with-http_degradation_module \
+						--with-http_perl_module \
+						--with-http_flv_module \
+						--with-http_geoip_module \
+						--with-google_perftools_module \
+						--with-http_gzip_static_module \
+						--with-http_gunzip_module \
+						--with-http_image_filter_module \
+						--with-http_mp4_module \
+						--with-http_random_index_module \
+						--with-http_realip_module \
+						--with-http_secure_link_module \
+						--with-http_ssl_module \
+						--with-http_stub_status_module \
+						--with-http_sub_module \
+						--with-http_dav_module \
+						--with-http_xslt_module \
+						--with-ipv6 \
+						--with-file-aio \
+						--with-mail \
+						--with-debug \
+						--with-http_stub_status_module \
+						--with-mail_ssl_module \
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+				elif [ $NGINXVERSION == "1.0.14" ]; then
+					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+					./configure --prefix=/usr/share/nginx \
+						--sbin-path=/usr/sbin/nginx \
+						--conf-path=/etc/nginx/nginx.conf \
+						--error-log-path=/var/log/nginx/error.log \
+						--http-log-path=/var/log/nginx/access.log \
+						--pid-path=/var/run/nginx.pid \
+						--lock-path=/var/run/nginx.lock \
+						--http-client-body-temp-path=/var/cache/nginx/client_temp \
+						--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+						--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+						--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+						--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+						--user=nginx \
+						--group=nginx \
+						--with-http_addition_module \
+						--with-http_degradation_module \
+						--with-http_perl_module \
+						--with-http_flv_module \
+						--with-http_geoip_module \
+						--with-google_perftools_module \
+						--with-http_gzip_static_module \
+						--with-http_image_filter_module \
+						--with-http_mp4_module \
+						--with-http_random_index_module \
+						--with-http_realip_module \
+						--with-http_secure_link_module \
+						--with-http_ssl_module \
+						--with-http_stub_status_module \
+						--with-http_sub_module \
+						--with-http_dav_module \
+						--with-http_xslt_module \
+						--with-ipv6 \
+						--with-file-aio \
+						--with-mail \
+						--with-debug \
+						--with-http_stub_status_module \
+						--with-mail_ssl_module \
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+				fi
 			fi
 		fi
 	elif [[ $i == "httpd" ]]; then
@@ -379,7 +379,7 @@ NOEFFECT
 		#MYSQLVERSION=5.1.51
 		MYSQLSUFFIX=tar.gz
 		cd $SOFTWARE
-#   SHELL的if语句，多条件使用要注意
+		#	SHELL的if语句，多条件使用要注意
 		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && ! -f index.html ]; then      #   NOT OK
 		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a ! -f index.html ]; then      #   OK?
 		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ ! -f index.html ]; then   #   OK
@@ -486,99 +486,99 @@ NOEFFECT
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo /sbin/ldconfig -v
 			elif [[ $PrimaryVersion == "6" ]]; then
-                yum install doxygen
-                #   --with-ndb-docs 需要，configure   时不报错，但    make    时会报错
+				yum install doxygen
+				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
 				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
-	    		if [[ $MYSQLBIGVERSION == "5.0" ]]; then
-	    			./configure --build=i386-redhat-linux-gnu \
-		    			--host=i386-redhat-linux-gnu \
-			    		--target=i386-redhat-linux-gnu \
-				    	--program-prefix= \
-					--prefix=/usr \
-    					--exec-prefix=/usr \
-	    				--bindir=/usr/bin \
-		    			--sbindir=/usr/sbin \
-			    		--sysconfdir=/etc \
-				    	--datadir=/usr/share \
-					--includedir=/usr/include \
-    					--libdir=/usr/lib \
-	    				--libexecdir=/usr/libexec \
-		    			--localstatedir=/var \
-			    		--sharedstatedir=/usr/com \
-				    	--mandir=/usr/share/man \
-					--infodir=/usr/share/info \
-    					--with-readline \
-	    				--with-openssl \
-		    			--without-debug \
-			    		--enable-shared \
-				    	--with-bench \
-					--localstatedir=/var/lib/mysql \
-    					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
-	    				--with-mysqld-user=mysql \
-		    			--with-extra-charsets=all \
-			    		--with-innodb \
-				    	--with-berkeley-db \
-					--enable-community-features \
-    					--enable-local-infile \
-	    				--enable-largefile \
-		    			--enable-profiling \
-			    		--enable-thread-safe-client \
-				    	--disable-dependency-tracking \
-					--with-named-thread-libs=-lpthread \
-    					--with-blackhole-storage-engine \
-	    				--with-example-storage-engine \
-		    			--with-archive-storage-engine \
-			    		--with-csv-storage-engine \
-				    	--with-federated-storage-engine \
-					--with-ndbcluster \
-    					--with-ndb-test \
-	    				--with-ndb-docs \
-		    			build_alias=i386-redhat-linux-gnu \
-			    		host_alias=i386-redhat-linux-gnu \
-				    	target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
-	    		elif [[ $MYSQLBIGVERSION == "5.1" ]]; then
-	    			./configure --build=i386-redhat-linux-gnu \
-		    			--host=i386-redhat-linux-gnu \
-			    		--target=i386-redhat-linux-gnu \
-				    	--program-prefix= \
-					--prefix=/usr \
-    					--exec-prefix=/usr \
-	    				--bindir=/usr/bin \
-		    			--sbindir=/usr/sbin \
-			    		--sysconfdir=/etc \
-				    	--datadir=/usr/share \
-					--includedir=/usr/include \
-    					--libdir=/usr/lib \
-	    				--libexecdir=/usr/libexec \
-		    			--localstatedir=/var \
-			    		--sharedstatedir=/usr/com \
-				    	--mandir=/usr/share/man \
-					--infodir=/usr/share/info \
-    					--with-readline \
-	    				--with-ssl \
-		    			--without-debug \
-			    		--enable-shared \
-					--localstatedir=/var/lib/mysql \
-    					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
-	    				--with-mysqld-user=mysql \
-		    			--with-extra-charsets=all \
-					--enable-community-features \
-    					--enable-local-infile \
-	    				--enable-largefile \
-		    			--enable-profiling \
-			    		--enable-thread-safe-client \
-				    	--disable-dependency-tracking \
-					--with-named-thread-libs=-lpthread \
-    					--with-plugins=partition,daemon_example,ftexample,archive,blackhole,csv,example,federated,heap,ibmdb2i,innobase,innodb_plugin,myisam,myisammrg,ndbcluster \
-    					--with-ndb-test \
-	    				--with-ndb-docs \
-		    			build_alias=i386-redhat-linux-gnu \
-			    		host_alias=i386-redhat-linux-gnu \
-				    	target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
-                fi
+				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--with-readline \
+						--with-openssl \
+						--without-debug \
+						--enable-shared \
+						--with-bench \
+						--localstatedir=/var/lib/mysql \
+						--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+						--with-mysqld-user=mysql \
+						--with-extra-charsets=all \
+						--with-innodb \
+						--with-berkeley-db \
+						--enable-community-features \
+						--enable-local-infile \
+						--enable-largefile \
+						--enable-profiling \
+						--enable-thread-safe-client \
+						--disable-dependency-tracking \
+						--with-named-thread-libs=-lpthread \
+						--with-blackhole-storage-engine \
+						--with-example-storage-engine \
+						--with-archive-storage-engine \
+						--with-csv-storage-engine \
+						--with-federated-storage-engine \
+						--with-ndbcluster \
+						--with-ndb-test \
+						--with-ndb-docs \
+						build_alias=i386-redhat-linux-gnu \
+						host_alias=i386-redhat-linux-gnu \
+						target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
+				elif [[ $MYSQLBIGVERSION == "5.1" ]]; then
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--with-readline \
+						--with-ssl \
+						--without-debug \
+						--enable-shared \
+						--localstatedir=/var/lib/mysql \
+						--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+						--with-mysqld-user=mysql \
+						--with-extra-charsets=all \
+						--enable-community-features \
+						--enable-local-infile \
+						--enable-largefile \
+						--enable-profiling \
+						--enable-thread-safe-client \
+						--disable-dependency-tracking \
+						--with-named-thread-libs=-lpthread \
+						--with-plugins=partition,daemon_example,ftexample,archive,blackhole,csv,example,federated,heap,ibmdb2i,innobase,innodb_plugin,myisam,myisammrg,ndbcluster \
+						--with-ndb-test \
+						--with-ndb-docs \
+						build_alias=i386-redhat-linux-gnu \
+						host_alias=i386-redhat-linux-gnu \
+						target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
+				fi
 			fi
 		fi
 	elif [[ $i == "php" ]]; then
@@ -609,7 +609,7 @@ NOEFFECT
 				sudo yum install -y curl-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
-                sudo yum install curl-devel.$OS_SUFFIX
+				sudo yum install curl-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -897,9 +897,9 @@ NOEFFECT
 NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
-		        #PHPVERSION=5.5.14
-                sudo yum install -y libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
-			#	2015年3月31日还命名为libjpeg-devel，2015年4月1日竟然更名为libjpeg-turbo-devel。莫非只是愚人节开的玩笑？
+				#PHPVERSION=5.5.14
+				sudo yum install -y libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+				#2015年3月31日还命名为libjpeg-devel，2015年4月1日竟然更名为libjpeg-turbo-devel。莫非只是愚人节开的玩笑？
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i686-redhat-linux-gnu \
@@ -998,8 +998,8 @@ NOEFFECT
 					--enable-bcmath \
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
-                make && sudo make install
 			fi
+			make && sudo make install
 		fi
 	elif [[ $i == "memcached" ]]; then
 		# Memcached编译
@@ -1008,7 +1008,7 @@ NOEFFECT
 		MEMCACHEDSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX ]; then
-            wget --content-disposition http://www.memcached.org/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+			wget --content-disposition http://www.memcached.org/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
 		fi
 		if [ ! -d memcached-$MEMCACHEDVERSION ]; then
 			tar -zvxf memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
@@ -1020,9 +1020,7 @@ NOEFFECT
 			fi
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y libevent-devel.$OS_SUFFIX
-			if [[ $PrimaryVersion == "6" ]]; then
-				echo The Official Memcached on CentOS 6.4 is configured as below:
-			elif [[ $PrimaryVersion == "5" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
 				echo The Current Memcached on CentOS 5.9 is configured as below:
 #				Why these cannot use?
 #				./configure --build=i386-redhat-linux-gnu \
@@ -1035,7 +1033,7 @@ NOEFFECT
 					--mandir=/usr/share/man \
 					--includedir=/usr/include && make && sudo make install
 			elif [[ $PrimaryVersion == "6" ]]; then
-				echo The Current Memcached on CentOS 5.9 is configured as below:
+				echo The Current Memcached on CentOS 6.6 is configured as below:
 				./configure --prefix=/usr \
 					--exec-prefix=/usr \
 					--bindir=/usr/bin \

@@ -1,18 +1,18 @@
 #!/bin/bash
 source ./release.sh
-# 一.可以用 apt-get install 命令批量安装的软件
+# 一.可以用 sudo apt-get $INSTALL_OPTION install 命令批量安装的软件
 
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
-		apt-get install chmsee compiz-plugins gsynaptics openoffice.org virtualbox-ose
+		sudo apt-get $INSTALL_OPTION install chmsee compiz-plugins gsynaptics openoffice.org virtualbox-ose
 		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
 		# gsynaptics - configuration tool for Synaptics touchpad driver of X server
 		# openoffice.org - office productivity suite
 		# virtualbox-ose - x86 virtualization solution - base binaries
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install arandr chmsee compiz-plugins openoffice.org software-center touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
+		sudo apt-get $INSTALL_OPTION install arandr chmsee compiz-plugins openoffice.org software-center touchfreeze ubuntuone-client ubuntuone-client-gnome ubuntuone-client-tools virtualbox-ose
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
@@ -24,7 +24,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-client-tools - Ubuntu One client tools
 		# virtualbox-ose - x86 virtualization solution - base binaries
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install arandr chmsee compiz-plugins-extra kde-config-touchpad libreoffice software-center ubuntuone-installer virtualbox
+		sudo apt-get $INSTALL_OPTION install arandr chmsee compiz-plugins-extra kde-config-touchpad libreoffice software-center ubuntuone-installer virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# chmsee - GTK+ 环境下的 chm 阅读器
 		##compiz-plugins-extra - Collection of extra plugins from OpenCompositing for Compiz
@@ -34,7 +34,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		##ubuntuone-installer - Ubuntu One Installer
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client ubuntuone-control-panel-qt virtualbox
+		sudo apt-get $INSTALL_OPTION install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client ubuntuone-control-panel-qt virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz - OpenGL 窗口和合成管理器
@@ -49,7 +49,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
+		sudo apt-get $INSTALL_OPTION install arandr chmsee compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-config-touchpad libreoffice software-center ubuntuone-client-data ubuntuone-control-panel-qt virtualbox
 		# arandr - Simple visual front end for XRandR（XRandR 的一个简单的可视化前端）
 		# chmsee - GTK+ 环境下的 chm 阅读器
 		# compiz - OpenGL 窗口和合成管理器
@@ -64,7 +64,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntuone-control-panel-qt - Ubuntu One Control Panel - Qt frontend
 		##virtualbox - x86 virtualization solution - base binaries（x86虚拟化解决方案 - 基本二进制程序）
 	elif [[ $Codename == "trusty" ]]; then
-		apt-get install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-touchpad libreoffice software-center ubuntuone-client-data virtualbox xchm
+		sudo apt-get $INSTALL_OPTION install arandr compiz compiz-plugins compiz-plugins-extra compiz-plugins-main compiz-plugins-main-default kde-touchpad libreoffice software-center ubuntuone-client-data virtualbox xchm
 		# arandr - XRandR 的一个简单的可视化前端
 		# compiz - OpenGL 窗口和合成管理器
 		# compiz-plugins - OpenGL window and compositing manager - plugins
@@ -78,7 +78,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		##virtualbox - x86虚拟化解决方案 - 基本二进制程序
 		# xchm - X 下的 CHM 文件查看器
 	fi
-	apt-get install camorama compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox synaptic thunderbird update-manager
+	sudo apt-get $INSTALL_OPTION install camorama compizconfig-settings-manager cssed emma fcitx filezilla firefox gedit gphpedit qterm rhythmbox synaptic thunderbird update-manager
 	# camorama - gnome utility to view and save images from a webcam（用于查看和保存来自摄像头的图像的 gnome 应用程序）
 	# compizconfig-settings-manager - Compiz configuration settings manager
 	# cssed - graphical CSS editor
@@ -145,13 +145,13 @@ fi
 # 2.以下软件都能在Ubuntu软件中心搜索找到，但是没有特定的icon
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
-		apt-get install git-core php5-memcache php-doc smarty
+		sudo apt-get $INSTALL_OPTION install git-core php5-memcache php-doc smarty
 		# git-core - fast, scalable, distributed revision control system
 		# php5-memcache - memcache extension module for PHP5
 		# php-doc - Documentation for PHP4 and PHP5
 		# smarty - Template engine for PHP
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install chkconfig git-core phpunit-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
+		sudo apt-get $INSTALL_OPTION install chkconfig git-core phpunit-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
 		# chkconfig - system tool to enable or disable system services
 		# git-core - fast, scalable, distributed revision control system
 		# phpunit-doc - Manual for phpunit
@@ -163,7 +163,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# sphinxsearch - Fast standalone full-text SQL search engine
 		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install chkconfig git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
+		sudo apt-get $INSTALL_OPTION install chkconfig git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty sphinxsearch vim-puppet
 		# chkconfig - system tool to enable or disable system services
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
@@ -176,7 +176,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# sphinxsearch - Fast standalone full-text SQL search engine
 		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
+		sudo apt-get $INSTALL_OPTION install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
@@ -188,7 +188,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# sphinxsearch - Fast standalone full-text SQL search engine
 		##vim-puppet - syntax highlighting for puppet manifests in vim
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
+		sudo apt-get $INSTALL_OPTION install git php5-fpm php-doc php5-memcached php-apc nmon redis-server smarty3 sphinxsearch vim-puppet
 		# git - fast, scalable, distributed revision control system
 		# php5-fpm - server-side, HTML-embedded scripting language (FPM-CGI binary)
 		# php-doc - Documentation for PHP5
@@ -200,7 +200,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# sphinxsearch - Fast standalone full-text SQL search engine
 		##vim-puppet - syntax highlighting for puppet manifests in vim
 	fi
-	apt-get install apache2 cakephp cmake exif gcc g++ keepalived libapache2-mod-php5 logrotate lrzsz lsb memcached mysql-client mysql-server nginx p7zip-full php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd php5-imagick php5-mysql phpmyadmin php-pear phpunit puppet readpst sshpass subversion sysstat unrar vim zend-framework
+	sudo apt-get $INSTALL_OPTION install apache2 cakephp cmake exif gcc g++ keepalived libapache2-mod-php5 logrotate lrzsz lsb memcached mysql-client mysql-server nginx p7zip-full php5 php5-cgi php5-cli php5-common php5-curl php5-dev php5-gd php5-imagick php5-mysql phpmyadmin php-pear phpunit puppet readpst sshpass subversion sysstat unrar vim zend-framework
 	# apache2 - Apache HTTP Server metapackage
 	##cakephp - MVC rapid application development framework for PHP
 	# cmake - cross-platform, open-source make system
@@ -432,16 +432,16 @@ fi
 # 3.以下也都可以在第三方官方网站下载安装
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "precise" ]]; then
-		apt-get install google-chrome-stable 
+		sudo apt-get $INSTALL_OPTION install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install google-chrome-stable 
+		sudo apt-get $INSTALL_OPTION install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install google-chrome-stable 
+		sudo apt-get $INSTALL_OPTION install google-chrome-stable 
 		# google-chrome-stable - The web browser from Google  #需要手动加入第三方源
 	fi
-	apt-get install adobe-flashplugin opera 
+	sudo apt-get $INSTALL_OPTION install adobe-flashplugin opera 
 	##adobe-flashplugin - Adobe Flash Player plugin version 11 在“长城宽带”的网络环境下，如果把它放在必装软件的头一条，竟然会影响之后的软件安装
 	##opera - Fast and secure web browser and Internet suite
 	#/opera-next - Fast and secure web browser and Internet suite //貌似这个版本比上面的版本还要旧，这是为何？
@@ -484,22 +484,22 @@ fi
 # 1.以下软件也都可在Ubuntu软件中心搜索找到
 if [[ $OS == "Ubuntu" ]]; then
 	if [ $Codename == "lucid" ]; then
-		apt-get install chromium-browser
+		sudo apt-get $INSTALL_OPTION install chromium-browser
 		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install activity-log-manager chromium-browser
+		sudo apt-get $INSTALL_OPTION install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
 		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install activity-log-manager chromium-browser
+		sudo apt-get $INSTALL_OPTION install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
 		##chromium-browser - Chromium 浏览器
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install activity-log-manager chromium-browser
+		sudo apt-get $INSTALL_OPTION install activity-log-manager chromium-browser
 		##activity-log-manager - blacklist configuration user interface for Zeitgeist //跟“隐私”功能一样，但居然是两个软件？！
 		##chromium-browser - Chromium 浏览器
 	fi
-	apt-get install amarok bluefish eclipse kdesvn pidgin stardict wireshark
+	sudo apt-get $INSTALL_OPTION install amarok bluefish eclipse kdesvn pidgin stardict wireshark
 	# amarok - easy to use media player based on the KDE Platform
 	# bluefish - advanced Gtk+ HTML editor
 	##eclipse - Extensible Tool Platform and Java IDE
@@ -522,23 +522,23 @@ fi
 # 2.以下软件都能在Ubuntu软件中心搜索找到，但是没有特定的icon
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "lucid" ]]; then
-		apt-get install sysbench tmux
+		sudo apt-get $INSTALL_OPTION install sysbench tmux
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install sysbench tmux
+		sudo apt-get $INSTALL_OPTION install sysbench tmux
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install sysbench tmux
+		sudo apt-get $INSTALL_OPTION install sysbench tmux
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install sysbench tmux
+		sudo apt-get $INSTALL_OPTION install sysbench tmux
 		# sysbench - Cross-platform and multi-threaded benchmark tool
 		# tmux - terminal multiplexer
 	fi
-	apt-get install libpcre3-dev libzlcore-dev openssh-client openssh-server openvpn puppetmaster python-mutagen screen tree
+	sudo apt-get $INSTALL_OPTION install libpcre3-dev libzlcore-dev openssh-client openssh-server openvpn puppetmaster python-mutagen screen tree
 	# libpcre3-dev - Perl 5 Compatible Regular Expression Library - development files，为nginx源码编译需要的PCRE准备
 	# libzlcore-dev - ZLibrary cross-platform development library (development files)
 	# openssh-client - secure shell (SSH) client, for secure access to remote machines
@@ -568,32 +568,32 @@ fi
 # 3.以下桌面安装要慎重选择，否则卸载就比较麻烦了
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
-		apt-get install edubuntu-desktop-kde firefox-themes-ubuntu kubuntu-kde4-desktop ubuntu-sounds
+		sudo apt-get $INSTALL_OPTION install edubuntu-desktop-kde firefox-themes-ubuntu kubuntu-kde4-desktop ubuntu-sounds
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 		# firefox-themes-ubuntu - Firefox themes matching the Ubuntu desktop look
 		# kubuntu-kde4-desktop - Kubuntu desktop system
 		# ubuntu-sounds - Ubuntu's GNOME audio theme  # dependency of ubuntu-desktop
 	elif [[ $Codename == "lucid" ]]; then
-		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
+		sudo apt-get $INSTALL_OPTION install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 		# lubuntu-desktop - Lubuntu Desktop environment
 		# ubuntu-desktop - The Ubuntu desktop system
 		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	elif [[ $Codename == "precise" ]]; then
-		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
+		sudo apt-get $INSTALL_OPTION install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 		# lubuntu-desktop - Lubuntu Desktop environment
 		# ubuntu-desktop - The Ubuntu desktop system
 		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 	elif [[ $Codename == "quantal" ]]; then
-		apt-get install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntu-gnome-desktop
+		sudo apt-get $INSTALL_OPTION install edubuntu-desktop-kde lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntu-gnome-desktop
 		# edubuntu-desktop-kde - educational desktop for Kubuntu (unsupported)
 		# lubuntu-desktop - Lubuntu Desktop environment
 		# ubuntu-desktop - The Ubuntu desktop system
 		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
 		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	elif [[ $Codename == "raring" ]]; then
-		apt-get install lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
+		sudo apt-get $INSTALL_OPTION install lubuntu-desktop ubuntu-desktop ubuntustudio-desktop ubuntukylin-default-settings ubuntukylin-theme ubuntu-gnome-desktop
 		# lubuntu-desktop - Lubuntu Desktop environment
 		# ubuntu-desktop - The Ubuntu desktop system
 		# ubuntustudio-desktop - Ubuntu Studio Desktop Package
@@ -601,7 +601,7 @@ if [[ $OS == "Ubuntu" ]]; then
 		# ubuntukylin-theme - UbuntuKylin theme
 		# ubuntu-gnome-desktop - The Ubuntu GNOME metapackage
 	fi
-	apt-get install edubuntu-desktop gnome-desktop-environment kubuntu-desktop xubuntu-desktop
+	sudo apt-get $INSTALL_OPTION install edubuntu-desktop gnome-desktop-environment kubuntu-desktop xubuntu-desktop
 	# edubuntu-desktop - educational desktop for Ubuntu
 	# gnome-desktop-environment - The GNOME Desktop Environment - transitional package
 	# kubuntu-desktop - Kubuntu Plasma Desktop/Netbook system

@@ -1,7 +1,16 @@
 #!/bin/bash
+INSTALL_OPTION=''
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`  #   此语句仅仅对Debian系的Ubuntu有效
 if [[ $OS == "Ubuntu" ]]; then
-	sudo apt-get install -y lsb g++
+	for i in $*; do
+		if [[ $i =~ '-' ]]; then
+			INSTALL_OPTION=${INSTALL_OPTION}" "${i}
+		fi
+	done
+	if [[ -z $INSTALL_OPTION ]]; then
+		INSTALL_OPTION=" -d "
+	fi
+	sudo apt-get $INSTALL_OPTION install lsb g++
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
 	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
