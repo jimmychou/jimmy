@@ -20,10 +20,31 @@ for i in $*; do
 		if [ ! -d gperftools-$GPERFTOOLSSUFFIX ]; then
 			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
 		fi
-		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION && ./configure && make && sudo make install
+		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION
+		./configure --build=i386-redhat-linux-gnu \
+			--host=i386-redhat-linux-gnu \
+			--target=i386-redhat-linux-gnu \
+			--program-prefix= \
+			--prefix=/usr \
+			--exec-prefix=/usr \
+			--bindir=/usr/bin \
+			--sbindir=/usr/sbin \
+			--sysconfdir=/etc \
+			--datadir=/usr/share \
+			--includedir=/usr/include \
+			--libdir=/usr/lib \
+			--libexecdir=/usr/libexec \
+			--localstatedir=/var \
+			--sharedstatedir=/usr/com \
+			--mandir=/usr/share/man \
+			--infodir=/usr/share/info \
+			build_alias=i386-redhat-linux-gnu \
+			host_alias=i386-redhat-linux-gnu \
+			target_alias=i386-redhat-linux-gnu && make && sudo make install
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
-	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
+#	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
+#		有了	configure	条件后，无需上面这一步了
 	elif [[ $i == "nginx" ]]; then
 		# Nginx编译
 #		NGINXVERSION=1.4.1
