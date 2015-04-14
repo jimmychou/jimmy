@@ -97,6 +97,7 @@ for i in $*; do
 	elif [[ $i == "php" ]]; then
 		#PHP
 			#	/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
+		sudo groupadd nginx && sudo useradd -M -g nginx nginx
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.ini /etc/ 
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php-fpm.conf /etc/
 		if [ ! -d "/var/log/php-fpm" ]; then
@@ -104,10 +105,10 @@ for i in $*; do
 		fi
 			#	否则会报错：failed to open error_log (/var/log/php-fpm/error.log): No such file or directory
 		#sudo groupadd apache && sudo useradd -M -g apache apache	#	否则启动时会报错：cannot get uid for user 'apache'
-		if [ ! -d "/etc/php.d" ]; then
+		#if [ ! -d "/etc/php.d" ]; then
 			sudo mkdir /etc/php.d
-		fi
-		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.d/* /etc/php.d/
+		#fi
+		#sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.d/* /etc/php.d/
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/php-fpm /etc/init.d/
 		sudo setsebool -P httpd_read_user_content 1
 		sudo setsebool -P httpd_enable_homedirs 1
