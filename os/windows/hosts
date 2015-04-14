@@ -19,16 +19,17 @@
 # localhost name resolution is handled within DNS itself.
 #	127.0.0.1       localhost
 #	::1             localhost
-127.0.0.1       	localhost
+#192.168.4.243      	localhost
+#192.168.4.216      	localhost
+127.0.0.1	       	localhost
 
 ################################################################################################################################################
 #	内部
 
-192.168.0.99		wiki.anzhi.com			#	Anzhi	Wiki
-118.26.224.12		hqwebgrind.goapk.com	#	Monitor
-192.168.0.30 		mytool.local			#	HongQing's PC
-118.26.203.23		att.anzhi.com			#	att
-192.168.0.99		pms.anzhi.com			#	BugFree
+192.168.0.99		wiki.anzhi.com						#	Anzhi	Wiki
+118.26.224.12		hqwebgrind.goapk.com				#	Monitor
+192.168.0.30 		mytool.local						#	HongQing's PC
+118.26.203.23		att.anzhi.com						#	att
 118.26.203.23 		518test.anzhi.com
 192.168.0.99		9.admin.goapk.com
 118.26.203.16		518test16.anzhi.com
@@ -36,11 +37,12 @@
 ################################################################################################################################################
 #	CentOS6
 
-192.168.4.243		yx.anzhi.com			#	CentOS_6.5
-192.168.4.243		pad.anzhi.com			#	CentOS_6.5
-192.168.4.243		gomarket.goapk.com		#	CentOS_6.5
-192.168.4.243		centos.jimmychou.com	#	CentOS_6.5
-192.168.4.243		m.anzhi.com				#	CentOS_6.5
+192.168.4.243		yx.anzhi.com						#	CentOS_6.5
+192.168.4.243		pad.anzhi.com						#	CentOS_6.5
+192.168.4.243		gomarket.goapk.com					#	CentOS_6.5
+192.168.4.243		centos.jimmychou.com				#	CentOS_6.5
+192.168.4.243		m.anzhi.com							#	CentOS_6.5
+192.168.4.238		nginx.centos.jimmychou.com			#	CentOS_6.5
 
 ################################################################################################################################################
 

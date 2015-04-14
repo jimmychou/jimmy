@@ -5,33 +5,39 @@ if [ $# -le 0 ]; then
 fi
 source ./release.sh
 SOFTWARE=~/software
-#	755是web目录可以访问的最低要求，不要再试图744等
 for i in $*; do 
 	if [[ $i == "nginx" ]]; then
 		#Nginx
-		sudo cp ~/workspace/jimmy/os/build/done/init.d/nginx /etc/init.d/
-		sudo cp ~/workspace/jimmy/os/build/done/init/nginx/local.conf /etc/ld.so.conf.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/nginx /etc/init.d/
+		#sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init/nginx/local.conf /etc/ld.so.conf.d/
 			#	否则报错：error while loading shared libraries: libprofiler.so.0: cannot open shared object file: No such file or directory
-		sudo ldconfig -v
-		sudo groupadd nginx && sudo useradd -M -g nginx nginx
+		#sudo ldconfig -v
+		#sudo groupadd nginx && sudo useradd -M -g nginx nginx
 			#	否则报错 nginx: [emerg] getpwnam("nginx") failed
 			#	相反的用法是： sudo userdel -r nginx ## 一般情况下，如此删除用户后，连组也删除了	sudo groupdel nginx
-		if [ ! -d "/var/cache/nginx" ]; then
-			sudo mkdir -p /var/cache/nginx
-		fi
+		#	后来发现不知什么时候似乎已经添加此	nginx	用户和用户组
+		#if [ ! -d "/var/cache/nginx" ]; then
+		#	sudo mkdir -p /var/cache/nginx
+		#fi
+		#	后来发现竟然不需要创建以上目录
 		if [ ! -d "/etc/nginx/conf.d" ]; then
 			sudo mkdir /etc/nginx/conf.d
 		fi
-		sudo cp ~/workspace/jimmy/os/extra.conf /etc/nginx/conf.d/
-		sudo cp ~/workspace/jimmy/os/build/done/conf/nginx/nginx.conf /etc/nginx/nginx.conf
+		#sudo cp ~/workspace/jimmy/os/extra.conf /etc/nginx/conf.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/nginx.conf /etc/nginx/nginx.conf
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/conf.d/centos_6.conf /etc/nginx/conf.d/
+		sudo setsebool -P httpd_read_user_content 1
+		sudo setsebool -P httpd_enable_homedirs 1
+		sudo chmod 755 /home/jimmychou
+#		755是web目录可以访问的最低要求，不要再试图744等
 		sudo /etc/init.d/nginx start
 		sudo chkconfig --add nginx
 		sudo chkconfig nginx on
-		sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
-		sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
-		if [ -d "~/workspace/phpMyAdmin" ]; then
-			cp ~/workspace/jimmy/os/build/done/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
-		fi
+		#sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
+		#sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
+		#if [ -d "~/workspace/phpMyAdmin" ]; then
+			#cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
+		#fi
 	elif [[ $i == "httpd" ]]; then
 		#HTTPD
 		if [ ! -d "/etc/httpd/conf.d" ]; then
@@ -57,8 +63,8 @@ for i in $*; do
 		#	sudo mkdir -p /var/www/html
 		#fi
 		sudo groupadd apache && sudo useradd -M -g apache apache
-		sudo cp ~/workspace/jimmy/os/build/done/conf/httpd/httpd.conf /etc/httpd/conf/
-		sudo cp ~/workspace/jimmy/os/build/done/init.d/httpd /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/httpd/httpd.conf /etc/httpd/conf/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/httpd /etc/init.d/
 			#	以下后来不需要了，按照标准yum安装的目录，从	/var/run/httpd/httpd.pid	移到了	/var/run/httpd.pid
 		#if [ ! -d "/var/run/httpd" ]; then
 		#	sudo mkdir /var/run/httpd
@@ -70,14 +76,14 @@ for i in $*; do
 		sudo ln -sf ~/workspace/ /var/www/htdocs/jimmychou
 		sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
 		if [ -d "~/workspace/phpMyAdmin" ];then
-			cp ~/workspace/jimmy/os/build/done/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
+			cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 		fi
 	elif [[ $i == "mysql" ]]; then
 		#MySQL
 		sudo groupadd mysql && sudo useradd -M -g mysql mysql
 		sudo mysql_install_db --user=mysql
-		sudo cp ~/workspace/jimmy/os/build/done/conf/mysql/my.cnf /etc/my.cnf
-		sudo cp ~/workspace/jimmy/os/build/done/init.d/mysqld /etc/init.d/mysqld
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/mysql/my.cnf /etc/my.cnf
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/mysqld /etc/init.d/mysqld
 		if [ ! -d "/var/run/mysqld" ]; then
 			sudo mkdir /var/run/mysqld
 			sudo chown mysql:root /var/run/mysqld	#	否则	/etc/init.d/mysqld stop	不能正常工作
@@ -89,11 +95,10 @@ for i in $*; do
 		sudo chkconfig --add mysqld
 		sudo chkconfig mysqld on
 	elif [[ $i == "php" ]]; then
-		sudo chmod 755 /home/jimmychou
 		#PHP
 			#	/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
-		sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.ini /etc/ 
-		sudo cp ~/workspace/jimmy/os/build/done/conf/php/php-fpm.conf /etc/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.ini /etc/ 
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php-fpm.conf /etc/
 		if [ ! -d "/var/log/php-fpm" ]; then
 			sudo mkdir /var/log/php-fpm
 		fi
@@ -102,14 +107,18 @@ for i in $*; do
 		if [ ! -d "/etc/php.d" ]; then
 			sudo mkdir /etc/php.d
 		fi
-		sudo cp ~/workspace/jimmy/os/build/done/conf/php/php.d/* /etc/php.d/
-		sudo cp ~/workspace/jimmy/os/build/done/init.d/php-fpm /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.d/* /etc/php.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/php-fpm /etc/init.d/
+		sudo setsebool -P httpd_read_user_content 1
+		sudo setsebool -P httpd_enable_homedirs 1
+		sudo chmod 755 /home/jimmychou
+#		755是web目录可以访问的最低要求，不要再试图744等
 		sudo /etc/init.d/php-fpm start
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
 	elif [[ $i == "memcached" ]]; then
 		sudo groupadd memcached && sudo useradd -M -g memcached memcached
-		sudo cp ~/workspace/jimmy/os/build/done/init.d/memcached /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/memcached /etc/init.d/
 		if [ ! -d "/var/run/memcached" ]; then
 			sudo mkdir /var/run/memcached
 		fi
