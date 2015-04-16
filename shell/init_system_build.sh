@@ -26,8 +26,12 @@ for i in $*; do
 		#sudo cp ~/workspace/jimmy/os/extra.conf /etc/nginx/conf.d/
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/conf.d/centos_6.conf /etc/nginx/conf.d/
-		sudo setsebool -P httpd_read_user_content 1
-		sudo setsebool -P httpd_enable_homedirs 1
+		if [[ -z `getsebool httpd_read_user_content | grep '\--> on'` ]]; then
+			sudo setsebool -P httpd_read_user_content 1
+		fi
+		if [[ -z `getsebool httpd_enable_homedirs | grep '\--> on'` ]]; then
+			sudo setsebool -P httpd_enable_homedirs 1
+		fi
 		sudo chmod 755 /home/jimmychou
 #		755是web目录可以访问的最低要求，不要再试图744等
 		sudo /etc/init.d/nginx start
@@ -111,7 +115,7 @@ for i in $*; do
 		#sudo chkconfig mysqld on
 	elif [[ $i == "php" ]]; then
 		#PHP
-			#	/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
+		#/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
 		sudo groupadd nginx && sudo useradd -M -g nginx nginx
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.ini /etc/ 
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php-fpm.conf /etc/
@@ -125,8 +129,12 @@ for i in $*; do
 		#fi
 		#sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/php/php.d/* /etc/php.d/
 		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/php-fpm /etc/init.d/
-		sudo setsebool -P httpd_read_user_content 1
-		sudo setsebool -P httpd_enable_homedirs 1
+		if [[ -z `getsebool httpd_read_user_content | grep '\--> on'` ]]; then
+			sudo setsebool -P httpd_read_user_content 1
+		fi
+		if [[ -z `getsebool httpd_enable_homedirs | grep '\--> on'` ]]; then
+			sudo setsebool -P httpd_enable_homedirs 1
+		fi
 		sudo chmod 755 /home/jimmychou
 #		755是web目录可以访问的最低要求，不要再试图744等
 		sudo /etc/init.d/php-fpm start
