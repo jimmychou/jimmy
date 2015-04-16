@@ -81,19 +81,34 @@ for i in $*; do
 	elif [[ $i == "mysql" ]]; then
 		#MySQL
 		sudo groupadd mysql && sudo useradd -M -g mysql mysql
-		sudo mysql_install_db --user=mysql
-		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/mysql/my.cnf /etc/my.cnf
-		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/mysqld /etc/init.d/mysqld
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/conf/mysql/* /etc/
+		sudo cp ~/workspace/jimmy/os/centos/build/build_as_system/init.d/mysqld /etc/init.d/
 		if [ ! -d "/var/run/mysqld" ]; then
 			sudo mkdir /var/run/mysqld
 			sudo chown mysql:root /var/run/mysqld	#	否则	/etc/init.d/mysqld stop	不能正常工作
 		fi
-		sudo /etc/init.d/mysqld start
-		sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
+		for sub in default master slave slave_a slave_b; do
+			data_dir=/var/lib/mysql_$sub
+			config_file=/etc/my_$sub.cnf
+			if [[ $sub == "default" ]]; then
+				data_dir=/var/lib/mysql
+				config_file=/etc/my.cnf
+			fi
+			if [ ! -d $data_dir ]; then
+				sudo mysql_install_db --defaults-file=$config_file --user=mysql
+			fi
+		done
+		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
+		for sub in ndb_a ndb_b api_a api_b; do
+			#	todo
+			echo $sub
+		done
+		#sudo /etc/init.d/mysqld start
+		#sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
 			#	除非指定	-h	为	127.0.0.1，否则	mysql	-uroot	都会报上述错误，phpMyAdmin也是同样的道理
 		#sudo mysqladmin -u root -h localhost.localdomain -p password 'penny7531'	#	貌似比较奇怪的一种命令
-		sudo chkconfig --add mysqld
-		sudo chkconfig mysqld on
+		#sudo chkconfig --add mysqld
+		#sudo chkconfig mysqld on
 	elif [[ $i == "php" ]]; then
 		#PHP
 			#	/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
