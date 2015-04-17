@@ -508,52 +508,55 @@ NOEFFECT
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu
 NOEFFECT
-				echo The Current MySQL 5.0.96 on CentOS 5.9 is configured as below:
+				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
-				./configure --build=i386-redhat-linux-gnu \
-					--host=i386-redhat-linux-gnu \
-					--target=i386-redhat-linux-gnu \
-					--program-prefix= \
-					--prefix=/usr \
-					--exec-prefix=/usr \
-					--bindir=/usr/bin \
-					--sbindir=/usr/sbin \
-					--sysconfdir=/etc \
-					--datadir=/usr/share \
-					--includedir=/usr/include \
-					--libdir=/usr/lib \
-					--libexecdir=/usr/libexec \
-					--localstatedir=/var \
-					--sharedstatedir=/usr/com \
-					--mandir=/usr/share/man \
-					--infodir=/usr/share/info \
-					--with-readline \
-					--with-openssl \
-					--without-debug \
-					--enable-shared \
-					--with-bench \
-					--localstatedir=/var/lib/mysql \
-					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
-					--with-mysqld-user=mysql \
-					--with-extra-charsets=all \
-					--with-innodb \
-					--with-berkeley-db \
-					--enable-community-features \
-					--enable-local-infile \
-					--enable-largefile \
-					--enable-profiling \
-					--enable-thread-safe-client \
-					--disable-dependency-tracking \
-					--with-named-thread-libs=-lpthread \
-					build_alias=i386-redhat-linux-gnu \
-					host_alias=i386-redhat-linux-gnu \
-					target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo /sbin/ldconfig -v
+				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--with-readline \
+						--with-openssl \
+						--without-debug \
+						--enable-shared \
+						--with-bench \
+						--localstatedir=/var/lib/mysql \
+						--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+						--with-mysqld-user=mysql \
+						--with-extra-charsets=all \
+						--with-innodb \
+						--with-berkeley-db \
+						--enable-community-features \
+						--enable-local-infile \
+						--enable-largefile \
+						--enable-profiling \
+						--enable-thread-safe-client \
+						--disable-dependency-tracking \
+						--with-named-thread-libs=-lpthread \
+						build_alias=i386-redhat-linux-gnu \
+						host_alias=i386-redhat-linux-gnu \
+						target_alias=i386-redhat-linux-gnu
+				fi
+				make && sudo make install && sudo /sbin/ldconfig -v
 			elif [[ $PrimaryVersion == "6" ]]; then
 				yum install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
-				echo The Current MySQL 5.0.96 on CentOS 6.5 is configured as below:
+				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
