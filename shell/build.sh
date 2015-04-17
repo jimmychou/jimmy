@@ -21,6 +21,7 @@ for i in $*; do
 			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
 		fi
 		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION
+		echo The Current $i $GPERFTOOLSVERSION on $OS $Version is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -40,7 +41,8 @@ for i in $*; do
 			--infodir=/usr/share/info \
 			build_alias=i386-redhat-linux-gnu \
 			host_alias=i386-redhat-linux-gnu \
-			target_alias=i386-redhat-linux-gnu && make && sudo make install
+			target_alias=i386-redhat-linux-gnu
+		make && sudo make install && sudo /sbin/ldconfig -v
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
 #	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
@@ -284,7 +286,6 @@ NOEFFECT
 						--with-mail_ssl_module \
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 				fi
-				make && sudo make install
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
 				if [ $NGINXVERSION == "1.4.1" ]; then
@@ -327,7 +328,7 @@ NOEFFECT
 						--with-debug \
 						--with-http_stub_status_module \
 						--with-mail_ssl_module \
-						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 				elif [ $NGINXVERSION == "1.0.14" ]; then
 					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
 					./configure --prefix=/usr/share/nginx \
@@ -367,9 +368,10 @@ NOEFFECT
 						--with-debug \
 						--with-http_stub_status_module \
 						--with-mail_ssl_module \
-						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' && make && sudo make install
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 				fi
 			fi
+			make && sudo make install && sudo /sbin/ldconfig -v
 		fi
 	elif [[ $i == "httpd" ]]; then
 		# HTTPD编译
@@ -388,9 +390,9 @@ NOEFFECT
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y apr-util-devel.$OS_SUFFIX
+			echo The Current $i $HTTPDVERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
-				echo The Current Httpd 2.2.29 on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -409,10 +411,9 @@ NOEFFECT
 					--libexecdir=/usr/lib/httpd/modules \
 					--sysconfdir=/etc/httpd/conf \
 					--enable-rewrite=shared \
-					--enable-speling=shared && make && sudo make install
+					--enable-speling=shared
 			elif [[ $PrimaryVersion == "6" ]]; then
 				echo The Official Httpd on CentOS 6 is configured as below:
-				echo The Current Httpd 2.2.29 on CentOS 6 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -431,8 +432,9 @@ NOEFFECT
 					--libexecdir=/usr/lib/httpd/modules \
 					--sysconfdir=/etc/httpd/conf \
 					--enable-rewrite=shared \
-					--enable-speling=shared && make && sudo make install
+					--enable-speling=shared
 			fi
+			make && sudo make install && sudo /sbin/ldconfig -v
 		fi
 	elif [[ $i == "mysql" ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
@@ -453,8 +455,8 @@ NOEFFECT
 		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && -f index.html ]; then        #   NOT OK
 		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a -f index.html ]; then        #   OK?
 		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ -f index.html ]; then     #   OK
-            mv index.html mysql-$MYSQLVERSION.$MYSQLSUFFIX
-        fi
+			mv index.html mysql-$MYSQLVERSION.$MYSQLSUFFIX
+		fi
 		if [ ! -d mysql-$MYSQLVERSION ]; then
 			tar -zvxf mysql-$MYSQLVERSION.$MYSQLSUFFIX
 		fi
@@ -552,7 +554,6 @@ NOEFFECT
 						host_alias=i386-redhat-linux-gnu \
 						target_alias=i386-redhat-linux-gnu
 				fi
-				make && sudo make install && sudo /sbin/ldconfig -v
 			elif [[ $PrimaryVersion == "6" ]]; then
 				yum install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
@@ -606,7 +607,7 @@ NOEFFECT
 						--with-ndb-docs \
 						build_alias=i386-redhat-linux-gnu \
 						host_alias=i386-redhat-linux-gnu \
-						target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
+						target_alias=i386-redhat-linux-gnu
 				elif [[ $MYSQLBIGVERSION == "5.1" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
@@ -645,9 +646,10 @@ NOEFFECT
 						--with-ndb-docs \
 						build_alias=i386-redhat-linux-gnu \
 						host_alias=i386-redhat-linux-gnu \
-						target_alias=i386-redhat-linux-gnu && make && sudo make install && sudo ldconfig -v
+						target_alias=i386-redhat-linux-gnu
 				fi
 			fi
+			make && sudo make install && sudo ldconfig -v
 		fi
 	elif [[ $i == "php" ]]; then
 		# PHP编译
@@ -853,7 +855,6 @@ NOEFFECT
 					--with-pdo-sqlite=shared,/usr \
 					--with-mcrypt=shared,/usr \
 					--enable-fpm
-				#make && sudo make install
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
 				echo The Official PHP on CentOS 6.4 is configured as below:
@@ -963,7 +964,7 @@ NOEFFECT
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
 NOEFFECT
-				echo The Official PHP on CentOS 6.5 and PHP 5.5.14 is configured as below:
+				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				#PHPVERSION=5.5.14
 				sudo yum install -y libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 				#2015年3月31日还命名为libjpeg-devel，2015年4月1日竟然更名为libjpeg-turbo-devel。莫非只是愚人节开的玩笑？
@@ -1066,7 +1067,7 @@ NOEFFECT
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
 			fi
-			make && sudo make install
+			make && sudo make install && sudo ldconfig -v
 		fi
 	elif [[ $i == "memcached" ]]; then
 		# Memcached编译
@@ -1087,8 +1088,8 @@ NOEFFECT
 			fi
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum install -y libevent-devel.$OS_SUFFIX
+			echo The Current $i $MEMCACHEDVERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
-				echo The Current Memcached on CentOS 5.9 is configured as below:
 #				Why these cannot use?
 #				./configure --build=i386-redhat-linux-gnu \
 #					--host=i386-redhat-linux-gnu \
@@ -1098,16 +1099,16 @@ NOEFFECT
 					--bindir=/usr/bin \
 					--sbindir=/usr/sbin \
 					--mandir=/usr/share/man \
-					--includedir=/usr/include && make && sudo make install
+					--includedir=/usr/include
 			elif [[ $PrimaryVersion == "6" ]]; then
-				echo The Current Memcached on CentOS 6.6 is configured as below:
 				./configure --prefix=/usr \
 					--exec-prefix=/usr \
 					--bindir=/usr/bin \
 					--sbindir=/usr/sbin \
 					--mandir=/usr/share/man \
-					--includedir=/usr/include && make && sudo make install
+					--includedir=/usr/include
 			fi
+			make && sudo make install && sudo ldconfig -v
 		fi
 	fi
 done
