@@ -23,11 +23,6 @@ PIDFILE=$RUNDIR/redis-server.pid
 
 test -x $DAEMON || exit 0
 
-if [ -r /etc/default/$NAME ]
-then
-	. /etc/default/$NAME
-fi
-
 set -e
 
 case "$1" in
@@ -37,12 +32,6 @@ case "$1" in
 	touch $PIDFILE
 	chown redis:redis $RUNDIR $PIDFILE
 	chmod 755 $RUNDIR
-
-	if [ -n "$ULIMIT" ]
-	then
-		ulimit -n $ULIMIT
-	fi
-
 	if start-stop-daemon --start --quiet --umask 007 --pidfile $PIDFILE --chuid redis:redis --exec $DAEMON -- $DAEMON_ARGS
 	then
 		echo "$NAME."
@@ -52,14 +41,13 @@ case "$1" in
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	if start-stop-daemon --stop --retry forever/TERM/1 --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON
+	if start-stop-daemon --stop --retry forever/QUIT/1 --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON
 	then
 		echo "$NAME."
 	else
 		echo "failed"
 	fi
 	rm -f $PIDFILE
-	sleep 1
 	;;
 
   restart|force-reload)
