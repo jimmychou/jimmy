@@ -11,7 +11,7 @@
  * This is needed for cookie based authentication to encrypt password in
  * cookie
  */
-$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = 'abcdefg'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
  * Server(s) configuration
@@ -24,7 +24,7 @@ $i = 0;
 // (including $i incrementation) serveral times. There is no need to define
 // full server array, just define values you need to change.
 $i++;
-$cfg['Servers'][$i]['host']          = 'localhost'; // MySQL hostname or IP address
+$cfg['Servers'][$i]['host']          = 'yum.centos.jimmychou.com'; // MySQL hostname or IP address
 $cfg['Servers'][$i]['port']          = '';          // MySQL port - leave blank for default port
 $cfg['Servers'][$i]['socket']        = '';          // Path to the socket - leave blank for default socket
 $cfg['Servers'][$i]['connect_type']  = 'tcp';       // How to connect to MySQL server ('tcp' or 'socket')
@@ -38,11 +38,11 @@ $cfg['Servers'][$i]['controlpass']   = '';          // access to the "mysql/user
                                                     // The controluser is also
                                                     // used for all relational
                                                     // features (pmadb)
-$cfg['Servers'][$i]['auth_type']     = 'http';      // Authentication method (config, http or cookie based)?
-$cfg['Servers'][$i]['user']          = '';          // MySQL user
-$cfg['Servers'][$i]['password']      = '';          // MySQL password (only needed
+$cfg['Servers'][$i]['auth_type']     = 'cookie';      // Authentication method (config, http or cookie based)?
+//$cfg['Servers'][$i]['user']          = 'jimmychou';          // MySQL user
+//$cfg['Servers'][$i]['password']      = 'zhouxiaomin123';          // MySQL password (only needed
                                                     // with 'config' auth_type)
-$cfg['Servers'][$i]['only_db']       = '';          // If set to a db-name, only
+//$cfg['Servers'][$i]['only_db']       = 'jimmychou';          // If set to a db-name, only
                                                     // this db is displayed in left frame
                                                     // It may also be an array of db-names, where sorting order is relevant.
 $cfg['Servers'][$i]['hide_db']       = '';          // Database name to be hidden from listings
@@ -82,7 +82,7 @@ $cfg['Servers'][$i]['AllowDeny']['order']           // Host authentication order
 $cfg['Servers'][$i]['AllowDeny']['rules']           // Host authentication rules, leave blank for defaults
                                      = array();
 $cfg['Servers'][$i]['AllowNoPassword']              // Allow logins without a password. Do not change the FALSE
-                                     = FALSE;       // default unless you're running a passwordless MySQL server
+                                     = TRUE;       // default unless you're running a passwordless MySQL server
 $cfg['Servers'][$i]['designer_coords']              // Leave blank (default) for no Designer support, otherwise
                                      = '';          // set to suggested 'pma_designer_coords' if really needed
 $cfg['Servers'][$i]['bs_garbage_threshold']         // Blobstreaming: Recommented default value from upstream
