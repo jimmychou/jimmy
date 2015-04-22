@@ -2,6 +2,7 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 ################################################################################################################################################
 #	Cluster
+192.168.4.243	build.centos.jimmychou.com 
 192.168.0.119	yum.centos.jimmychou.com 
 192.168.4.238   nginx.centos.jimmychou.com
 192.168.4.245   mysql.centos.jimmychou.com
