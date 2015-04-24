@@ -555,7 +555,7 @@ NOEFFECT
 						target_alias=i386-redhat-linux-gnu
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
-				yum install doxygen
+				sudo yum install -y doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
 				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
