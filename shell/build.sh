@@ -668,10 +668,12 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official PHP on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y openssl-devel.$OS_SUFFIX bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			sudo yum install -y bison.$OS_SUFFIX openssl-devel.$OS_SUFFIX bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			#	configure: WARNING: bison versions supported for regeneration of the Zend/PHP parsers: 2.4 2.4.1 2.4.2 2.4.3 2.5 2.5.1 2.6 2.6.1 2.6.2 2.6.3 2.6.4 2.6.5 2.7 (found: none).
 			#	安装	rpmforge源后才能安装
-			sudo yum install -y libmcrypt-devel.$OS_SUFFIX
+			sudo yum install -y libmcrypt-devel.$OS_SUFFIX re2c.$OS_SUFFIX
 			#	千万不要	sudo yum install -y mysql-devel.$OS_SUFFIX，因为版本不一定跟系统安装的相符
+			#	configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
