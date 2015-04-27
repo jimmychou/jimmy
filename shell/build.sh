@@ -49,8 +49,8 @@ for i in $*; do
 #		有了	configure	条件后，无需上面这一步了
 	elif [[ $i == "nginx" ]]; then
 		# Nginx编译
-#		NGINXVERSION=1.4.1
 		NGINXVERSION=1.0.14
+#		NGINXVERSION=1.4.1
 		NGINXSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
@@ -438,14 +438,14 @@ NOEFFECT
 		fi
 	elif [[ $i == "mysql" ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
-		#MYSQLBIGVERSION=5.6
-		#MYSQLVERSION=5.6.14
 		#MYSQLBIGVERSION=5.0
-		#MYSQLVERSION=5.0.96
 		#MYSQLVERSION=5.0.95
+		#MYSQLVERSION=5.0.96
 		MYSQLBIGVERSION=5.1
 		#MYSQLVERSION=5.1.51
 		MYSQLVERSION=5.1.73
+		#MYSQLBIGVERSION=5.6
+		#MYSQLVERSION=5.6.14
 		MYSQLSUFFIX=tar.gz
 		cd $SOFTWARE
 		#	SHELL的if语句，多条件使用要注意
@@ -517,44 +517,85 @@ NOEFFECT
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
 				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
-					./configure --build=i386-redhat-linux-gnu \
-						--host=i386-redhat-linux-gnu \
-						--target=i386-redhat-linux-gnu \
-						--program-prefix= \
-						--prefix=/usr \
-						--exec-prefix=/usr \
-						--bindir=/usr/bin \
-						--sbindir=/usr/sbin \
-						--sysconfdir=/etc \
-						--datadir=/usr/share \
-						--includedir=/usr/include \
-						--libdir=/usr/lib \
-						--libexecdir=/usr/libexec \
-						--localstatedir=/var \
-						--sharedstatedir=/usr/com \
-						--mandir=/usr/share/man \
-						--infodir=/usr/share/info \
-						--with-readline \
-						--with-openssl \
-						--without-debug \
-						--enable-shared \
-						--with-bench \
-						--localstatedir=/var/lib/mysql \
-						--with-unix-socket-path=/var/lib/mysql/mysql.sock \
-						--with-mysqld-user=mysql \
-						--with-extra-charsets=all \
-						--with-innodb \
-						--with-berkeley-db \
-						--enable-community-features \
-						--enable-local-infile \
-						--enable-largefile \
-						--enable-profiling \
-						--enable-thread-safe-client \
-						--disable-dependency-tracking \
-						--with-named-thread-libs=-lpthread \
-						build_alias=i386-redhat-linux-gnu \
-						host_alias=i386-redhat-linux-gnu \
-						target_alias=i386-redhat-linux-gnu
+					if [[ $MYSQLVERSION == "5.0.96" ]]; then
+						./configure --build=i386-redhat-linux-gnu \
+							--host=i386-redhat-linux-gnu \
+							--target=i386-redhat-linux-gnu \
+							--program-prefix= \
+							--prefix=/usr \
+							--exec-prefix=/usr \
+							--bindir=/usr/bin \
+							--sbindir=/usr/sbin \
+							--sysconfdir=/etc \
+							--datadir=/usr/share \
+							--includedir=/usr/include \
+							--libdir=/usr/lib \
+							--libexecdir=/usr/libexec \
+							--localstatedir=/var \
+							--sharedstatedir=/usr/com \
+							--mandir=/usr/share/man \
+							--infodir=/usr/share/info \
+							--with-readline \
+							--with-openssl \
+							--without-debug \
+							--enable-shared \
+							--with-bench \
+							--localstatedir=/var/lib/mysql \
+							--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+							--with-mysqld-user=mysql \
+							--with-extra-charsets=all \
+							--with-innodb \
+							--with-berkeley-db \
+							--enable-community-features \
+							--enable-local-infile \
+							--enable-largefile \
+							--enable-profiling \
+							--enable-thread-safe-client \
+							--disable-dependency-tracking \
+							--with-named-thread-libs=-lpthread \
+							build_alias=i386-redhat-linux-gnu \
+							host_alias=i386-redhat-linux-gnu \
+							target_alias=i386-redhat-linux-gnu
+					elif [[ $MYSQLVERSION == "5.0.95" ]]; then
+						./configure --build=i386-redhat-linux-gnu \
+							--host=i386-redhat-linux-gnu \
+							--target=i386-redhat-linux-gnu \
+							--program-prefix= \
+							--prefix=/usr \
+							--exec-prefix=/usr \
+							--bindir=/usr/bin \
+							--sbindir=/usr/sbin \
+							--sysconfdir=/etc \
+							--datadir=/usr/share \
+							--includedir=/usr/include \
+							--libdir=/usr/lib \
+							--libexecdir=/usr/libexec \
+							--localstatedir=/var \
+							--sharedstatedir=/usr/com \
+							--mandir=/usr/share/man \
+							--infodir=/usr/share/info \
+							--with-readline \
+							--with-openssl \
+							--without-debug \
+							--enable-shared \
+							--with-bench \
+							--localstatedir=/var/lib/mysql \
+							--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+							--with-mysqld-user=mysql \
+							--with-extra-charsets=all \
+							--with-innodb \
+							--with-berkeley-db \
+							--enable-community-features \
+							--enable-local-infile \
+							--enable-largefile \
+							--enable-profiling \
+							--enable-thread-safe-client \
+							--disable-dependency-tracking \
+							--with-named-thread-libs=-lpthread \
+							build_alias=i386-redhat-linux-gnu \
+							host_alias=i386-redhat-linux-gnu \
+							target_alias=i386-redhat-linux-gnu
+					fi
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install doxygen
@@ -827,79 +868,155 @@ NOEFFECT
 					--enable-dbase=shared
 NOEFFECT
 				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
-				./configure --build=i386-redhat-linux-gnu \
-					--host=i386-redhat-linux-gnu \
-					--target=i386-redhat-linux-gnu \
-					--program-prefix= \
-					--prefix=/usr \
-					--exec-prefix=/usr \
-					--datadir=/usr/share/ \
-					--sysconfdir=/etc \
-					--cache-file=../config.cache \
-					--with-libdir=lib \
-					--with-config-file-path=/etc \
-					--with-config-file-scan-dir=/etc/php.d \
-					--disable-debug \
-					--with-pic \
-					--disable-rpath \
-					--without-pear \
-					--with-bz2 \
-					--with-curl \
-					--with-freetype-dir=/usr \
-					--with-png-dir=/usr \
-					--enable-gd-native-ttf \
-					--without-gdbm \
-					--with-gettext \
-					--with-gmp \
-					--with-iconv \
-					--with-jpeg-dir=/usr \
-					--with-openssl \
-					--with-png-dir \
-					--with-pspell \
-					--with-libexpat-dir=/usr \
-					--with-pcre-regex=/usr \
-					--with-zlib \
-					--with-layout=GNU \
-					--enable-exif \
-					--enable-ftp \
-					--enable-sockets \
-					--enable-sysvsem \
-					--enable-sysvshm \
-					--enable-sysvmsg \
-					--enable-wddx \
-					--with-kerberos \
-					--with-unixODBC=shared,/usr \
-					--enable-shmop \
-					--enable-calendar \
-					--without-sqlite3 \
-					--with-libxml-dir=/usr \
-					--enable-pcntl \
-					--with-imap=shared \
-					--with-imap-ssl \
-					--enable-mbstring=shared \
-					--enable-mbregex \
-					--with-gd=shared \
-					--enable-bcmath=shared \
-					--enable-dba=shared \
-					--with-db4=/usr \
-					--with-xmlrpc=shared \
-					--with-ldap=shared \
-					--with-ldap-sasl \
-					--with-mysql=shared,/usr \
-					--with-mysqli=shared,/usr/bin/mysql_config \
-					--with-pgsql=shared \
-					--with-snmp=shared,/usr \
-					--enable-soap=shared \
-					--with-xsl=shared,/usr \
-					--enable-xmlreader=shared \
-					--enable-xmlwriter=shared \
-					--enable-pdo=shared \
-					--with-pdo-odbc=shared,unixODBC,/usr \
-					--with-pdo-mysql=shared,/usr/bin/mysql_config \
-					--with-pdo-pgsql=shared,/usr \
-					--with-pdo-sqlite=shared,/usr \
-					--with-mcrypt=shared,/usr \
-					--enable-fpm
+				if [[ $PHPVERSION == "5.5.14" ]]; then
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--datadir=/usr/share/ \
+						--sysconfdir=/etc \
+						--cache-file=../config.cache \
+						--with-libdir=lib \
+						--with-config-file-path=/etc \
+						--with-config-file-scan-dir=/etc/php.d \
+						--disable-debug \
+						--with-pic \
+						--disable-rpath \
+						--without-pear \
+						--with-bz2 \
+						--with-curl \
+						--with-freetype-dir=/usr \
+						--with-png-dir=/usr \
+						--enable-gd-native-ttf \
+						--without-gdbm \
+						--with-gettext \
+						--with-gmp \
+						--with-iconv \
+						--with-jpeg-dir=/usr \
+						--with-openssl \
+						--with-png-dir \
+						--with-pspell \
+						--with-libexpat-dir=/usr \
+						--with-pcre-regex=/usr \
+						--with-zlib \
+						--with-layout=GNU \
+						--enable-exif \
+						--enable-ftp \
+						--enable-sockets \
+						--enable-sysvsem \
+						--enable-sysvshm \
+						--enable-sysvmsg \
+						--enable-wddx \
+						--with-kerberos \
+						--with-unixODBC=shared,/usr \
+						--enable-shmop \
+						--enable-calendar \
+						--without-sqlite3 \
+						--with-libxml-dir=/usr \
+						--enable-pcntl \
+						--with-imap=shared \
+						--with-imap-ssl \
+						--enable-mbstring=shared \
+						--enable-mbregex \
+						--with-gd=shared \
+						--enable-bcmath=shared \
+						--enable-dba=shared \
+						--with-db4=/usr \
+						--with-xmlrpc=shared \
+						--with-ldap=shared \
+						--with-ldap-sasl \
+						--with-mysql=shared,/usr \
+						--with-mysqli=shared,/usr/bin/mysql_config \
+						--with-pgsql=shared \
+						--with-snmp=shared,/usr \
+						--enable-soap=shared \
+						--with-xsl=shared,/usr \
+						--enable-xmlreader=shared \
+						--enable-xmlwriter=shared \
+						--enable-pdo=shared \
+						--with-pdo-odbc=shared,unixODBC,/usr \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-pgsql=shared,/usr \
+						--with-pdo-sqlite=shared,/usr \
+						--with-mcrypt=shared,/usr \
+						--enable-fpm
+				elif [[ $PHPVERSION == "5.1.6" ]]; then
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--datadir=/usr/share/ \
+						--sysconfdir=/etc \
+						--cache-file=../config.cache \
+						--with-libdir=lib \
+						--with-config-file-path=/etc \
+						--with-config-file-scan-dir=/etc/php.d \
+						--disable-debug \
+						--with-pic \
+						--disable-rpath \
+						--without-pear \
+						--with-bz2 \
+						--with-curl \
+						--with-freetype-dir=/usr \
+						--with-png-dir=/usr \
+						--enable-gd-native-ttf \
+						--without-gdbm \
+						--with-gettext \
+						--with-gmp \
+						--with-iconv \
+						--with-jpeg-dir=/usr \
+						--with-openssl \
+						--with-png-dir \
+						--with-pspell \
+						--with-libexpat-dir=/usr \
+						--with-pcre-regex=/usr \
+						--with-zlib \
+						--with-layout=GNU \
+						--enable-exif \
+						--enable-ftp \
+						--enable-sockets \
+						--enable-sysvsem \
+						--enable-sysvshm \
+						--enable-sysvmsg \
+						--enable-wddx \
+						--with-kerberos \
+						--with-unixODBC=shared,/usr \
+						--enable-shmop \
+						--enable-calendar \
+						--without-sqlite3 \
+						--with-libxml-dir=/usr \
+						--enable-pcntl \
+						--with-imap=shared \
+						--with-imap-ssl \
+						--enable-mbstring=shared \
+						--enable-mbregex \
+						--with-gd=shared \
+						--enable-bcmath=shared \
+						--enable-dba=shared \
+						--with-db4=/usr \
+						--with-xmlrpc=shared \
+						--with-ldap=shared \
+						--with-ldap-sasl \
+						--with-mysql=shared,/usr \
+						--with-mysqli=shared,/usr/bin/mysql_config \
+						--with-pgsql=shared \
+						--with-snmp=shared,/usr \
+						--enable-soap=shared \
+						--with-xsl=shared,/usr \
+						--enable-xmlreader=shared \
+						--enable-xmlwriter=shared \
+						--enable-pdo=shared \
+						--with-pdo-odbc=shared,unixODBC,/usr \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-pgsql=shared,/usr \
+						--with-pdo-sqlite=shared,/usr \
+						--with-mcrypt=shared,/usr \
+						--enable-fpm
+				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
 				echo The Official PHP on CentOS 6.4 is configured as below:
