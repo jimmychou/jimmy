@@ -133,9 +133,9 @@ for i in $*; do
 			fi
 		elif [[ $OS == "CentOS" ]]; then
 			if [[ $PrimaryVersion == "5" ]]; then
-				#sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
+				#sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
 				#	再不需要上面这么多了，zlib-devel	libxml2	不知何时已经安装上了
-				sudo yum install -y pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official Nginx on CentOS 5.9 of Remi Repository is configured as below:
 				./configure --prefix=/etc/nginx \
@@ -287,7 +287,7 @@ NOEFFECT
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo yum install -y pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
 				if [ $NGINXVERSION == "1.4.1" ]; then
 					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
 					./configure --prefix=/usr/share/nginx \
@@ -389,7 +389,7 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official Httpd on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y apr-util-devel.$OS_SUFFIX
+			sudo yum $INSTALL_OPTION install apr-util-devel.$OS_SUFFIX
 			echo The Current $i $HTTPDVERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
 				echo The Official Httpd on CentOS 5.9 is configured as below:
@@ -464,7 +464,7 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official MySQL on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
+			sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 			if [[ $PrimaryVersion == "5" ]]; then
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
@@ -555,7 +555,7 @@ NOEFFECT
 						target_alias=i386-redhat-linux-gnu
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo yum install -y doxygen
+				sudo yum $INSTALL_OPTION install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
 				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
@@ -668,20 +668,20 @@ NOEFFECT
 		if [[ $OS == "Ubuntu" ]]; then
 			echo The Official PHP on Ubuntu is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y bison.$OS_SUFFIX libtool.$OS_SUFFIX openssl-devel.$OS_SUFFIX bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
+			sudo yum $INSTALL_OPTION install bison.$OS_SUFFIX libtool.$OS_SUFFIX openssl-devel.$OS_SUFFIX bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
 			#	configure: WARNING: bison versions supported for regeneration of the Zend/PHP parsers: 2.4 2.4.1 2.4.2 2.4.3 2.5 2.5.1 2.6 2.6.1 2.6.2 2.6.3 2.6.4 2.6.5 2.7 (found: none).
 			#	安装	rpmforge源后才能安装
-			sudo yum install -y libmcrypt-devel.$OS_SUFFIX re2c.$OS_SUFFIX
-			#	千万不要	sudo yum install -y mysql-devel.$OS_SUFFIX，因为版本不一定跟系统安装的相符
+			sudo yum $INSTALL_OPTION install libmcrypt-devel.$OS_SUFFIX re2c.$OS_SUFFIX
+			#	千万不要	sudo yum $INSTALL_OPTION install mysql-devel.$OS_SUFFIX，因为版本不一定跟系统安装的相符
 			#	configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
 			if [ ! -d "/etc/php.d" ]; then
 				sudo mkdir /etc/php.d
 			fi
 			if [[ $PrimaryVersion == "5" ]]; then
-				sudo yum install -y curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
 <<NOEFFECT
 				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
-				sudo yum install curl-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -968,7 +968,7 @@ NOEFFECT
 NOEFFECT
 				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				#PHPVERSION=5.5.14
-				sudo yum install -y libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 				#2015年3月31日还命名为libjpeg-devel，2015年4月1日竟然更名为libjpeg-turbo-devel。莫非只是愚人节开的玩笑？
 				if [[ $PHPVERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
@@ -1193,7 +1193,7 @@ NOEFFECT
 				echo The Official Memcached on Ubuntu 12.04 is configured as below:
 			fi
 		elif [[ $OS == "CentOS" ]]; then
-			sudo yum install -y libevent-devel.$OS_SUFFIX
+			sudo yum $INSTALL_OPTION install libevent-devel.$OS_SUFFIX
 			echo The Current $i $MEMCACHEDVERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
 #				Why these cannot use?

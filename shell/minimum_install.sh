@@ -42,47 +42,47 @@ if [[ $OS == "Ubuntu" ]]; then
 else
 	if [[ $OS == "Fedora" ]]; then
 		if [[ $Version == "12" ]]; then
-			yum install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "13" ]]; then
-			yum install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "14" ]]; then
-			yum install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX php-mysql.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "15" ]]; then
-			yum install mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "16" ]]; then
-			yum install mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "17" ]]; then
-			yum install mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "18" ]]; then
-			yum install mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		elif [[ $Version == "19" ]]; then
-			yum install community-mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			yum $INSTALL_OPTION install community-mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
 			# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
 			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
 			# php-fpm.$OS_SUFFIX : PHP FastCGI Process Manager
 			# php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		else
-			yum install mysql-server.$OS_SUFFIX community-mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
+			yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX community-mysql-server.$OS_SUFFIX phpMemcachedAdmin.noarch php-fpm.$OS_SUFFIX php-mysql.$OS_SUFFIX php-mysqlnd.$OS_SUFFIX
 			# mysql-server.$OS_SUFFIX : The MySQL server and related files
 			# community-mysql-server.$OS_SUFFIX : The MySQL server and related files
 			##phpMemcachedAdmin.noarch : Graphic stand-alone administration for memcached to monitor and debug purpose
@@ -90,7 +90,7 @@ else
 			# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 			# php-mysqlnd.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 		fi
-		yum install git.$OS_SUFFIX memcached.$OS_SUFFIX nginx.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch yum-plugin-fastestmirror.noarch
+		yum $INSTALL_OPTION install git.$OS_SUFFIX memcached.$OS_SUFFIX nginx.$OS_SUFFIX php-pecl-memcached.$OS_SUFFIX phpMyAdmin.noarch yum-plugin-fastestmirror.noarch
 		# git.$OS_SUFFIX : Fast Version Control System
 		# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
 		# nginx.$OS_SUFFIX : A high performance web server and reverse proxy server
@@ -99,11 +99,11 @@ else
 		# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 	elif [[ $OS == "CentOS" ]]; then
 		if [[ $PrimaryVersion == "5" ]]; then
-			yum install phpmyadmin.noarch yum-fastestmirror.noarch
+			yum $INSTALL_OPTION install phpmyadmin.noarch yum-fastestmirror.noarch
 			# phpmyadmin.noarch : Web application to manage MySQL
 			# yum-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 		else 
-			yum install git.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch yum-plugin-priorities.noarch
+			yum $INSTALL_OPTION install git.$OS_SUFFIX memcached.$OS_SUFFIX phpMyAdmin.noarch php-fpm.$OS_SUFFIX yum-plugin-fastestmirror.noarch yum-plugin-priorities.noarch
 			# git.$OS_SUFFIX : Fast Version Control System
 			# memcached.$OS_SUFFIX : High Performance, Distributed Memory Object Cache
 			# phpMyAdmin.noarch : Handle the administration of MySQL over the World Wide Web
@@ -111,13 +111,13 @@ else
 			# yum-plugin-fastestmirror.noarch : Yum plugin which chooses fastest repository from a mirrorlist
 			##yum-plugin-priorities.noarch : plugin to give priorities to packages from different repos
 		fi
-		yum install mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
+		yum $INSTALL_OPTION install mysql-server.$OS_SUFFIX nginx.$OS_SUFFIX_SPECIAL php-pecl-memcache.$OS_SUFFIX php-mysql.$OS_SUFFIX
 		# mysql-server.$OS_SUFFIX : The MySQL server and related files
 		# nginx.$OS_SUFFIX_SPECIAL : nginx is a high performance web server
 		# php-pecl-memcache.$OS_SUFFIX : Extension to work with the Memcached caching daemon
 		# php-mysql.$OS_SUFFIX : A module for PHP applications that use MySQL databases
 	fi
-	yum install gcc-c++.$OS_SUFFIX ntp.$OS_SUFFIX php.$OS_SUFFIX php-devel.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
+	yum $INSTALL_OPTION install gcc-c++.$OS_SUFFIX ntp.$OS_SUFFIX php.$OS_SUFFIX php-devel.$OS_SUFFIX vim-enhanced.$OS_SUFFIX
 	# gcc-c++.$OS_SUFFIX : C++ support for GCC
 	##ntp.$OS_SUFFIX : The NTP daemon and utilities
 	# php.$OS_SUFFIX : PHP scripting language for creating dynamic web sites

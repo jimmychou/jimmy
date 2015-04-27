@@ -18,7 +18,15 @@ if [[ $OS == "Ubuntu" ]]; then
 	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
 else
-	sudo yum install -y redhat-lsb gcc-c++
+	for i in $*; do
+		if [[ $i =~ '-' ]]; then
+			INSTALL_OPTION=${INSTALL_OPTION}" "${i}
+		fi
+	done
+	if [[ -z $INSTALL_OPTION ]]; then
+		INSTALL_OPTION=" -y "
+	fi
+	sudo yum $INSTALL_OPTION install redhat-lsb gcc-c++
 	RPM_FORGE_EXIST=`rpm -qa | grep 'rpmforge-release' `
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
@@ -35,9 +43,9 @@ else
 			fi
 		fi
 		if [[ $PrimaryVersion == "5" ]]; then
-			sudo yum install yum-fastestmirror.noarch
+			sudo yum $INSTALL_OPTION install yum-fastestmirror.noarch
 		elif [[ $PrimaryVersion == "6" ]]; then
-			sudo yum install yum-plugin-fastestmirror.noarch
+			sudo yum $INSTALL_OPTION install yum-plugin-fastestmirror.noarch
 		fi
 	else
 		#	为	Fedora	等类	RedHat Linux	系统预留
