@@ -654,8 +654,8 @@ NOEFFECT
 	elif [[ $i == "php" ]]; then
 		# PHP编译
 		# 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
-		#PHPVERSION=5.5.3
-		PHPVERSION=5.5.14
+		PHPVERSION=5.3.3
+		#PHPVERSION=5.5.14
 		PHPSUFFIX=tar.gz
 		cd $SOFTWARE
 		if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
@@ -982,7 +982,7 @@ NOEFFECT
 						--sysconfdir=/etc \
 						--datadir=/usr/share \
 						--includedir=/usr/include \
-						--libdir=/usr/lib \
+						--libdir=/usr/lib/php/modules \
 						--libexecdir=/usr/libexec \
 						--localstatedir=/var \
 						--sharedstatedir=/var/lib \
@@ -1070,6 +1070,7 @@ NOEFFECT
 						--with-enchant=shared,/usr \
 						--with-recode=shared,/usr
 				elif [[ $PHPVERSION == "5.3.3" ]]; then
+					sudo yum $INSTALL_OPTION install libevent-devel.$OS_SUFFIX lemon.$OS_SUFFIX
 					./configure --build=i686-pc-linux-gnu \
 						--host=i686-pc-linux-gnu \
 						--target=i686-pc-linux-gnu \
@@ -1081,7 +1082,7 @@ NOEFFECT
 						--sysconfdir=/etc \
 						--datadir=/usr/share \
 						--includedir=/usr/include \
-						--libdir=/usr/lib \
+						--libdir=/usr/lib/php/modules \
 						--libexecdir=/usr/libexec \
 						--localstatedir=/var \
 						--sharedstatedir=/var/lib \
@@ -1170,7 +1171,7 @@ NOEFFECT
 						--enable-fpm \
 						--with-mcrypt=shared,/usr \
 						--with-icu-dir=/usr \
-						--with-enchant=shared,/usr \
+						--with-enchant=shared,/usr
 				fi
 			fi
 			make && sudo make install && sudo ldconfig -v
