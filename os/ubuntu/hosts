@@ -9,6 +9,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ################################################################################################################################################
 #	Cluster
+192.168.0.124   ubuntu.centos.jimmychou.com
 192.168.4.238   nginx.centos.jimmychou.com
 192.168.4.245   mysql.centos.jimmychou.com
 192.168.4.241   php-fpm.centos.jimmychou.com
