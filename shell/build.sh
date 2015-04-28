@@ -887,6 +887,8 @@ NOEFFECT
 				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				if [[ $PHPVERSION == "5.5.14" ]]; then
 					echo The Current $i $PHPVERSION on $OS $Version is configured as below:
+					#	不能依赖yum安装的库按CentOS6编译条件安装此版本PHP
+					#	checking for ICU 4.0 or greater... found 3.6
 				elif [[ $PHPVERSION == "5.1.6" ]]; then
 					sudo yum $INSTALL_OPTION install flex.$OS_SUFFIX libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX ncurses-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 					./configure --build=i386-redhat-linux-gnu \
