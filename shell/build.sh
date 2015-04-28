@@ -438,12 +438,12 @@ NOEFFECT
 		fi
 	elif [[ $i == "mysql" ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
-		#MYSQLBIGVERSION=5.0
-		#MYSQLVERSION=5.0.95
+		MYSQLBIGVERSION=5.0
+		MYSQLVERSION=5.0.95
 		#MYSQLVERSION=5.0.96
-		MYSQLBIGVERSION=5.1
+		#MYSQLBIGVERSION=5.1
 		#MYSQLVERSION=5.1.51
-		MYSQLVERSION=5.1.73
+		#MYSQLVERSION=5.1.73
 		#MYSQLBIGVERSION=5.6
 		#MYSQLVERSION=5.6.14
 		MYSQLSUFFIX=tar.gz
@@ -738,7 +738,8 @@ NOEFFECT
 	elif [[ $i == "php" ]]; then
 		# PHP编译
 		# 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
-		PHPVERSION=5.3.3
+		PHPVERSION=5.1.6
+		#PHPVERSION=5.3.3
 		#PHPVERSION=5.5.14
 		PHPSUFFIX=tar.gz
 		cd $SOFTWARE
@@ -764,13 +765,12 @@ NOEFFECT
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
 <<NOEFFECT
-				echo The Official PHP 5.4.19 of Remi Repository on CentOS 5.9 is configured as below:
+				echo The Official PHP 5.1.6 of rpmforge Repository on $OS $Version is configured as below:
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX
-				./configure --build=i386-redhat-linux-gnu \
+				./configure --build=i386-redhat-linux-gnu
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
-					--program-prefix= \
-					--prefix=/usr \
+					--program-prefix= --prefix=/usr \
 					--exec-prefix=/usr \
 					--bindir=/usr/bin \
 					--sbindir=/usr/sbin \
@@ -869,88 +869,25 @@ NOEFFECT
 NOEFFECT
 				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				if [[ $PHPVERSION == "5.5.14" ]]; then
-					./configure --build=i386-redhat-linux-gnu \
-						--host=i386-redhat-linux-gnu \
-						--target=i386-redhat-linux-gnu \
-						--program-prefix= \
-						--prefix=/usr \
-						--exec-prefix=/usr \
-						--datadir=/usr/share/ \
-						--sysconfdir=/etc \
-						--cache-file=../config.cache \
-						--with-libdir=lib \
-						--with-config-file-path=/etc \
-						--with-config-file-scan-dir=/etc/php.d \
-						--disable-debug \
-						--with-pic \
-						--disable-rpath \
-						--without-pear \
-						--with-bz2 \
-						--with-curl \
-						--with-freetype-dir=/usr \
-						--with-png-dir=/usr \
-						--enable-gd-native-ttf \
-						--without-gdbm \
-						--with-gettext \
-						--with-gmp \
-						--with-iconv \
-						--with-jpeg-dir=/usr \
-						--with-openssl \
-						--with-png-dir \
-						--with-pspell \
-						--with-libexpat-dir=/usr \
-						--with-pcre-regex=/usr \
-						--with-zlib \
-						--with-layout=GNU \
-						--enable-exif \
-						--enable-ftp \
-						--enable-sockets \
-						--enable-sysvsem \
-						--enable-sysvshm \
-						--enable-sysvmsg \
-						--enable-wddx \
-						--with-kerberos \
-						--with-unixODBC=shared,/usr \
-						--enable-shmop \
-						--enable-calendar \
-						--without-sqlite3 \
-						--with-libxml-dir=/usr \
-						--enable-pcntl \
-						--with-imap=shared \
-						--with-imap-ssl \
-						--enable-mbstring=shared \
-						--enable-mbregex \
-						--with-gd=shared \
-						--enable-bcmath=shared \
-						--enable-dba=shared \
-						--with-db4=/usr \
-						--with-xmlrpc=shared \
-						--with-ldap=shared \
-						--with-ldap-sasl \
-						--with-mysql=shared,/usr \
-						--with-mysqli=shared,/usr/bin/mysql_config \
-						--with-pgsql=shared \
-						--with-snmp=shared,/usr \
-						--enable-soap=shared \
-						--with-xsl=shared,/usr \
-						--enable-xmlreader=shared \
-						--enable-xmlwriter=shared \
-						--enable-pdo=shared \
-						--with-pdo-odbc=shared,unixODBC,/usr \
-						--with-pdo-mysql=shared,/usr/bin/mysql_config \
-						--with-pdo-pgsql=shared,/usr \
-						--with-pdo-sqlite=shared,/usr \
-						--with-mcrypt=shared,/usr \
-						--enable-fpm
+					echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				elif [[ $PHPVERSION == "5.1.6" ]]; then
-					./configure --build=i386-redhat-linux-gnu \
+					#sudo sudo yum $INSTALL_OPTION install flex.$OS_SUFFIX libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					./configure --build=i386-redhat-linux-gnu
 						--host=i386-redhat-linux-gnu \
 						--target=i386-redhat-linux-gnu \
-						--program-prefix= \
-						--prefix=/usr \
+						--program-prefix= --prefix=/usr \
 						--exec-prefix=/usr \
-						--datadir=/usr/share/ \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
 						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib/php/modules \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
 						--cache-file=../config.cache \
 						--with-libdir=lib \
 						--with-config-file-path=/etc \
@@ -961,6 +898,7 @@ NOEFFECT
 						--without-pear \
 						--with-bz2 \
 						--with-curl \
+						--with-exec-dir=/usr/bin \
 						--with-freetype-dir=/usr \
 						--with-png-dir=/usr \
 						--enable-gd-native-ttf \
@@ -970,30 +908,44 @@ NOEFFECT
 						--with-iconv \
 						--with-jpeg-dir=/usr \
 						--with-openssl \
-						--with-png-dir \
+						--with-png \
 						--with-pspell \
-						--with-libexpat-dir=/usr \
+						--with-expat-dir=/usr \
 						--with-pcre-regex=/usr \
 						--with-zlib \
 						--with-layout=GNU \
 						--enable-exif \
 						--enable-ftp \
+						--enable-magic-quotes \
 						--enable-sockets \
 						--enable-sysvsem \
 						--enable-sysvshm \
 						--enable-sysvmsg \
+						--enable-track-vars \
+						--enable-trans-sid \
+						--enable-yp \
 						--enable-wddx \
 						--with-kerberos \
+						--enable-ucd-snmp-hack \
 						--with-unixODBC=shared,/usr \
+						--enable-memory-limit \
 						--enable-shmop \
 						--enable-calendar \
-						--without-sqlite3 \
+						--enable-dbx \
+						--enable-dio \
+						--with-mime-magic=/usr/share/file/magic.mime \
+						--without-sqlite \
 						--with-libxml-dir=/usr \
+						--with-xml \
+						--with-system-tzdata \
+						--enable-force-cgi-redirect \
 						--enable-pcntl \
 						--with-imap=shared \
 						--with-imap-ssl \
 						--enable-mbstring=shared \
+						--enable-mbstr-enc-trans \
 						--enable-mbregex \
+						--with-ncurses=shared \
 						--with-gd=shared \
 						--enable-bcmath=shared \
 						--enable-dba=shared \
@@ -1002,19 +954,23 @@ NOEFFECT
 						--with-ldap=shared \
 						--with-ldap-sasl \
 						--with-mysql=shared,/usr \
-						--with-mysqli=shared,/usr/bin/mysql_config \
+						--with-mysqli=shared,/usr/lib/mysql/mysql_config \
+						--enable-dom=shared \
+						--with-dom-xslt=/usr \
+						--with-dom-exslt=/usr \
 						--with-pgsql=shared \
 						--with-snmp=shared,/usr \
 						--enable-soap=shared \
 						--with-xsl=shared,/usr \
 						--enable-xmlreader=shared \
 						--enable-xmlwriter=shared \
+						--enable-fastcgi \
 						--enable-pdo=shared \
 						--with-pdo-odbc=shared,unixODBC,/usr \
-						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
 						--with-pdo-pgsql=shared,/usr \
 						--with-pdo-sqlite=shared,/usr \
-						--with-mcrypt=shared,/usr \
+						--enable-dbase=shared
 						--enable-fpm
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
