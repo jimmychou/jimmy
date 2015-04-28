@@ -468,6 +468,7 @@ NOEFFECT
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 			if [[ $PrimaryVersion == "5" ]]; then
+				sudo yum $INSTALL_OPTION install doxygen
 <<NOEFFECT
 				echo The Official MySQL on CentOS 5.9 is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
@@ -553,6 +554,14 @@ NOEFFECT
 							--enable-thread-safe-client \
 							--disable-dependency-tracking \
 							--with-named-thread-libs=-lpthread \
+							--with-blackhole-storage-engine \
+							--with-example-storage-engine \
+							--with-archive-storage-engine \
+							--with-csv-storage-engine \
+							--with-federated-storage-engine \
+							--with-ndbcluster \
+							--with-ndb-test \
+							--with-ndb-docs \
 							build_alias=i386-redhat-linux-gnu \
 							host_alias=i386-redhat-linux-gnu \
 							target_alias=i386-redhat-linux-gnu
@@ -592,6 +601,14 @@ NOEFFECT
 							--enable-thread-safe-client \
 							--disable-dependency-tracking \
 							--with-named-thread-libs=-lpthread \
+							--with-blackhole-storage-engine \
+							--with-example-storage-engine \
+							--with-archive-storage-engine \
+							--with-csv-storage-engine \
+							--with-federated-storage-engine \
+							--with-ndbcluster \
+							--with-ndb-test \
+							--with-ndb-docs \
 							build_alias=i386-redhat-linux-gnu \
 							host_alias=i386-redhat-linux-gnu \
 							target_alias=i386-redhat-linux-gnu
@@ -897,7 +914,7 @@ NOEFFECT
 						--disable-rpath \
 						--without-pear \
 						--with-bz2 \
-						--with-curl \
+						--with-curl=shared,/usr \
 						--with-exec-dir=/usr/bin \
 						--with-freetype-dir=/usr \
 						--with-png-dir=/usr \
@@ -970,7 +987,8 @@ NOEFFECT
 						--with-pdo-mysql=shared,/usr/bin/mysql_config \
 						--with-pdo-pgsql=shared,/usr \
 						--with-pdo-sqlite=shared,/usr \
-						--enable-dbase=shared
+						--enable-dbase=shared \
+						--with-mcrypt=shared,/usr
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
