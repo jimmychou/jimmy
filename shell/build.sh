@@ -765,7 +765,7 @@ NOEFFECT
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
 <<NOEFFECT
-				echo The Official PHP 5.1.6 of rpmforge Repository on $OS $Version is configured as below:
+				echo The Official PHP 5.1.6 on $OS $Version is configured as below:
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX
 				./configure --build=i386-redhat-linux-gnu
 					--host=i386-redhat-linux-gnu \
@@ -871,8 +871,8 @@ NOEFFECT
 				if [[ $PHPVERSION == "5.5.14" ]]; then
 					echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				elif [[ $PHPVERSION == "5.1.6" ]]; then
-					#sudo sudo yum $INSTALL_OPTION install flex.$OS_SUFFIX libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
-					./configure --build=i386-redhat-linux-gnu
+					sudo yum $INSTALL_OPTION install flex.$OS_SUFFIX libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX ncurses-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
 						--target=i386-redhat-linux-gnu \
 						--program-prefix= --prefix=/usr \
@@ -954,7 +954,7 @@ NOEFFECT
 						--with-ldap=shared \
 						--with-ldap-sasl \
 						--with-mysql=shared,/usr \
-						--with-mysqli=shared,/usr/lib/mysql/mysql_config \
+						--with-mysqli=shared,/usr/bin/mysql_config \
 						--enable-dom=shared \
 						--with-dom-xslt=/usr \
 						--with-dom-exslt=/usr \
@@ -967,11 +967,10 @@ NOEFFECT
 						--enable-fastcgi \
 						--enable-pdo=shared \
 						--with-pdo-odbc=shared,unixODBC,/usr \
-						--with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
 						--with-pdo-pgsql=shared,/usr \
 						--with-pdo-sqlite=shared,/usr \
 						--enable-dbase=shared
-						--enable-fpm
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
