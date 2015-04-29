@@ -1,4 +1,5 @@
 #!/bin/bash
+SCRIPT_ACTION=INSTALL
 source ./release.sh
 # 一.可以用 sudo apt-get $INSTALL_OPTION install 命令批量安装的软件
 

@@ -10,7 +10,9 @@ if [[ $OS == "Ubuntu" ]]; then
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -d "
 	fi
-	sudo apt-get $INSTALL_OPTION install lsb g++
+	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
+		sudo apt-get $INSTALL_OPTION install lsb g++
+	fi
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
 	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
@@ -26,7 +28,9 @@ else
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -y "
 	fi
-	sudo yum $INSTALL_OPTION install redhat-lsb gcc-c++
+	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
+		sudo yum $INSTALL_OPTION install redhat-lsb gcc-c++
+	fi
 	RPM_FORGE_EXIST=`rpm -qa | grep 'rpmforge-release' `
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
@@ -42,10 +46,12 @@ else
 				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
 			fi
 		fi
-		if [[ $PrimaryVersion == "5" ]]; then
-			sudo yum $INSTALL_OPTION install yum-fastestmirror.noarch
-		elif [[ $PrimaryVersion == "6" ]]; then
-			sudo yum $INSTALL_OPTION install yum-plugin-fastestmirror.noarch
+		if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
+				sudo yum $INSTALL_OPTION install yum-fastestmirror.noarch
+			elif [[ $PrimaryVersion == "6" ]]; then
+				sudo yum $INSTALL_OPTION install yum-plugin-fastestmirror.noarch
+			fi
 		fi
 	else
 		#	为	Fedora	等类	RedHat Linux	系统预留

@@ -1,4 +1,5 @@
 #!/bin/bash
+SCRIPT_ACTION=INSTALL_MINIMUM
 source ./release.sh
 if [[ $OS == "Ubuntu" ]]; then
 	if [[ $Codename == "hardy" ]]; then
