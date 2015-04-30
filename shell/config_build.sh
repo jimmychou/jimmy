@@ -107,11 +107,12 @@ for i in $*; do
 			sudo groupadd mysql && sudo useradd -M -g mysql mysql
 			#	相反的用法是： sudo userdel -r mysql ## 一般情况下，如此删除用户后，连组也删除了	sudo groupdel mysql
 		fi
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/mysql/* /etc/
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/mysqld /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/common/conf/* /etc/
+		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/* /etc/init.d/
 		if [ ! -d "/var/run/mysqld" ]; then
 			sudo mkdir /var/run/mysqld
-			sudo chown mysql:root /var/run/mysqld	#	否则	/etc/init.d/mysqld stop	不能正常工作
+			sudo chown mysql:root /var/run/mysqld
+				#	否则	/etc/init.d/mysqld stop	不能正常工作
 		fi
 		for sub in default master slave slave_a slave_b; do
 			data_dir=/var/lib/mysql_$sub
@@ -126,15 +127,17 @@ for i in $*; do
 		done
 		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
 		for sub in ndb_a ndb_b api_a api_b; do
-			#	todo
+			#	@todo
 			echo $sub
 		done
 		#sudo /etc/init.d/mysqld start
-		#sudo mysqladmin -u root -p password 'penny7531'	#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
+			#	有了	mysqld_multi	之后就弃用了
+		#sudo mysqladmin -u root -p password 'zhouxiaomin123'
+			#	不用sudo居然报错：error: 'Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (13)'
 			#	除非指定	-h	为	127.0.0.1，否则	mysql	-uroot	都会报上述错误，phpMyAdmin也是同样的道理
-		#sudo mysqladmin -u root -h localhost.localdomain -p password 'penny7531'	#	貌似比较奇怪的一种命令
-		#sudo chkconfig --add mysqld
-		#sudo chkconfig mysqld on
+		#sudo mysqladmin -u root -h localhost.localdomain -p password 'zhouxiaomin123'	#	貌似比较奇怪的一种命令
+		sudo chkconfig --add mysqld
+		sudo chkconfig mysqld on
 	elif [[ $i =~ "php" ]]; then
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
