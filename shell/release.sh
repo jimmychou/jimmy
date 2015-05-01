@@ -10,8 +10,9 @@ if [[ $OS == "Ubuntu" ]]; then
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -d "
 	fi
+	sudo apt-get $INSTALL_OPTION install lsb
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
-		sudo apt-get $INSTALL_OPTION install lsb g++
+		sudo apt-get $INSTALL_OPTION install g++
 	fi
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}'`
@@ -28,8 +29,9 @@ else
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -y "
 	fi
+	sudo yum $INSTALL_OPTION install redhat-lsb
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
-		sudo yum $INSTALL_OPTION install redhat-lsb gcc-c++
+		sudo yum $INSTALL_OPTION install gcc-c++
 	fi
 	RPM_FORGE_EXIST=`rpm -qa | grep 'rpmforge-release' `
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
