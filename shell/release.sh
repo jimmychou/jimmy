@@ -1,5 +1,6 @@
 #!/bin/bash
 INSTALL_OPTION=''
+LSB_EXIST=''
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`  #   此语句仅仅对Debian系的Ubuntu有效
 if [[ $OS == "Ubuntu" ]]; then
 	for i in $*; do
@@ -10,6 +11,7 @@ if [[ $OS == "Ubuntu" ]]; then
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -d "
 	fi
+	#	todo:	检查	lsb	是否安装
 	sudo apt-get $INSTALL_OPTION install lsb
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
 		sudo apt-get $INSTALL_OPTION install g++
@@ -29,9 +31,12 @@ else
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -y "
 	fi
-	sudo yum $INSTALL_OPTION install redhat-lsb
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
 		sudo yum $INSTALL_OPTION install gcc-c++
+	fi
+	LSB_EXIST=`rpm -qa | grep 'redhat-lsb' `
+	if [[ -z $LSB_EXIST ]]; then
+		sudo yum $INSTALL_OPTION install redhat-lsb
 	fi
 	RPM_FORGE_EXIST=`rpm -qa | grep 'rpmforge-release' `
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`

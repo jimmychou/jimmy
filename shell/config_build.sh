@@ -7,13 +7,16 @@ source ./release.sh
 SOFTWARE=~/software
 for i in $*; do 
 	if [[ $i =~ "nginx" ]]; then
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
+		declare -l OS_DIR=$OS
+			#	将系统目录转换为小写
 		#Nginx
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/nginx /etc/init.d/
-		#sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init/nginx/local.conf /etc/ld.so.conf.d/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init.d/nginx /etc/init.d/
+		#sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init/nginx/local.conf /etc/ld.so.conf.d/
 			#	否则报错：error while loading shared libraries: libprofiler.so.0: cannot open shared object file: No such file or directory
 		#sudo ldconfig -v
 			#	自从	gperftools	的	--prefix	不是	/usr/local	下之后，不再需要上面两条语句
@@ -32,8 +35,8 @@ for i in $*; do
 		if [ ! -d "/etc/nginx/conf.d" ]; then
 			sudo mkdir /etc/nginx/conf.d
 		fi
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/nginx.conf /etc/nginx/nginx.conf
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/common/conf.d/centos_6.conf /etc/nginx/conf.d/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/nginx.conf /etc/nginx/nginx.conf
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$i/common/conf.d/centos_6.conf /etc/nginx/conf.d/
 		sudo cp ~/workspace/jimmy/os/centos/hosts /etc/
 		if [[ -z `getsebool httpd_read_user_content | grep '\--> on'` ]]; then
 			sudo setsebool -P httpd_read_user_content 1
@@ -49,13 +52,16 @@ for i in $*; do
 		#sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou
 		#sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
 		#if [ -d "~/workspace/phpMyAdmin" ]; then
-			#cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
+			#cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 		#fi
 	elif [[ $i =~ "httpd" ]]; then
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
+		declare -l OS_DIR=$OS
+			#	将系统目录转换为小写
 		#HTTPD
 		if [ ! -d "/etc/httpd/conf.d" ]; then
 			sudo mkdir -p /etc/httpd/conf.d
@@ -80,26 +86,29 @@ for i in $*; do
 		#	sudo mkdir -p /var/www/html
 		#fi
 		sudo groupadd apache && sudo useradd -M -g apache apache
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/httpd/httpd.conf /etc/httpd/conf/
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/httpd /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/httpd/httpd.conf /etc/httpd/conf/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init.d/httpd /etc/init.d/
 			#	以下后来不需要了，按照标准yum安装的目录，从	/var/run/httpd/httpd.pid	移到了	/var/run/httpd.pid
 		#if [ ! -d "/var/run/httpd" ]; then
 		#	sudo mkdir /var/run/httpd
 		#	sudo chown apache:root /var/run/httpd	#	否则	/etc/init.d/httpd stop	不能正常工作
 		#fi
-		sudo /etc/init.d/httpd start
+		sudo /etc/init.d/httpd restart
 		sudo chkconfig --add httpd
 		sudo chkconfig httpd on
 		sudo ln -sf ~/workspace/ /var/www/htdocs/jimmychou
 		sudo ln -sf $SOFTWARE/phpMyAdmin-4.0.4.1-all-languages/ ~/workspace/phpMyAdmin
 		if [ -d "~/workspace/phpMyAdmin" ];then
-			cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
+			cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 		fi
 	elif [[ $i =~ "mysql" ]]; then
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
+		declare -l OS_DIR=$OS
+			#	将系统目录转换为小写
 		#MySQL
 		if id -u mysql >/dev/null 2>&1; then
 		        echo "mysql用户已存在"
@@ -107,8 +116,8 @@ for i in $*; do
 			sudo groupadd mysql && sudo useradd -M -g mysql mysql
 			#	相反的用法是： sudo userdel -r mysql ## 一般情况下，如此删除用户后，连组也删除了	sudo groupdel mysql
 		fi
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/common/conf/* /etc/
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/* /etc/init.d/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$i/common/conf/* /etc/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init.d/* /etc/init.d/
 		if [ ! -d "/var/run/mysqld" ]; then
 			sudo mkdir /var/run/mysqld
 			sudo chown mysql:root /var/run/mysqld
@@ -139,10 +148,13 @@ for i in $*; do
 		sudo chkconfig --add mysqld
 		sudo chkconfig mysqld on
 	elif [[ $i =~ "php" ]]; then
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
+		declare -l OS_DIR=$OS
+			#	将系统目录转换为小写
 		#PHP
 		#/etc/init.d/php-fpm stop	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
 		if id -u nginx >/dev/null 2>&1; then
@@ -151,8 +163,8 @@ for i in $*; do
 			sudo groupadd nginx && sudo useradd -M -g nginx nginx
 			#	相反的用法是： sudo userdel -r nginx ## 一般情况下，如此删除用户后，连组也删除了	sudo groupdel nginx
 		fi
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/php/php.ini /etc/ 
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/php/php-fpm.conf /etc/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php.ini /etc/ 
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php-fpm.conf /etc/
 		if [ ! -d "/var/log/php-fpm" ]; then
 			sudo mkdir /var/log/php-fpm
 		fi
@@ -161,8 +173,8 @@ for i in $*; do
 		if [ ! -d "/etc/php.d" ]; then
 			sudo mkdir /etc/php.d
 		fi
-		#sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/conf/php/php.d/* /etc/php.d/
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/php-fpm /etc/init.d/
+		#sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php.d/* /etc/php.d/
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init.d/php-fpm /etc/init.d/
 		if [[ -z `getsebool httpd_read_user_content | grep '\--> on'` ]]; then
 			sudo setsebool -P httpd_read_user_content 1
 		fi
@@ -171,20 +183,28 @@ for i in $*; do
 		fi
 		sudo chmod 755 /home/jimmychou
 #		755是web目录可以访问的最低要求，不要再试图744等
-		sudo /etc/init.d/php-fpm start
+		sudo /etc/init.d/php-fpm restart
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
 	elif [[ $i =~ "memcached" ]]; then
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		sudo groupadd memcached && sudo useradd -M -g memcached memcached
-		sudo cp ~/workspace/jimmy/os/centos/build/done/$i/$SOFT_VERSION/init.d/memcached /etc/init.d/
+		declare -l OS_DIR=$OS
+			#	将系统目录转换为小写
+		if id -u memcached >/dev/null 2>&1; then
+		        echo "memcached用户已存在"
+		else
+			sudo groupadd memcached && sudo useradd -M -g memcached memcached
+			#	相反的用法是： sudo userdel -r memcached ## 一般情况下，如此删除用户后，连组也删除了	sudo groupdel memcached
+		fi
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/init.d/memcached /etc/init.d/
 		if [ ! -d "/var/run/memcached" ]; then
 			sudo mkdir /var/run/memcached
 		fi
-		sudo /etc/init.d/memcached start
+		sudo /etc/init.d/memcached restart
 		sudo chkconfig --add memcached
 		sudo chkconfig memcached on
 	fi
