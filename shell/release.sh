@@ -1,7 +1,8 @@
 #!/bin/bash
 INSTALL_OPTION=''
 LSB_EXIST=''
-OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`  #   此语句仅仅对Debian系的Ubuntu有效
+OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
+	#   此语句仅仅对Debian系的Ubuntu有效
 if [[ $OS == "Ubuntu" ]]; then
 	for i in $*; do
 		if [[ $i =~ '-' ]]; then
@@ -11,8 +12,10 @@ if [[ $OS == "Ubuntu" ]]; then
 	if [[ -z $INSTALL_OPTION ]]; then
 		INSTALL_OPTION=" -d "
 	fi
-	#	todo:	检查	lsb	是否安装
-	sudo apt-get $INSTALL_OPTION install lsb
+	LSB_EXIST=`dpkg --get-selections | grep lsb`
+	if [[ -z $LSB_EXIST ]]; then
+		sudo apt-get $INSTALL_OPTION install lsb
+	fi
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
 		sudo apt-get $INSTALL_OPTION install g++
 	fi
@@ -21,6 +24,7 @@ if [[ $OS == "Ubuntu" ]]; then
 	PrimaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $1}'`
 	SecondaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $2}'`
 	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
+	declare -l OS_DIR=$OS
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
 else
 	for i in $*; do
@@ -49,7 +53,7 @@ else
 		#	将系统目录转换为小写
 		if [[ $PrimaryVersion == "5" ]]; then
 			OS_DIR=`echo $OS | tr '[A-Z]' '[a-z]'`
-			#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
+				#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
 		else
 			declare -l OS_DIR=$OS
 		fi
@@ -76,7 +80,8 @@ OS_SUFFIX=`uname -m`
 OS_SUFFIX_SPECIAL=$OS_SUFFIX
 if [[ $OS_SUFFIX == "i686" ]]; then
 	OS_SUFFIX_SPECIAL=i386
-#	if [[ $Version == "5.9" ]]; then	#	应该是5而不是每个细小的版本	
+#	if [[ $Version == "5.9" ]]; then	
+	#	应该是	5	这个大版本而不是每个细小的版本	
 	if [[ $PrimaryVersion == "5" ]]; then
 		OS_SUFFIX="i386"
 	fi
