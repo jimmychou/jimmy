@@ -35,7 +35,6 @@ for i in $*; do
 		fi
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/nginx.conf /etc/nginx/nginx.conf
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$i/common/conf.d/centos_6.conf /etc/nginx/conf.d/
-		sudo cp ~/workspace/jimmy/os/centos/hosts /etc/
 		if [[ -z `getsebool httpd_read_user_content | grep '\--> on'` ]]; then
 			sudo setsebool -P httpd_read_user_content 1
 		fi
@@ -43,7 +42,8 @@ for i in $*; do
 			sudo setsebool -P httpd_enable_homedirs 1
 		fi
 		sudo chmod 755 /home/jimmychou
-#		755是web目录可以访问的最低要求，不要再试图744等
+			#	755是web目录可以访问的最低要求，不要再试图744等
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
 		sudo /etc/init.d/nginx restart
 		sudo chkconfig --add nginx
 		sudo chkconfig nginx on
@@ -87,8 +87,10 @@ for i in $*; do
 			#	以下后来不需要了，按照标准yum安装的目录，从	/var/run/httpd/httpd.pid	移到了	/var/run/httpd.pid
 		#if [ ! -d "/var/run/httpd" ]; then
 		#	sudo mkdir /var/run/httpd
-		#	sudo chown apache:root /var/run/httpd	#	否则	/etc/init.d/httpd stop	不能正常工作
+		#	sudo chown apache:root /var/run/httpd	
+				#	否则	/etc/init.d/httpd stop	不能正常工作
 		#fi
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
 		sudo /etc/init.d/httpd restart
 		sudo chkconfig --add httpd
 		sudo chkconfig httpd on
@@ -128,6 +130,7 @@ for i in $*; do
 				sudo mysql_install_db --defaults-file=$config_file --user=mysql
 			fi
 		done
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
 		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
 		for sub in ndb_a ndb_b api_a api_b; do
 			#	@todo
@@ -182,6 +185,7 @@ for i in $*; do
 			#	755是web目录可以访问的最低要求，不要再试图744等
 		#/etc/init.d/php-fpm stop
 			#	不能工作跟	MySQL	不一样，是因为	php-fpm.conf	没有开启	pidfile
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
 		sudo /etc/init.d/php-fpm restart
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
@@ -202,6 +206,7 @@ for i in $*; do
 		if [ ! -d "/var/run/memcached" ]; then
 			sudo mkdir /var/run/memcached
 		fi
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
 		sudo /etc/init.d/memcached restart
 		sudo chkconfig --add memcached
 		sudo chkconfig memcached on
