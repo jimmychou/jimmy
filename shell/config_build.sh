@@ -165,9 +165,17 @@ for i in $*; do
 			sudo mkdir /etc/php.d
 		fi
 		#sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php.d/* /etc/php.d/
-		if [[ $FIRST_SOFT_VERSION -le 5 && $SECOND_SOFT_VERSION -lt 3 ]]; then
-			echo php-5.3.x	之前的版本没有	php-fpm
+		if [[ $FIRST_SOFT_VERSION -lt 5 ]]; then
+			echo php-5.3.3	之前的版本没有	php-fpm
 			exit
+		elif [[ $FIRST_SOFT_VERSION -eq 5 ]]; then
+			if [[ $SECOND_SOFT_VERSION -lt 3 ]]; then
+				echo php-5.3.3	之前的版本没有	php-fpm
+				exit
+			elif [[ $SECOND_SOFT_VERSION -eq 3 && $THIRD_SOFT_VERSION -lt 3 ]]; then
+				echo php-5.3.3	之前的版本没有	php-fpm
+				exit
+			fi
 		fi
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php-fpm.conf /etc/
 		if [ ! -d "/var/log/php-fpm" ]; then
