@@ -488,7 +488,7 @@ lrwxrwxrwx 1 root root 11 04-16 18:37 /lib/libc.so.6 -> libc-2.5.so
 Configure command: ./configure '--build=i386-redhat-linux-gnu' '--host=i386-redhat-linux-gnu' '--target=i386-redhat-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib' '--libexecdir=/usr/libexec' '--localstatedir=/var' '--sharedstatedir=/usr/com' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-readline' '--with-openssl' '--without-debug' '--enable-shared' '--with-bench' '--localstatedir=/var/lib/mysql' '--with-unix-socket-path=/var/lib/mysql/mysql.sock' '--with-mysqld-user=mysql' '--with-extra-charsets=all' '--with-innodb' '--with-berkeley-db' '--enable-community-features' '--enable-local-infile' '--enable-largefile' '--enable-profiling' '--enable-thread-safe-client' '--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
 NOEFFECT
 <<NOEFFECT
-				echo The Official $i on $OS $Version is configured as below(translate from above):
+				echo The Official $i 5.0.95 on $OS $Version is configured as below(translate from above):
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
@@ -635,11 +635,104 @@ NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
+<<NOEFFECT
+				echo The Official $i 5.1.73 on $OS $Version is configured as below:
+SEND-PR: -*- send-pr -*-
+SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
+SEND-PR: will all comments (text enclosed in `<' and `>').
+SEND-PR:
+From: jimmychou
+To: mysql@lists.mysql.com
+Subject: [50 character or so descriptive subject here (for reference)]
+
+>Description:
+	<precise description of the problem (multiple lines)>
+>How-To-Repeat:
+	<code/input/activities to reproduce the problem (multiple lines)>
+>Fix:
+	<how to correct or work around the problem, if known (multiple lines)>
+
+>Submitter-Id:	<submitter ID>
+>Originator:	
+>Organization:
+ <organization of PR author (multiple lines)>
+>MySQL support: [none | licence | email support | extended email support ]
+>Synopsis:	<synopsis of the problem (one line)>
+>Severity:	<[ non-critical | serious | critical ] (one line)>
+>Priority:	<[ low | medium | high ] (one line)>
+>Category:	mysql
+>Class:		<[ sw-bug | doc-bug | change-request | support ] (one line)>
+>Release:	mysql-5.1.73 (Source distribution)
+
+>C compiler:    gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-4)
+>C++ compiler:  g++ (GCC) 4.4.7 20120313 (Red Hat 4.4.7-4)
+>Environment:
+	<machine, os, target, libraries (multiple lines)>
+System: Linux localhost.localdomain 2.6.32-504.12.2.el6.i686 #1 SMP Wed Mar 11 19:05:53 UTC 2015 i686 i686 i386 GNU/Linux
+Architecture: i686
+
+Some paths:  /usr/bin/perl /usr/bin/make /usr/bin/gmake /usr/bin/gcc /usr/bin/cc
+GCC: 使用内建 specs。
+目标：i686-redhat-linux
+配置为：../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch=i686 --build=i686-redhat-linux
+线程模型：posix
+gcc 版本 4.4.7 20120313 (Red Hat 4.4.7-11) (GCC) 
+Compilation info (call): CC='gcc'  CFLAGS='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC'  CXX=''  CXXFLAGS='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions'  LDFLAGS=''  ASFLAGS=''
+Compilation info (used): CC='gcc'  CFLAGS=' -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC   -DUNIV_LINUX -DUNIV_LINUX'  CXX='g++'  CXXFLAGS=' -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions   -fno-implicit-templates -fno-exceptions -fno-rtti'  LDFLAGS=' -rdynamic '  ASFLAGS=''
+LIBC: 
+lrwxrwxrwx. 1 root root 12 3月  20 06:48 /lib/libc.so.6 -> libc-2.12.so
+-rwxr-xr-x. 1 root root 1902892 1月  28 03:11 /lib/libc-2.12.so
+-rw-r--r--. 1 root root 238 1月  28 02:37 /usr/lib/libc.so
+Configure command: ./configure  '--build=i386-redhat-linux-gnu' '--host=i386-redhat-linux-gnu' '--target=i686-redhat-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib' '--libexecdir=/usr/libexec' '--localstatedir=/var' '--sharedstatedir=/var/lib' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-readline' '--with-ssl=/usr' '--without-debug' '--enable-shared' '--with-embedded-server' '--localstatedir=/var/lib/mysql' '--with-unix-socket-path=/var/lib/mysql/mysql.sock' '--with-mysqld-user=mysql' '--with-extra-charsets=all' '--with-big-tables' '--with-pic' '--with-plugin-innobase' '--with-plugin-innodb_plugin' '--with-plugin-partition' '--enable-local-infile' '--enable-largefile' '--enable-thread-safe-client' '--disable-dependency-tracking' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i686-redhat-linux-gnu' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions'
+NOEFFECT
+<<NOEFFECT
+				echo The Official $i 5.1.73 on $OS $Version is configured as below(translate from above):
+				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
+				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i686-redhat-linux-gnu \
+					--program-prefix= \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--sysconfdir=/etc \
+					--datadir=/usr/share \
+					--includedir=/usr/include \
+					--libdir=/usr/lib \
+					--libexecdir=/usr/libexec \
+					--localstatedir=/var \
+					--sharedstatedir=/var/lib \
+					--mandir=/usr/share/man \
+					--infodir=/usr/share/info \
+					--with-readline \
+					--with-ssl=/usr \
+					--without-debug \
+					--enable-shared \
+					--with-embedded-server \
+					--localstatedir=/var/lib/mysql \
+					--with-unix-socket-path=/var/lib/mysql/mysql.sock \
+					--with-mysqld-user=mysql \
+					--with-extra-charsets=all \
+					--with-big-tables \
+					--with-pic \
+					--with-plugin-innobase \
+					--with-plugin-innodb_plugin \
+					--with-plugin-partition \
+					--enable-local-infile \
+					--enable-largefile \
+					--enable-thread-safe-client \
+					--disable-dependency-tracking \
+					build_alias=i386-redhat-linux-gnu \
+					host_alias=i386-redhat-linux-gnu \
+					target_alias=i686-redhat-linux-gnu
+NOEFFECT
 				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
-				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
-				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
-				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
 				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
+					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
+					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
+					FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
 						--target=i386-redhat-linux-gnu \
@@ -687,6 +780,8 @@ NOEFFECT
 						host_alias=i386-redhat-linux-gnu \
 						target_alias=i386-redhat-linux-gnu
 				elif [[ $MYSQLBIGVERSION == "5.1" ]]; then
+					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
+					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
 					if [[ $MYSQLVERSION == "5.1.51" ]]; then
 						./configure --build=i386-redhat-linux-gnu \
 							--host=i386-redhat-linux-gnu \
