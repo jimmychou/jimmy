@@ -255,7 +255,83 @@ NOEFFECT
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
-				if [ $NGINXVERSION == "1.4.1" ]; then
+<<NOEFFECT
+				echo The Official $i 1.8.0 on $OS $Version of Nginx Repository is configured as below:
+				./configure --prefix=/etc/nginx \
+					--sbin-path=/usr/sbin/nginx \
+					--conf-path=/etc/nginx/nginx.conf \
+					--error-log-path=/var/log/nginx/error.log \
+					--http-log-path=/var/log/nginx/access.log \
+					--pid-path=/var/run/nginx.pid \
+					--lock-path=/var/run/nginx.lock \
+					--http-client-body-temp-path=/var/cache/nginx/client_temp \
+					--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+					--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+					--user=nginx \
+					--group=nginx \
+					--with-http_ssl_module \
+					--with-http_realip_module \
+					--with-http_addition_module \
+					--with-http_sub_module \
+					--with-http_dav_module \
+					--with-http_flv_module \
+					--with-http_mp4_module \
+					--with-http_gunzip_module \
+					--with-http_gzip_static_module \
+					--with-http_random_index_module \
+					--with-http_secure_link_module \
+					--with-http_stub_status_module \
+					--with-http_auth_request_module \
+					--with-mail \
+					--with-mail_ssl_module \
+					--with-file-aio \
+					--with-ipv6 \
+					--with-http_spdy_module \
+					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
+NOEFFECT
+				if [ $NGINXVERSION == "1.0.14" ]; then
+					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+					./configure --prefix=/usr/share/nginx \
+						--sbin-path=/usr/sbin/nginx \
+						--conf-path=/etc/nginx/nginx.conf \
+						--error-log-path=/var/log/nginx/error.log \
+						--http-log-path=/var/log/nginx/access.log \
+						--pid-path=/var/run/nginx.pid \
+						--lock-path=/var/run/nginx.lock \
+						--http-client-body-temp-path=/var/cache/nginx/client_temp \
+						--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+						--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+						--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+						--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+						--user=nginx \
+						--group=nginx \
+						--with-http_addition_module \
+						--with-http_degradation_module \
+						--with-http_perl_module \
+						--with-http_flv_module \
+						--with-http_geoip_module \
+						--with-google_perftools_module \
+						--with-http_gzip_static_module \
+						--with-http_image_filter_module \
+						--with-http_mp4_module \
+						--with-http_random_index_module \
+						--with-http_realip_module \
+						--with-http_secure_link_module \
+						--with-http_ssl_module \
+						--with-http_stub_status_module \
+						--with-http_sub_module \
+						--with-http_dav_module \
+						--with-http_xslt_module \
+						--with-ipv6 \
+						--with-file-aio \
+						--with-mail \
+						--with-debug \
+						--with-http_stub_status_module \
+						--with-mail_ssl_module \
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
+				elif [ $NGINXVERSION == "1.4.1" ]; then
 					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
 					./configure --prefix=/usr/share/nginx \
 						--sbin-path=/usr/sbin/nginx \
@@ -279,46 +355,6 @@ NOEFFECT
 						--with-google_perftools_module \
 						--with-http_gzip_static_module \
 						--with-http_gunzip_module \
-						--with-http_image_filter_module \
-						--with-http_mp4_module \
-						--with-http_random_index_module \
-						--with-http_realip_module \
-						--with-http_secure_link_module \
-						--with-http_ssl_module \
-						--with-http_stub_status_module \
-						--with-http_sub_module \
-						--with-http_dav_module \
-						--with-http_xslt_module \
-						--with-ipv6 \
-						--with-file-aio \
-						--with-mail \
-						--with-debug \
-						--with-http_stub_status_module \
-						--with-mail_ssl_module \
-						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
-				elif [ $NGINXVERSION == "1.0.14" ]; then
-					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
-					./configure --prefix=/usr/share/nginx \
-						--sbin-path=/usr/sbin/nginx \
-						--conf-path=/etc/nginx/nginx.conf \
-						--error-log-path=/var/log/nginx/error.log \
-						--http-log-path=/var/log/nginx/access.log \
-						--pid-path=/var/run/nginx.pid \
-						--lock-path=/var/run/nginx.lock \
-						--http-client-body-temp-path=/var/cache/nginx/client_temp \
-						--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-						--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-						--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-						--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-						--user=nginx \
-						--group=nginx \
-						--with-http_addition_module \
-						--with-http_degradation_module \
-						--with-http_perl_module \
-						--with-http_flv_module \
-						--with-http_geoip_module \
-						--with-google_perftools_module \
-						--with-http_gzip_static_module \
 						--with-http_image_filter_module \
 						--with-http_mp4_module \
 						--with-http_random_index_module \
