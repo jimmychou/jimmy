@@ -748,6 +748,7 @@ NOEFFECT
 			fi
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
+<<NOEFFECT
 				echo The Official PHP 5.1.6 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
@@ -849,7 +850,108 @@ NOEFFECT
 					--with-pdo-pgsql=shared,/usr \
 					--with-pdo-sqlite=shared,/usr \
 					--enable-dbase=shared
+NOEFFECT
 <<NOEFFECT
+				echo The Official PHP 5.3.3 on $OS $Version is configured as below:
+				./configure --build=i386-redhat-linux-gnu \
+					--host=i386-redhat-linux-gnu \
+					--target=i386-redhat-linux-gnu \
+					--program-prefix= \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--sysconfdir=/etc \
+					--datadir=/usr/share \
+					--includedir=/usr/include \
+					--libdir=/usr/lib \
+					--libexecdir=/usr/libexec \
+					--localstatedir=/var \
+					--sharedstatedir=/usr/com \
+					--mandir=/usr/share/man \
+					--infodir=/usr/share/info \
+					--cache-file=../config.cache \
+					--with-libdir=lib \
+					--with-config-file-path=/etc \
+					--with-config-file-scan-dir=/etc/php.d \
+					--disable-debug \
+					--with-pic \
+					--disable-rpath \
+					--without-pear \
+					--with-bz2 \
+					--with-exec-dir=/usr/bin \
+					--with-freetype-dir=/usr \
+					--with-png-dir=/usr \
+					--with-xpm-dir=/usr \
+					--enable-gd-native-ttf \
+					--without-gdbm \
+					--with-gettext \
+					--with-gmp \
+					--with-iconv \
+					--with-jpeg-dir=/usr \
+					--with-openssl \
+					--with-pcre-regex=/usr \
+					--with-zlib \
+					--with-layout=GNU \
+					--enable-exif \
+					--enable-ftp \
+					--enable-magic-quotes \
+					--enable-sockets \
+					--enable-sysvsem \
+					--enable-sysvshm \
+					--enable-sysvmsg \
+					--with-kerberos \
+					--enable-ucd-snmp-hack \
+					--enable-shmop \
+					--enable-calendar \
+					--without-sqlite \
+					--without-sqlite3 \
+					--with-libxml-dir=/usr \
+					--enable-xml \
+					--with-system-tzdata \
+					--enable-force-cgi-redirect \
+					--enable-pcntl \
+					--with-imap=shared \
+					--with-imap-ssl \
+					--enable-mbstring=shared \
+					--enable-mbregex \
+					--with-gd=shared \
+					--enable-bcmath=shared \
+					--enable-dba=shared \
+					--with-db4=/usr \
+					--with-xmlrpc=shared \
+					--with-ldap=shared \
+					--with-ldap-sasl \
+					--with-mysql=shared,/usr \
+					--with-mysqli=shared,/usr/lib/mysql/mysql_config \
+					--enable-dom=shared \
+					--with-pgsql=shared \
+					--enable-wddx=shared \
+					--with-snmp=shared,/usr \
+					--enable-soap=shared \
+					--with-xsl=shared,/usr \
+					--enable-xmlreader=shared \
+					--enable-xmlwriter=shared \
+					--with-curl=shared,/usr \
+					--enable-fastcgi \
+					--enable-pdo=shared \
+					--with-pdo-odbc=shared,unixODBC,/usr \
+					--with-pdo-mysql=shared,/usr/lib/mysql/mysql_config \
+					--with-pdo-pgsql=shared,/usr \
+					--with-pdo-sqlite=shared,/usr \
+					--enable-json=shared \
+					--enable-zip=shared \
+					--without-readline \
+					--with-pspell=shared \
+					--enable-phar=shared \
+					--enable-sysvmsg=shared \
+					--enable-sysvshm=shared \
+					--enable-sysvsem=shared \
+					--enable-posix=shared \
+					--with-unixODBC=shared,/usr \
+					--enable-fileinfo=shared \
+					--enable-intl=shared \
+					--with-icu-dir=/usr
 NOEFFECT
 				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
 				if [[ $PHPVERSION == "5.5.14" ]]; then
