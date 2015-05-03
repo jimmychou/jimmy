@@ -25,6 +25,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ "nginx" ]]; then
 		#	Nginx
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -44,6 +45,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ "httpd" ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -63,6 +65,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ "mysql" ]]; then
 		#	MySQL
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -82,6 +85,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 	elif [[ $i =~ "php-" || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
 		#	PHP
@@ -102,6 +106,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ "memcached" ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -121,6 +126,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ "phpMyAdmin" ]]; then
 		#	phpMyAdmin
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
