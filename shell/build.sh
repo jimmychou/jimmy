@@ -10,8 +10,8 @@ if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
 for i in $*; do 
-	if [[ $i == "google_perftools" ]]; then
-		# google_perftools编译
+	if [[ $i == "gperftools" ]]; then
+		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
 		GPERFTOOLSVERSION=2.0
 		GPERFTOOLSSUFFIX=tar.gz
