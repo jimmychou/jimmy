@@ -263,7 +263,7 @@ NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
 <<NOEFFECT
-				echo The Official $SOFT_NAME 1.8.0 on $OS $Version of Nginx Repository is configured as below:
+				echo The Official $SOFT_NAME-1.8.0 on $OS $Version of Nginx Repository is configured as below:
 				./configure --prefix=/etc/nginx \
 					--sbin-path=/usr/sbin/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
@@ -404,7 +404,7 @@ NOEFFECT
 			sudo yum $INSTALL_OPTION install apr-util-devel.$OS_SUFFIX
 			echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
-				echo The Official $SOFT_NAME 2.2.3 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-2.2.3 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -425,7 +425,7 @@ NOEFFECT
 					--enable-rewrite=shared \
 					--enable-speling=shared
 			elif [[ $PrimaryVersion == "6" ]]; then
-				echo The Official $SOFT_NAME 2.2.15 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-2.2.15 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -681,7 +681,7 @@ NOEFFECT
 				sudo yum $INSTALL_OPTION install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
 <<NOEFFECT
-				echo The Official $i 5.1.73 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-5.1.73 on $OS $Version is configured as below:
 SEND-PR: -*- send-pr -*-
 SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
 SEND-PR: will all comments (text enclosed in `<' and `>').
@@ -731,7 +731,7 @@ lrwxrwxrwx. 1 root root 12 3月  20 06:48 /lib/libc.so.6 -> libc-2.12.so
 Configure command: ./configure  '--build=i386-redhat-linux-gnu' '--host=i386-redhat-linux-gnu' '--target=i686-redhat-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib' '--libexecdir=/usr/libexec' '--localstatedir=/var' '--sharedstatedir=/var/lib' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-readline' '--with-ssl=/usr' '--without-debug' '--enable-shared' '--with-embedded-server' '--localstatedir=/var/lib/mysql' '--with-unix-socket-path=/var/lib/mysql/mysql.sock' '--with-mysqld-user=mysql' '--with-extra-charsets=all' '--with-big-tables' '--with-pic' '--with-plugin-innobase' '--with-plugin-innodb_plugin' '--with-plugin-partition' '--enable-local-infile' '--enable-largefile' '--enable-thread-safe-client' '--disable-dependency-tracking' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i686-redhat-linux-gnu' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions'
 NOEFFECT
 <<NOEFFECT
-				echo The Official $i 5.1.73 on $OS $Version is configured as below(translate from above):
+				echo The Official $SOFT_NAME-5.1.73 on $OS $Version is configured as below(translate from above):
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
 				./configure --build=i386-redhat-linux-gnu \
@@ -1255,7 +1255,7 @@ NOEFFECT
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
-				echo The Official $SOFT_NAME 5.3.3 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-5.3.3 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i686-redhat-linux-gnu \
