@@ -6,7 +6,7 @@ fi
 source ./release.sh
 SOFTWARE=~/software
 for i in $*; do 
-	if [[ $i =~ "nginx" ]]; then
+	if [[ $i =~ ^nginx ]]; then
 		#	Nginx
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -52,7 +52,7 @@ for i in $*; do
 		#if [ -d "~/workspace/phpMyAdmin" ]; then
 			#cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 		#fi
-	elif [[ $i =~ "httpd" ]]; then
+	elif [[ $i =~ ^httpd ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -99,7 +99,7 @@ for i in $*; do
 		if [ -d "~/workspace/phpMyAdmin" ];then
 			cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/phpMyAdmin/config.inc.php ~/workspace/phpMyAdmin/
 		fi
-	elif [[ $i =~ "mysql" ]]; then
+	elif [[ $i =~ ^mysql ]]; then
 		#	MySQL
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -144,7 +144,7 @@ for i in $*; do
 		#sudo mysqladmin -u root -h localhost.localdomain -p password 'zhouxiaomin123'	#	貌似比较奇怪的一种命令
 		sudo chkconfig --add mysqld
 		sudo chkconfig mysqld on
-	elif [[ $i =~ "php-" || $i == 'php' ]]; then
+	elif [[ $i =~ ^php- || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
 		#	PHP
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -198,7 +198,7 @@ for i in $*; do
 		sudo /etc/init.d/php-fpm restart
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
-	elif [[ $i =~ "memcached" ]]; then
+	elif [[ $i =~ ^memcache ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -219,7 +219,7 @@ for i in $*; do
 		sudo /etc/init.d/memcached restart
 		sudo chkconfig --add memcached
 		sudo chkconfig memcached on
-	elif [[ $i =~ "phpMyAdmin" ]]; then
+	elif [[ $i =~ ^phpMyAdmin ]]; then
 		#	phpMyAdmin
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`

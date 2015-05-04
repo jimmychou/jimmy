@@ -6,24 +6,28 @@ fi
 SCRIPT_ACTION=INSTALL_BUILD
 source ./release.sh
 SOFTWARE=~/software
+SOFT_SUFFIX=tar.gz
 if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
-for i in $*; do 
-	if [[ $i == "gperftools" ]]; then
+for i in $*; do
+	if [[ $i =~ ^gperftools ]]; then
 		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
-		GPERFTOOLSVERSION=2.0
-		GPERFTOOLSSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
 		cd $SOFTWARE
-		if [ ! -f gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX ]; then
-			wget --content-disposition http://gperftools.googlecode.com/files/gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://gperftools.googlecode.com/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		if [ ! -d gperftools-$GPERFTOOLSSUFFIX ]; then
-			tar -zvxf gperftools-$GPERFTOOLSVERSION.$GPERFTOOLSSUFFIX
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		cd $SOFTWARE/gperftools-$GPERFTOOLSVERSION
-		echo The Current $i $GPERFTOOLSVERSION on $OS $Version is configured as below:
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
+		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 		./configure --build=i386-redhat-linux-gnu \
 			--host=i386-redhat-linux-gnu \
 			--target=i386-redhat-linux-gnu \
@@ -49,22 +53,24 @@ for i in $*; do
 #	        以上echo语句即使是sudo也无权限写入文件
 #	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
 #		有了	configure	条件后，无需上面这一步了
-	elif [[ $i == "nginx" ]]; then
+	elif [[ $i =~ ^nginx ]]; then
 		# Nginx编译
-		NGINXVERSION=1.0.14
-#		NGINXVERSION=1.4.1
-		NGINXSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
 		cd $SOFTWARE
-		if [ ! -f nginx-$NGINXVERSION.$NGINXSUFFIX ]; then
-			wget --content-disposition http://nginx.org/download/nginx-$NGINXVERSION.$NGINXSUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://nginx.org/download/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		if [ ! -d nginx-$NGINXVERSION ]; then
-			tar -zvxf nginx-$NGINXVERSION.$NGINXSUFFIX
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		cd $SOFTWARE/nginx-$NGINXVERSION
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
 			if [[ $Codename == "precise" ]]; then
-				echo The Official Nginx on Ubuntu 12.04 is configured as below:
+				echo The Official $SOFT_NAME-1.1.19 on $OS $Version is configured as below:
 				./configure --prefix=/etc/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
 					--error-log-path=/var/log/nginx/error.log \
@@ -98,7 +104,7 @@ for i in $*; do
 					#--add-module=/build/buildd/nginx-1.1.19/debian/modules/nginx-upstream-fair \
 					#--add-module=/build/buildd/nginx-1.1.19/debian/modules/nginx-dav-ext-module
 			elif [[ $Codename == "raring" ]]; then
-				echo The Official Nginx on Ubuntu 13.04 is configured as below:
+				echo The Official $SOFT_NAME on $OS $Version is configured as below:
 				./configure --prefix=/usr/share/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
 					--error-log-path=/var/log/nginx/error.log \
@@ -139,7 +145,7 @@ for i in $*; do
 				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 				#	zlib-devel	libxml2-devel	不知何时已经安装上了，GeoIP-devel	和	geoip-devel	不是一个软件么？
 <<NOEFFECT
-				echo The Official $i 1.8.0 on $OS $Version of Nginx Repository is configured as below:
+				echo The Official $SOFT_NAME-1.8.0 on $OS $Version of Nginx Repository is configured as below:
 				./configure --prefix=/etc/nginx \
 					--sbin-path=/usr/sbin/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
@@ -173,8 +179,8 @@ for i in $*; do
 					--with-ipv6 \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 NOEFFECT
-				echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
-				if [ $NGINXVERSION == "1.0.14" ]; then
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+				if [ $SOFT_VERSION == "1.0.14" ]; then
 					./configure --prefix=/usr/share/nginx \
 						--sbin-path=/usr/sbin/nginx \
 						--conf-path=/etc/nginx/nginx.conf \
@@ -213,7 +219,7 @@ NOEFFECT
 						--with-http_stub_status_module \
 						--with-mail_ssl_module \
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
-				elif [ $NGINXVERSION == "1.4.1" ]; then
+				elif [ $SOFT_VERSION == "1.4.1" ]; then
 					./configure --prefix=/usr/share/nginx \
 						--sbin-path=/usr/sbin/nginx \
 						--conf-path=/etc/nginx/nginx.conf \
@@ -257,7 +263,7 @@ NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX perl.$OS_SUFFIX perl-devel.$OS_SUFFIX perl-ExtUtils-Embed.$OS_SUFFIX
 <<NOEFFECT
-				echo The Official $i 1.8.0 on $OS $Version of Nginx Repository is configured as below:
+				echo The Official $SOFT_NAME 1.8.0 on $OS $Version of Nginx Repository is configured as below:
 				./configure --prefix=/etc/nginx \
 					--sbin-path=/usr/sbin/nginx \
 					--conf-path=/etc/nginx/nginx.conf \
@@ -292,8 +298,8 @@ NOEFFECT
 					--with-http_spdy_module \
 					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
 NOEFFECT
-				if [ $NGINXVERSION == "1.0.14" ]; then
-					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+				if [ $SOFT_VERSION == "1.0.14" ]; then
+					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					./configure --prefix=/usr/share/nginx \
 						--sbin-path=/usr/sbin/nginx \
 						--conf-path=/etc/nginx/nginx.conf \
@@ -332,8 +338,8 @@ NOEFFECT
 						--with-http_stub_status_module \
 						--with-mail_ssl_module \
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
-				elif [ $NGINXVERSION == "1.4.1" ]; then
-					echo The Current $i $NGINXVERSION on $OS $Version is configured as below:
+				elif [ $SOFT_VERSION == "1.4.1" ]; then
+					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					./configure --prefix=/usr/share/nginx \
 						--sbin-path=/usr/sbin/nginx \
 						--conf-path=/etc/nginx/nginx.conf \
@@ -377,26 +383,28 @@ NOEFFECT
 			fi
 			make && sudo make install && sudo /sbin/ldconfig -v
 		fi
-	elif [[ $i == "httpd" ]]; then
+	elif [[ $i =~ ^httpd ]]; then
 		# HTTPD编译
-		#HTTPDVERSION=2.4.6  # Some software is not compatible with the configure condition on CentOS 5.9
-		HTTPDVERSION=2.2.29
-		HTTPDSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
 		cd $SOFTWARE
-		if [ ! -f httpd-$HTTPDVERSION.$HTTPDSUFFIX ]; then
-			wget --content-disposition http://mirror.bit.edu.cn/apache/httpd/httpd-$HTTPDVERSION.$HTTPDSUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://mirror.bit.edu.cn/apache/httpd/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		if [ ! -d httpd-$HTTPDVERSION ]; then
-			tar -zvxf httpd-$HTTPDVERSION.$HTTPDSUFFIX
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		cd $SOFTWARE/httpd-$HTTPDVERSION
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
-			echo The Official Httpd on Ubuntu is configured as below:
+			echo The Official $SOFT_NAME on $OS $Version is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum $INSTALL_OPTION install apr-util-devel.$OS_SUFFIX
-			echo The Current $i $HTTPDVERSION on $OS $Version is configured as below:
+			echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
-				echo The Official Httpd on CentOS 5.9 is configured as below:
+				echo The Official $SOFT_NAME 2.2.3 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -417,7 +425,7 @@ NOEFFECT
 					--enable-rewrite=shared \
 					--enable-speling=shared
 			elif [[ $PrimaryVersion == "6" ]]; then
-				echo The Official Httpd on CentOS 6 is configured as below:
+				echo The Official $SOFT_NAME 2.2.15 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -440,41 +448,41 @@ NOEFFECT
 			fi
 			make && sudo make install && sudo /sbin/ldconfig -v
 		fi
-	elif [[ $i == "mysql" ]]; then
+	elif [[ $i =~ ^mysql ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
-		MYSQLBIGVERSION=5.0
-		MYSQLVERSION=5.0.95
-		#MYSQLVERSION=5.0.96
-		#MYSQLBIGVERSION=5.1
-		#MYSQLVERSION=5.1.51
-		#MYSQLVERSION=5.1.73
-		#MYSQLBIGVERSION=5.6
-		#MYSQLVERSION=5.6.14
-		MYSQLSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
+		FIRST_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $1}'`
+		SECOND_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $2}'`
+		THIRD_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $3}'`
+		SOFT_BIGVERSION=$FIRST_SOFT_VERSION.$SECOND_SOFT_VERSION
 		cd $SOFTWARE
 		#	SHELL的if语句，多条件使用要注意
-		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && ! -f index.html ]; then      #   NOT OK
-		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a ! -f index.html ]; then      #   OK?
-		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ ! -f index.html ]; then   #   OK
-			wget --content-disposition http://dev.mysql.com/get/Downloads/MySQL-$MYSQLBIGVERSION/mysql-$MYSQLVERSION.$MYSQLSUFFIX/from/http://cdn.mysql.com/
+		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && ! -f index.html ]; then      #   NOT OK
+		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a ! -f index.html ]; then      #   OK?
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ ! -f index.html ]; then   #   OK
+			wget --content-disposition http://dev.mysql.com/get/Downloads/MySQL-$SOFT_BIGVERSION/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/http://cdn.mysql.com/
 		fi
-		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX && -f index.html ]; then        #   NOT OK
-		#if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX -a -f index.html ]; then        #   OK?
-		if [ ! -f mysql-$MYSQLVERSION.$MYSQLSUFFIX ] && [ -f index.html ]; then     #   OK
-			mv index.html mysql-$MYSQLVERSION.$MYSQLSUFFIX
+		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && -f index.html ]; then        #   NOT OK
+		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a -f index.html ]; then        #   OK?
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ -f index.html ]; then     #   OK
+			mv index.html $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		if [ ! -d mysql-$MYSQLVERSION ]; then
-			tar -zvxf mysql-$MYSQLVERSION.$MYSQLSUFFIX
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		cd $SOFTWARE/mysql-$MYSQLVERSION
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
-			echo The Official MySQL on Ubuntu is configured as below:
+			echo The Official $SOFT_NAME on $OS $Version is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install doxygen
 <<NOEFFECT
-				echo The Official $i 5.0.95 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-5.0.95 on $OS $Version is configured as below:
 SEND-PR: -*- send-pr -*-
 SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
 SEND-PR: will all comments (text enclosed in `<' and `>').
@@ -525,7 +533,7 @@ lrwxrwxrwx 1 root root 11 04-16 18:37 /lib/libc.so.6 -> libc-2.5.so
 Configure command: ./configure '--build=i386-redhat-linux-gnu' '--host=i386-redhat-linux-gnu' '--target=i386-redhat-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib' '--libexecdir=/usr/libexec' '--localstatedir=/var' '--sharedstatedir=/usr/com' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-readline' '--with-openssl' '--without-debug' '--enable-shared' '--with-bench' '--localstatedir=/var/lib/mysql' '--with-unix-socket-path=/var/lib/mysql/mysql.sock' '--with-mysqld-user=mysql' '--with-extra-charsets=all' '--with-innodb' '--with-berkeley-db' '--enable-community-features' '--enable-local-infile' '--enable-largefile' '--enable-profiling' '--enable-thread-safe-client' '--disable-dependency-tracking' '--with-named-thread-libs=-lpthread' 'CFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv' 'CXXFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions' 'FFLAGS=-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables' 'build_alias=i386-redhat-linux-gnu' 'host_alias=i386-redhat-linux-gnu' 'target_alias=i386-redhat-linux-gnu'
 NOEFFECT
 <<NOEFFECT
-				echo The Official $i 5.0.95 on $OS $Version is configured as below(translate from above):
+				echo The Official $SOFT_NAME-5.0.95 on $OS $Version is configured as below(translate from above):
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
@@ -568,12 +576,12 @@ NOEFFECT
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i386-redhat-linux-gnu
 NOEFFECT
-				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 				CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 				FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
-				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
-					if [[ $MYSQLVERSION == "5.0.95" ]]; then
+				if [[ $SOFT_BIGVERSION == "5.0" ]]; then
+					if [[ $SOFT_VERSION == "5.0.95" ]]; then
 						./configure --build=i386-redhat-linux-gnu \
 							--host=i386-redhat-linux-gnu \
 							--target=i386-redhat-linux-gnu \
@@ -620,7 +628,7 @@ NOEFFECT
 							build_alias=i386-redhat-linux-gnu \
 							host_alias=i386-redhat-linux-gnu \
 							target_alias=i386-redhat-linux-gnu
-					elif [[ $MYSQLVERSION == "5.0.96" ]]; then
+					elif [[ $SOFT_VERSION == "5.0.96" ]]; then
 						./configure --build=i386-redhat-linux-gnu \
 							--host=i386-redhat-linux-gnu \
 							--target=i386-redhat-linux-gnu \
@@ -765,8 +773,8 @@ NOEFFECT
 					host_alias=i386-redhat-linux-gnu \
 					target_alias=i686-redhat-linux-gnu
 NOEFFECT
-				echo The Current $i $MYSQLVERSION on $OS $Version is configured as below:
-				if [[ $MYSQLBIGVERSION == "5.0" ]]; then
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+				if [[ $SOFT_BIGVERSION == "5.0" ]]; then
 					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv"
 					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fno-rtti -fno-exceptions"
 					FFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables"
@@ -816,10 +824,10 @@ NOEFFECT
 						build_alias=i386-redhat-linux-gnu \
 						host_alias=i386-redhat-linux-gnu \
 						target_alias=i386-redhat-linux-gnu
-				elif [[ $MYSQLBIGVERSION == "5.1" ]]; then
+				elif [[ $SOFT_BIGVERSION == "5.1" ]]; then
 					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
 					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
-					if [[ $MYSQLVERSION == "5.1.51" ]]; then
+					if [[ $SOFT_VERSION == "5.1.51" ]]; then
 						./configure --build=i386-redhat-linux-gnu \
 							--host=i386-redhat-linux-gnu \
 							--target=i386-redhat-linux-gnu \
@@ -858,7 +866,7 @@ NOEFFECT
 							build_alias=i386-redhat-linux-gnu \
 							host_alias=i386-redhat-linux-gnu \
 							target_alias=i386-redhat-linux-gnu
-					elif [[ $MYSQLVERSION == "5.1.73" ]]; then
+					elif [[ $SOFT_VERSION == "5.1.73" ]]; then
 						./configure --build=i386-redhat-linux-gnu \
 							--host=i386-redhat-linux-gnu \
 							--target=i386-redhat-linux-gnu \
@@ -902,23 +910,24 @@ NOEFFECT
 			fi
 			make && sudo make install && sudo ldconfig -v
 		fi
-	elif [[ $i == "php" ]]; then
+	elif [[ $i =~ ^php ]]; then
 		# PHP编译
 		# 可用命令 php -i | grep configure 查看，但不知为何在Ubuntu下用 apt-get install 安装的不能看到
-		PHPVERSION=5.1.6
-		#PHPVERSION=5.3.3
-		#PHPVERSION=5.5.14
-		PHPSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
 		cd $SOFTWARE
-		if [ ! -f php-$PHPVERSION.$PHPSUFFIX ]; then
-			wget --content-disposition -nc http://cn2.php.net/get/php-$PHPVERSION.$PHPSUFFIX/from/this/mirror
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition -nc http://cn2.php.net/get/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/this/mirror
 		fi
-		if [ ! -d php-$PHPVERSION ]; then
-			tar -zvxf php-$PHPVERSION.$PHPSUFFIX && cd $SOFTWARE/php-$PHPVERSION
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		fi
-		cd $SOFTWARE/php-$PHPVERSION
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
-			echo The Official PHP on Ubuntu is configured as below:
+			echo The Official $SOFT_NAME on $OS $Version is configured as below:
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum $INSTALL_OPTION install bison.$OS_SUFFIX libtool.$OS_SUFFIX openssl-devel.$OS_SUFFIX bzip2-devel.$OS_SUFFIX gmp-devel.$OS_SUFFIX libc-client-devel.$OS_SUFFIX unixODBC-devel.$OS_SUFFIX postgresql-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX aspell-devel.$OS_SUFFIX net-snmp-devel.$OS_SUFFIX
 			#	configure: WARNING: bison versions supported for regeneration of the Zend/PHP parsers: 2.4 2.4.1 2.4.2 2.4.3 2.5 2.5.1 2.6 2.6.1 2.6.2 2.6.3 2.6.4 2.6.5 2.7 (found: none).
@@ -932,7 +941,7 @@ NOEFFECT
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
 <<NOEFFECT
-				echo The Official $i 5.1.6 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-5.1.6 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -1035,7 +1044,7 @@ NOEFFECT
 					--enable-dbase=shared
 NOEFFECT
 <<NOEFFECT
-				echo The Official $i 5.3.3 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME-5.3.3 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i386-redhat-linux-gnu \
@@ -1136,8 +1145,8 @@ NOEFFECT
 					--enable-intl=shared \
 					--with-icu-dir=/usr
 NOEFFECT
-				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
-				if [[ $PHPVERSION == "5.1.6" ]]; then
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+				if [[ $SOFT_VERSION == "5.1.6" ]]; then
 					sudo yum $INSTALL_OPTION install flex.$OS_SUFFIX libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX ncurses-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
@@ -1239,14 +1248,14 @@ NOEFFECT
 						--with-pdo-sqlite=shared,/usr \
 						--enable-dbase=shared \
 						--with-mcrypt=shared,/usr
-				elif [[ $PHPVERSION == "5.5.14" ]]; then
-					echo The Current $i $PHPVERSION on $OS $Version is configured as below:
+				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
+					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					#	不能依赖	yum	安装的库按CentOS6编译条件安装此版本PHP
 					#	checking for ICU 4.0 or greater... found 3.6
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
-				echo The Official $i 5.3.3 on $OS $Version is configured as below:
+				echo The Official $SOFT_NAME 5.3.3 on $OS $Version is configured as below:
 				./configure --build=i386-redhat-linux-gnu \
 					--host=i386-redhat-linux-gnu \
 					--target=i686-redhat-linux-gnu \
@@ -1351,10 +1360,10 @@ NOEFFECT
 					--with-enchant=shared,/usr \
 					--with-recode=shared,/usr
 NOEFFECT
-				echo The Current $i $PHPVERSION on $OS $Version is configured as below:
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 				#2015年3月31日还命名为libjpeg-devel，2015年4月1日竟然更名为libjpeg-turbo-devel。莫非只是愚人节开的玩笑？
-				if [[ $PHPVERSION == "5.3.3" ]]; then
+				if [[ $SOFT_VERSION == "5.3.3" ]]; then
 					sudo yum $INSTALL_OPTION install libevent-devel.$OS_SUFFIX lemon.$OS_SUFFIX
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
@@ -1457,7 +1466,7 @@ NOEFFECT
 						--with-mcrypt=shared,/usr \
 						--with-icu-dir=/usr \
 						--with-enchant=shared,/usr
-				elif [[ $PHPVERSION == "5.5.14" ]]; then
+				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
 						--target=i686-redhat-linux-gnu \
@@ -1560,26 +1569,28 @@ NOEFFECT
 			fi
 			make && sudo make install && sudo ldconfig -v
 		fi
-	elif [[ $i == "memcached" ]]; then
+	elif [[ $i =~ ^memcached ]]; then
 		# Memcached编译
-		#MEMCACHEDVERSION=1.4.15
-		MEMCACHEDVERSION=1.4.20
-		MEMCACHEDSUFFIX=tar.gz
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
 		cd $SOFTWARE
-		if [ ! -f memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX ]; then
-			wget --content-disposition http://www.memcached.org/files/memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://www.memcached.org/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		if [ ! -d memcached-$MEMCACHEDVERSION ]; then
-			tar -zvxf memcached-$MEMCACHEDVERSION.$MEMCACHEDSUFFIX
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
-		cd $SOFTWARE/memcached-$MEMCACHEDVERSION
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
 			if [[ $Codename == "precise" ]]; then
-				echo The Official Memcached on Ubuntu 12.04 is configured as below:
+				echo The Official $SOFT_NAME on $OS $Version is configured as below:
 			fi
 		elif [[ $OS == "CentOS" ]]; then
 			sudo yum $INSTALL_OPTION install libevent-devel.$OS_SUFFIX
-			echo The Current $i $MEMCACHEDVERSION on $OS $Version is configured as below:
+			echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			if [[ $PrimaryVersion == "5" ]]; then
 #				Why these cannot use?
 #				./configure --build=i386-redhat-linux-gnu \

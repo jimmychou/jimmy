@@ -5,7 +5,8 @@ OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
 	#   此语句仅仅对Debian系的Ubuntu有效
 if [[ $OS == "Ubuntu" ]]; then
 	for i in $*; do
-		if [[ $i =~ '-' ]]; then
+		if [[ $i =~ ^- ]]; then
+			#	=~	右边不用引号的话是正则表达式，以	-	开头，以避免	build.sh	脚本传入版本号被当成安装参数。如果用了引号则表示子串包含判断。
 			INSTALL_OPTION=${INSTALL_OPTION}" "${i}
 		fi
 	done
@@ -28,7 +29,8 @@ if [[ $OS == "Ubuntu" ]]; then
 	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
 else
 	for i in $*; do
-		if [[ $i =~ '-' ]]; then
+		if [[ $i =~ ^- ]]; then
+			#	=~	右边不用引号的话是正则表达式，以	-	开头，以避免	build.sh	脚本传入版本号被当成安装参数。如果用了引号则表示子串包含判断。
 			INSTALL_OPTION=${INSTALL_OPTION}" "${i}
 		fi
 	done
@@ -36,6 +38,7 @@ else
 		INSTALL_OPTION=" -y "
 	fi
 	if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
+		#	包含即可，无需用	INSTALL	开头
 		sudo yum $INSTALL_OPTION install gcc-c++
 	fi
 	LSB_EXIST=`rpm -qa | grep 'redhat-lsb' `
@@ -65,6 +68,7 @@ else
 			fi
 		fi
 		if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
+			#	包含即可，无需用	INSTALL	开头
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install yum-fastestmirror.noarch
 			elif [[ $PrimaryVersion == "6" ]]; then

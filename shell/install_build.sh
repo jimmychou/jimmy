@@ -6,7 +6,7 @@ fi
 source ./release.sh
 SOFTWARE=~/software
 for i in $*; do 
-	if [[ $i =~ "gperftools" ]]; then
+	if [[ $i =~ ^gperftools ]]; then
 		#	Nginx	的	google_perftools	模块
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -26,7 +26,7 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
-	elif [[ $i =~ "nginx" ]]; then
+	elif [[ $i =~ ^nginx ]]; then
 		#	Nginx
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -55,7 +55,7 @@ for i in $*; do
 				sudo yum $INSTALL_OPTION install gd.$OS_SUFFIX geoip.$OS_SUFFIX libxslt.$OS_SUFFIX
 			fi
 		fi
-	elif [[ $i =~ "httpd" ]]; then
+	elif [[ $i =~ ^httpd ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -75,7 +75,7 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
-	elif [[ $i =~ "mysql" ]]; then
+	elif [[ $i =~ ^mysql ]]; then
 		#	MySQL
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -95,7 +95,7 @@ for i in $*; do
 			fi
 		fi
 		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
-	elif [[ $i =~ "php-" || $i == 'php' ]]; then
+	elif [[ $i =~ ^php- || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
 		#	PHP
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -125,7 +125,7 @@ for i in $*; do
 				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX
 			fi
 		fi
-	elif [[ $i =~ "memcached" ]]; then
+	elif [[ $i =~ ^memcached ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
@@ -145,7 +145,7 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
-	elif [[ $i =~ "phpMyAdmin" ]]; then
+	elif [[ $i =~ ^phpMyAdmin ]]; then
 		#	phpMyAdmin
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
