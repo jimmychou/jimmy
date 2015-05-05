@@ -198,7 +198,7 @@ for i in $*; do
 		sudo /etc/init.d/php-fpm restart
 		sudo chkconfig --add php-fpm
 		sudo chkconfig php-fpm on
-	elif [[ $i =~ ^memcache ]]; then
+	elif [[ $i =~ ^memcached ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
 		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
