@@ -28,26 +28,50 @@ for i in $*; do
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-		./configure --build=i386-redhat-linux-gnu \
-			--host=i386-redhat-linux-gnu \
-			--target=i386-redhat-linux-gnu \
-			--program-prefix= \
-			--prefix=/usr \
-			--exec-prefix=/usr \
-			--bindir=/usr/bin \
-			--sbindir=/usr/sbin \
-			--sysconfdir=/etc \
-			--datadir=/usr/share \
-			--includedir=/usr/include \
-			--libdir=/usr/lib \
-			--libexecdir=/usr/libexec \
-			--localstatedir=/var \
-			--sharedstatedir=/usr/com \
-			--mandir=/usr/share/man \
-			--infodir=/usr/share/info \
-			build_alias=i386-redhat-linux-gnu \
-			host_alias=i386-redhat-linux-gnu \
-			target_alias=i386-redhat-linux-gnu
+		if [[ $OS_SUFFIX == "x86_64" ]]; then
+			CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+			./configure --build=x86_64-redhat-linux-gnu \
+				--host=x86_64-redhat-linux-gnu \
+				--target=x86_64-redhat-linux-gnu \
+				--program-prefix= \
+				--prefix=/usr \
+				--exec-prefix=/usr \
+				--bindir=/usr/bin \
+				--sbindir=/usr/sbin \
+				--sysconfdir=/etc \
+				--datadir=/usr/share \
+				--includedir=/usr/include \
+				--libdir=/usr/lib64 \
+				--libexecdir=/usr/libexec \
+				--localstatedir=/var \
+				--sharedstatedir=/usr/com \
+				--mandir=/usr/share/man \
+				--infodir=/usr/share/info \
+				build_alias=x86_64-redhat-linux-gnu \
+				host_alias=x86_64-redhat-linux-gnu \
+				target_alias=x86_64-redhat-linux-gnu
+		else
+			./configure --build=i386-redhat-linux-gnu \
+				--host=i386-redhat-linux-gnu \
+				--target=i386-redhat-linux-gnu \
+				--program-prefix= \
+				--prefix=/usr \
+				--exec-prefix=/usr \
+				--bindir=/usr/bin \
+				--sbindir=/usr/sbin \
+				--sysconfdir=/etc \
+				--datadir=/usr/share \
+				--includedir=/usr/include \
+				--libdir=/usr/lib \
+				--libexecdir=/usr/libexec \
+				--localstatedir=/var \
+				--sharedstatedir=/usr/com \
+				--mandir=/usr/share/man \
+				--infodir=/usr/share/info \
+				build_alias=i386-redhat-linux-gnu \
+				host_alias=i386-redhat-linux-gnu \
+				target_alias=i386-redhat-linux-gnu
+		fi
 		make && sudo make install && sudo /sbin/ldconfig -v
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
@@ -379,6 +403,81 @@ NOEFFECT
 						--with-http_stub_status_module \
 						--with-mail_ssl_module \
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i386 -mtune=generic -fasynchronous-unwind-tables'
+				fi
+			elif [[ $PrimaryVersion == "7" ]]; then
+				#sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
+				#sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+				#	zlib-devel	libxml2-devel	不知何时已经安装上了，GeoIP-devel	和	geoip-devel	不是一个软件么？
+<<NOEFFECT
+				echo The Official $SOFT_NAME-1.8.0 on $OS $Version of Nginx Repository is configured as below:
+				./configure --prefix=/etc/nginx \
+					--sbin-path=/usr/sbin/nginx \
+					--conf-path=/etc/nginx/nginx.conf \
+					--error-log-path=/var/log/nginx/error.log \
+					--http-log-path=/var/log/nginx/access.log \
+					--pid-path=/var/run/nginx.pid \
+					--lock-path=/var/run/nginx.lock \
+					--http-client-body-temp-path=/var/cache/nginx/client_temp \
+					--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+					--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+					--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+					--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+					--user=nginx \
+					--group=nginx \
+					--with-http_ssl_module \
+					--with-http_realip_module \
+					--with-http_addition_module \
+					--with-http_sub_module \
+					--with-http_dav_module \
+					--with-http_flv_module \
+					--with-http_mp4_module \
+					--with-http_gunzip_module \
+					--with-http_gzip_static_module \
+					--with-http_random_index_module \
+					--with-http_secure_link_module \
+					--with-http_stub_status_module \
+					--with-http_auth_request_module \
+					--with-mail \
+					--with-mail_ssl_module \
+					--with-file-aio \
+					--with-ipv6 \
+					--with-http_spdy_module \
+					--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
+NOEFFECT
+				if [ $SOFT_VERSION == "1.0.14" ]; then
+					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+					./configure --prefix=/etc/nginx \
+						--sbin-path=/usr/sbin/nginx \
+						--conf-path=/etc/nginx/nginx.conf \
+						--error-log-path=/var/log/nginx/error.log \
+						--http-log-path=/var/log/nginx/access.log \
+						--pid-path=/var/run/nginx.pid \
+						--lock-path=/var/run/nginx.lock \
+						--http-client-body-temp-path=/var/cache/nginx/client_temp \
+						--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+						--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+						--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+						--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+						--user=nginx \
+						--group=nginx \
+						--with-http_ssl_module \
+						--with-http_realip_module \
+						--with-http_addition_module \
+						--with-http_sub_module \
+						--with-http_dav_module \
+						--with-http_flv_module \
+						--with-http_mp4_module \
+						--with-http_gzip_static_module \
+						--with-http_random_index_module \
+						--with-http_secure_link_module \
+						--with-http_stub_status_module \
+						--with-http_auth_request_module \
+						--with-mail \
+						--with-mail_ssl_module \
+						--with-file-aio \
+						--with-ipv6 \
+						--with-http_spdy_module \
+						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 				fi
 			fi
 			make && sudo make install && sudo /sbin/ldconfig -v
@@ -905,6 +1004,73 @@ NOEFFECT
 							build_alias=i386-redhat-linux-gnu \
 							host_alias=i386-redhat-linux-gnu \
 							target_alias=i386-redhat-linux-gnu
+					fi
+				fi
+			elif [[ $PrimaryVersion == "7" ]]; then
+				#sudo yum $INSTALL_OPTION install doxygen
+				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
+<<NOEFFECT
+				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below:
+SEND-PR: -*- send-pr -*-
+SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
+SEND-PR: will all comments (text enclosed in `<' and `>').
+SEND-PR:
+From: jimmychou
+To: maria-developers@lists.launchpad.net
+Subject: [50 character or so descriptive subject here (for reference)]
+
+>Description:
+	<precise description of the problem (multiple lines)>
+>How-To-Repeat:
+	<code/input/activities to reproduce the problem (multiple lines)>
+>Fix:
+	<how to correct or work around the problem, if known (multiple lines)>
+
+>Submitter-Id:	<submitter ID>
+>Originator:	JimmyChou
+>Organization:
+ <organization of PR author (multiple lines)>
+>MySQL support: [none | licence | email support | extended email support ]
+>Synopsis:	<synopsis of the problem (one line)>
+>Severity:	<[ non-critical | serious | critical ] (one line)>
+>Priority:	<[ low | medium | high ] (one line)>
+>Category:	mysql
+>Class:		<[ sw-bug | doc-bug | change-request | support ] (one line)>
+>Release:	mysql-5.5.41 (MariaDB Server)
+
+>C compiler:    cc (GCC) 4.8.2 20140120 (Red Hat 4.8.2-16)
+
+>C++ compiler:  c++ (GCC) 4.8.2 20140120 (Red Hat 4.8.2-16)
+
+>Environment:
+	<machine, os, target, libraries (multiple lines)>
+System: Linux localhost.localdomain 3.10.0-229.1.2.el7.x86_64 #1 SMP Fri Mar 27 03:04:26 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+Architecture: x86_64
+
+Some paths:  /usr/bin/perl /usr/bin/make /usr/bin/gmake /usr/bin/gcc /usr/bin/cc
+GCC: Using built-in specs.
+COLLECT_GCC=/usr/bin/gcc
+COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.3/lto-wrapper
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.3-20140911/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.3-20140911/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.8.3 20140911 (Red Hat 4.8.3-9) (GCC) 
+Compilation info (call): CC='/usr/bin/cc'  CFLAGS=''  CXX='/usr/bin/c++'  CXXFLAGS=''  LDFLAGS=''  ASFLAGS=''
+Compilation info (used): CC='/usr/bin/cc'  CFLAGS=''  CXX='/usr/bin/c++'  CXXFLAGS=''  LDFLAGS=''  ASFLAGS=''
+
+
+Perl: This is perl 5, version 16, subversion 3 (v5.16.3) built for x86_64-linux-thread-multi
+NOEFFECT
+<<NOEFFECT
+				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below(translate from above):
+NOEFFECT
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
+					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+					#CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
+					#CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
+					if [[ $SOFT_VERSION == "5.5.41" ]]; then
+						echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					fi
 				fi
 			fi
@@ -1566,6 +1732,111 @@ NOEFFECT
 						--with-enchant=shared,/usr \
 						--with-recode=shared,/usr
 				fi
+			elif [[ $PrimaryVersion == "7" ]]; then
+				#sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
+<<NOEFFECT
+				echo The Official $SOFT_NAME-5.4.16 on $OS $Version is configured as below:
+				./configure --build=x86_64-redhat-linux-gnu \
+					--host=x86_64-redhat-linux-gnu \
+					--program-prefix= \
+					--disable-dependency-tracking \
+					--prefix=/usr \
+					--exec-prefix=/usr \
+					--bindir=/usr/bin \
+					--sbindir=/usr/sbin \
+					--sysconfdir=/etc \
+					--datadir=/usr/share \
+					--includedir=/usr/include \
+					--libdir=/usr/lib64 \
+					--libexecdir=/usr/libexec \
+					--localstatedir=/var \
+					--sharedstatedir=/var/lib \
+					--mandir=/usr/share/man \
+					--infodir=/usr/share/info \
+					--cache-file=../config.cache \
+					--with-libdir=lib64 \
+					--with-config-file-path=/etc \
+					--with-config-file-scan-dir=/etc/php.d \
+					--disable-debug \
+					--with-pic \
+					--disable-rpath \
+					--without-pear \
+					--with-bz2 \
+					--with-exec-dir=/usr/bin \
+					--with-freetype-dir=/usr \
+					--with-png-dir=/usr \
+					--with-xpm-dir=/usr \
+					--enable-gd-native-ttf \
+					--with-t1lib=/usr \
+					--without-gdbm \
+					--with-gettext \
+					--with-gmp \
+					--with-iconv \
+					--with-jpeg-dir=/usr \
+					--with-openssl \
+					--with-pcre-regex=/usr \
+					--with-zlib \
+					--with-layout=GNU \
+					--enable-exif \
+					--enable-ftp \
+					--enable-sockets \
+					--with-kerberos \
+					--enable-shmop \
+					--enable-calendar \
+					--with-libxml-dir=/usr \
+					--enable-xml \
+					--with-system-tzdata \
+					--with-mhash \
+					--libdir=/usr/lib64/php \
+					--enable-pcntl \
+					--enable-mbstring=shared \
+					--enable-mbregex \
+					--with-gd=shared \
+					--enable-bcmath=shared \
+					--enable-dba=shared \
+					--with-db4=/usr \
+					--with-tcadb=/usr \
+					--with-xmlrpc=shared \
+					--with-ldap=shared \
+					--with-ldap-sasl \
+					--enable-mysqlnd=shared \
+					--with-mysql=shared,mysqlnd \
+					--with-mysqli=shared,mysqlnd \
+					--with-mysql-sock=/var/lib/mysql/mysql.sock \
+					--enable-dom=shared \
+					--with-pgsql=shared \
+					--enable-wddx=shared \
+					--with-snmp=shared,/usr \
+					--enable-soap=shared \
+					--with-xsl=shared,/usr \
+					--enable-xmlreader=shared \
+					--enable-xmlwriter=shared \
+					--with-curl=shared,/usr \
+					--enable-pdo=shared \
+					--with-pdo-odbc=shared,unixODBC,/usr \
+					--with-pdo-mysql=shared,mysqlnd \
+					--with-pdo-pgsql=shared,/usr \
+					--with-pdo-sqlite=shared,/usr \
+					--with-sqlite3=shared,/usr \
+					--enable-json=shared \
+					--enable-zip=shared \
+					--with-libzip \
+					--without-readline \
+					--with-libedit \
+					--with-pspell=shared \
+					--enable-phar=shared \
+					--enable-sysvmsg=shared \
+					--enable-sysvshm=shared \
+					--enable-sysvsem=shared \
+					--enable-posix=shared \
+					--with-unixODBC=shared,/usr \
+					--enable-fileinfo=shared \
+					--enable-intl=shared \
+					--with-icu-dir=/usr \
+					--with-enchant=shared,/usr \
+					--with-recode=shared,/usr
+NOEFFECT
+				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			fi
 			make && sudo make install && sudo ldconfig -v
 		fi
