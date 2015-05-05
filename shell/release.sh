@@ -3,6 +3,7 @@ INSTALL_OPTION=''
 LSB_EXIST=''
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
 	#   此语句仅仅对Debian系的Ubuntu有效
+OS_SUFFIX=`uname -m`
 if [[ $OS == "Ubuntu" ]]; then
 	for i in $*; do
 		if [[ $i =~ ^- ]]; then
@@ -61,11 +62,12 @@ else
 			declare -l OS_DIR=$OS
 		fi
 		if [[ -z $RPM_FORGE_EXIST ]]; then
-			if [[ $PrimaryVersion == "5" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm
-			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+			if [[ $OS_SUFFIX != "x86_64" ]]; then
+				if [[ $PrimaryVersion == "5" ]]; then
+					OS_SUFFIX="i386"
+				fi
 			fi
+			sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el$PrimaryVersion.rf.$OS_SUFFIX.rpm
 		fi
 		if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
 			#	包含即可，无需用	INSTALL	开头
@@ -78,15 +80,5 @@ else
 	else
 		#	为	Fedora	等类	RedHat Linux	系统预留
 		echo The current Operating System is $OS and Codename is $Codename and Version is $Version
-	fi
-fi
-OS_SUFFIX=`uname -m`
-OS_SUFFIX_SPECIAL=$OS_SUFFIX
-if [[ $OS_SUFFIX == "i686" ]]; then
-	OS_SUFFIX_SPECIAL=i386
-#	if [[ $Version == "5.9" ]]; then	
-	#	应该是	5	这个大版本而不是每个细小的版本	
-	if [[ $PrimaryVersion == "5" ]]; then
-		OS_SUFFIX="i386"
 	fi
 fi
