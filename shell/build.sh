@@ -1127,10 +1127,34 @@ NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-					#CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
-					#CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
+					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
+					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
 					if [[ $SOFT_VERSION == "5.5.41" ]]; then
-						echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+						cmake -DCMAKE_INSTALL_PREFIX=/usr \
+							-DSYSCONFDIR=/etc \
+							-DINSTALL_INCLUDEDIR=/usr/include \
+							-DINSTALL_LIBDIR=/usr/lib64 \
+							-DINSTALL_SBINDIR=/usr/libexec \
+							-DMYSQL_DATADIR=/var/lib64/mysql \
+							-DINSTALL_SHAREDIR=/usr/com \
+							-DINSTALL_MANDIR=/usr/share/man \
+							-DINSTALL_INFODIR=/usr/share/info \
+							-DWITH_READLINE=1 \
+							-DWITH_SSL=yes \
+							-DEXTRA_CHARSETS=all \
+							-DENABLED_LOCAL_INFILE=1 \
+							-DWITH_PARTITION_STORAGE_ENGINE=1 \
+							-DWITH_DAEMON_EXAMPLE_STORAGE_ENGINE=1 \
+							-DWITH_FTEXAMPLE_STORAGE_ENGINE=1 \
+							-DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+							-DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+							-DWITH_CSV_STORAGE_ENGINE=1 \
+							-DWITH_EXAMPLE_STORAGE_ENGINE=1 \
+							-DWITH_FEDERATED_STORAGE_ENGINE=1 \
+							-DWITH_HEAP_STORAGE_ENGINE=1 \
+							-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+							-DWITH_MYISAM_STORAGE_ENGINE=1 \
+							-DWITH_MYISAMMRG_STORAGE_ENGINE=1
 					fi
 				fi
 			fi
