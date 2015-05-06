@@ -52,7 +52,7 @@ for i in $*; do
 		else
 			echo 32位系统不需要安装
 		fi
-		make && sudo make install && sudo /sbin/ldconfig -v
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 	elif [[ $i =~ ^gperftools ]]; then
 		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
@@ -115,7 +115,7 @@ for i in $*; do
 				host_alias=i386-redhat-linux-gnu \
 				target_alias=i386-redhat-linux-gnu
 		fi
-		make && sudo make install && sudo /sbin/ldconfig -v
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
 #	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
@@ -521,7 +521,7 @@ NOEFFECT
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.$OS_SUFFIX.make_done.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	elif [[ $i =~ ^httpd ]]; then
 		# HTTPD编译
@@ -586,7 +586,7 @@ NOEFFECT
 					--enable-rewrite=shared \
 					--enable-speling=shared
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	elif [[ $i =~ ^mysql ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
@@ -1115,7 +1115,7 @@ NOEFFECT
 					fi
 				fi
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	elif [[ $i =~ ^php ]]; then
 		# PHP编译
@@ -1455,6 +1455,107 @@ NOEFFECT
 						--with-pdo-sqlite=shared,/usr \
 						--enable-dbase=shared \
 						--with-mcrypt=shared,/usr
+				elif [[ $SOFT_VERSION == "5.3.3" ]]; then
+					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--cache-file=../config.cache \
+						--with-libdir=lib \
+						--with-config-file-path=/etc \
+						--with-config-file-scan-dir=/etc/php.d \
+						--disable-debug \
+						--with-pic \
+						--disable-rpath \
+						--without-pear \
+						--with-bz2 \
+						--with-exec-dir=/usr/bin \
+						--with-freetype-dir=/usr \
+						--with-png-dir=/usr \
+						--with-xpm-dir=/usr \
+						--enable-gd-native-ttf \
+						--without-gdbm \
+						--with-gettext \
+						--with-gmp \
+						--with-iconv \
+						--with-jpeg-dir=/usr \
+						--with-openssl \
+						--with-pcre-regex=/usr \
+						--with-zlib \
+						--with-layout=GNU \
+						--enable-exif \
+						--enable-ftp \
+						--enable-magic-quotes \
+						--enable-sockets \
+						--enable-sysvsem \
+						--enable-sysvshm \
+						--enable-sysvmsg \
+						--with-kerberos \
+						--enable-ucd-snmp-hack \
+						--enable-shmop \
+						--enable-calendar \
+						--without-sqlite \
+						--without-sqlite3 \
+						--with-libxml-dir=/usr \
+						--enable-xml \
+						--with-system-tzdata \
+						--enable-force-cgi-redirect \
+						--enable-pcntl \
+						--with-imap=shared \
+						--with-imap-ssl \
+						--enable-mbstring=shared \
+						--enable-mbregex \
+						--with-gd=shared \
+						--enable-bcmath=shared \
+						--enable-dba=shared \
+						--with-db4=/usr \
+						--with-xmlrpc=shared \
+						--with-ldap=shared \
+						--with-ldap-sasl \
+						--with-mysql=shared,/usr \
+						--with-mysqli=shared,/usr/bin/mysql_config \
+						--enable-dom=shared \
+						--with-pgsql=shared \
+						--enable-wddx=shared \
+						--with-snmp=shared,/usr \
+						--enable-soap=shared \
+						--with-xsl=shared,/usr \
+						--enable-xmlreader=shared \
+						--enable-xmlwriter=shared \
+						--with-curl=shared,/usr \
+						--enable-fastcgi \
+						--enable-pdo=shared \
+						--with-pdo-odbc=shared,unixODBC,/usr \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-pgsql=shared,/usr \
+						--with-pdo-sqlite=shared,/usr \
+						--enable-json=shared \
+						--enable-zip=shared \
+						--without-readline \
+						--with-pspell=shared \
+						--enable-phar=shared \
+						--enable-sysvmsg=shared \
+						--enable-sysvshm=shared \
+						--enable-sysvsem=shared \
+						--enable-posix=shared \
+						--with-unixODBC=shared,/usr \
+						--enable-fileinfo=shared \
+						--enable-intl=shared \
+						--with-icu-dir=/usr
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					#	不能依赖	yum	安装的库按CentOS6编译条件安装此版本PHP
@@ -1879,7 +1980,7 @@ NOEFFECT
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	elif [[ $i =~ ^memcached ]]; then
 		# Memcached编译
@@ -1922,7 +2023,7 @@ NOEFFECT
 					--mandir=/usr/share/man \
 					--includedir=/usr/include
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	fi
 done
