@@ -11,7 +11,49 @@ if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
 for i in $*; do
-	if [[ $i =~ ^gperftools ]]; then
+	if [[ $i =~ ^libunwind ]]; then
+		# libunwind编译，会对	x86_64	平台做一些多线程相关的优化
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
+		cd $SOFTWARE
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://download.savannah.gnu.org/releases/$SOFT_NAME/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		fi
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
+		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+		if [[ $OS_SUFFIX == "x86_64" ]]; then
+			CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+			./configure --build=x86_64-redhat-linux-gnu \
+				--host=x86_64-redhat-linux-gnu \
+				--target=x86_64-redhat-linux-gnu \
+				--program-prefix= \
+				--prefix=/usr \
+				--exec-prefix=/usr \
+				--bindir=/usr/bin \
+				--sbindir=/usr/sbin \
+				--sysconfdir=/etc \
+				--datadir=/usr/share \
+				--includedir=/usr/include \
+				--libdir=/usr/lib64 \
+				--libexecdir=/usr/libexec \
+				--localstatedir=/var \
+				--sharedstatedir=/usr/com \
+				--mandir=/usr/share/man \
+				--infodir=/usr/share/info \
+				build_alias=x86_64-redhat-linux-gnu \
+				host_alias=x86_64-redhat-linux-gnu \
+				target_alias=x86_64-redhat-linux-gnu
+		else
+			echo 32位系统不需要安装
+		fi
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+	elif [[ $i =~ ^gperftools ]]; then
 		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -47,6 +89,7 @@ for i in $*; do
 				--sharedstatedir=/usr/com \
 				--mandir=/usr/share/man \
 				--infodir=/usr/share/info \
+				--enable-frame-pointers \
 				build_alias=x86_64-redhat-linux-gnu \
 				host_alias=x86_64-redhat-linux-gnu \
 				target_alias=x86_64-redhat-linux-gnu
@@ -72,7 +115,7 @@ for i in $*; do
 				host_alias=i386-redhat-linux-gnu \
 				target_alias=i386-redhat-linux-gnu
 		fi
-		make && sudo make install && sudo /sbin/ldconfig -v
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
 #	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
@@ -471,16 +514,31 @@ NOEFFECT
 						--with-http_random_index_module \
 						--with-http_secure_link_module \
 						--with-http_stub_status_module \
-						--with-http_auth_request_module \
 						--with-mail \
 						--with-mail_ssl_module \
 						--with-file-aio \
-						--with-ipv6 \
-						--with-http_spdy_module \
-						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
+						--with-ipv6
+						#--with-ipv6 \
+						#--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
+	#	编译报错不能解决，只能暂时注释掉
+<<NOEFFECT
+In file included from /usr/include/string.h:638:0,
+                 from src/os/unix/ngx_linux_config.h:26,
+                 from src/core/ngx_config.h:26,
+                 from src/http/modules/ngx_http_autoindex_module.c:8:
+In function ‘memset’,
+    inlined from ‘ngx_http_autoindex_handler’ at src/http/modules/ngx_http_autoindex_module.c:492:13:
+/usr/include/bits/string3.h:81:30: error: call to ‘__warn_memset_zero_len’ declared with attribute warning: memset used with constant zero length parameter; this could be due to transposed parameters [-Werror]
+       __warn_memset_zero_len ();
+                              ^
+cc1: all warnings being treated as errors
+make[1]: *** [objs/src/http/modules/ngx_http_autoindex_module.o] Error 1
+make[1]: Leaving directory `/home/jimmychou/software/nginx-1.0.14'
+make: *** [build] Error 2
+NOEFFECT
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	elif [[ $i =~ ^httpd ]]; then
 		# HTTPD编译
@@ -545,7 +603,7 @@ NOEFFECT
 					--enable-rewrite=shared \
 					--enable-speling=shared
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	elif [[ $i =~ ^mysql ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
@@ -570,6 +628,7 @@ NOEFFECT
 		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ -f index.html ]; then     #   OK
 			mv index.html $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
+		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
 		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
 			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
@@ -1064,6 +1123,7 @@ NOEFFECT
 <<NOEFFECT
 				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below(translate from above):
 NOEFFECT
+				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
@@ -1074,7 +1134,7 @@ NOEFFECT
 					fi
 				fi
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^php ]]; then
 		# PHP编译
@@ -1088,6 +1148,7 @@ NOEFFECT
 		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
 			wget --content-disposition -nc http://cn2.php.net/get/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/this/mirror
 		fi
+		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
 		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
 			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		fi
@@ -1414,6 +1475,104 @@ NOEFFECT
 						--with-pdo-sqlite=shared,/usr \
 						--enable-dbase=shared \
 						--with-mcrypt=shared,/usr
+				elif [[ $SOFT_VERSION == "5.3.3" ]]; then
+					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i386-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/usr/com \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--cache-file=../config.cache \
+						--with-libdir=lib \
+						--with-config-file-path=/etc \
+						--with-config-file-scan-dir=/etc/php.d \
+						--disable-debug \
+						--with-pic \
+						--disable-rpath \
+						--without-pear \
+						--with-bz2 \
+						--with-exec-dir=/usr/bin \
+						--with-freetype-dir=/usr \
+						--with-png-dir=/usr \
+						--with-xpm-dir=/usr \
+						--enable-gd-native-ttf \
+						--without-gdbm \
+						--with-gettext \
+						--with-gmp \
+						--with-iconv \
+						--with-jpeg-dir=/usr \
+						--with-openssl \
+						--with-pcre-regex=/usr \
+						--with-zlib \
+						--with-layout=GNU \
+						--enable-exif \
+						--enable-ftp \
+						--enable-magic-quotes \
+						--enable-sockets \
+						--enable-sysvsem \
+						--enable-sysvshm \
+						--enable-sysvmsg \
+						--with-kerberos \
+						--enable-ucd-snmp-hack \
+						--enable-shmop \
+						--enable-calendar \
+						--without-sqlite \
+						--without-sqlite3 \
+						--with-libxml-dir=/usr \
+						--enable-xml \
+						--enable-pcntl \
+						--with-imap=shared \
+						--with-imap-ssl \
+						--enable-mbstring=shared \
+						--enable-mbregex \
+						--with-gd=shared \
+						--enable-bcmath=shared \
+						--enable-dba=shared \
+						--with-db4=/usr \
+						--with-xmlrpc=shared \
+						--with-ldap=shared \
+						--with-ldap-sasl \
+						--with-mysql=shared,/usr \
+						--with-mysqli=shared,/usr/bin/mysql_config \
+						--enable-dom=shared \
+						--with-pgsql=shared \
+						--enable-wddx=shared \
+						--with-snmp=shared,/usr \
+						--enable-soap=shared \
+						--with-xsl=shared,/usr \
+						--enable-xmlreader=shared \
+						--enable-xmlwriter=shared \
+						--with-curl=shared,/usr \
+						--enable-pdo=shared \
+						--with-pdo-odbc=shared,unixODBC,/usr \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-pgsql=shared,/usr \
+						--with-pdo-sqlite=shared,/usr \
+						--enable-json=shared \
+						--enable-zip=shared \
+						--without-readline \
+						--with-pspell=shared \
+						--enable-phar=shared \
+						--enable-sysvmsg=shared \
+						--enable-sysvshm=shared \
+						--enable-sysvsem=shared \
+						--enable-posix=shared \
+						--with-unixODBC=shared,/usr \
+						--enable-fileinfo=shared \
+						--enable-intl=shared \
+						--with-icu-dir=/usr
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					#	不能依赖	yum	安装的库按CentOS6编译条件安装此版本PHP
@@ -1838,7 +1997,7 @@ NOEFFECT
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && sz config.cache && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^memcached ]]; then
 		# Memcached编译
@@ -1881,7 +2040,7 @@ NOEFFECT
 					--mandir=/usr/share/man \
 					--includedir=/usr/include
 			fi
-			make && sudo make install && sudo ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	fi
 done

@@ -171,7 +171,9 @@ else
 				SOFT_VERSION=4.0.4.1
 			fi
 		elif [[ $PrimaryVersion == "7" ]]; then
-			if [[ $i == "gperftools" ]]; then
+			if [[ $i == "libunwind" ]]; then
+				SOFT_VERSION=1.1
+			elif [[ $i == "gperftools" ]]; then
 				SOFT_VERSION=2.0
 			elif [[ $i == "nginx" ]]; then
 				SOFT_VERSION=1.0.14

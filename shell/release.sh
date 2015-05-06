@@ -55,6 +55,11 @@ else
 		SecondaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
 		echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion
 		#	将系统目录转换为小写
+		if [[ $OS_SUFFIX != "x86_64" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
+				OS_SUFFIX="i386"
+			fi
+		fi
 		if [[ $PrimaryVersion == "5" ]]; then
 			OS_DIR=`echo $OS | tr '[A-Z]' '[a-z]'`
 				#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
@@ -62,11 +67,6 @@ else
 			declare -l OS_DIR=$OS
 		fi
 		if [[ -z $RPM_FORGE_EXIST ]]; then
-			if [[ $OS_SUFFIX != "x86_64" ]]; then
-				if [[ $PrimaryVersion == "5" ]]; then
-					OS_SUFFIX="i386"
-				fi
-			fi
 			sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el$PrimaryVersion.rf.$OS_SUFFIX.rpm
 		fi
 		if [[ $SCRIPT_ACTION =~ 'INSTALL' ]]; then
