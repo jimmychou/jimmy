@@ -27,7 +27,7 @@ if [[ $OS == "Ubuntu" ]]; then
 	SecondaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $2}'`
 	ThirdaryVersion=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $2}' | awk -F "." '{print $3}'`
 	declare -l OS_DIR=$OS
-	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion
+	echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and ThirdaryVersion is $ThirdaryVersion and the architecture is $OS_SUFFIX
 else
 	for i in $*; do
 		if [[ $i =~ ^- ]]; then
@@ -53,7 +53,6 @@ else
 	if [[ $OS == "CentOS" ]]; then
 		PrimaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $1}'`
 		SecondaryVersion=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}' | awk -F "." '{print $2}'`
-		echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion
 		#	将系统目录转换为小写
 		if [[ $OS_SUFFIX != "x86_64" ]]; then
 			if [[ $PrimaryVersion == "5" ]]; then
@@ -64,6 +63,9 @@ else
 			OS_DIR=`echo $OS | tr '[A-Z]' '[a-z]'`
 				#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
 		else
+			if [[ $PrimaryVersion == "6" ]]; then
+				sudo yum $INSTALL_OPTION install zip.$OS_SUFFIX unzip.$OS_SUFFIX
+			fi
 			declare -l OS_DIR=$OS
 		fi
 		if [[ -z $RPM_FORGE_EXIST ]]; then
@@ -77,6 +79,7 @@ else
 				sudo yum $INSTALL_OPTION install yum-plugin-fastestmirror.noarch
 			fi
 		fi
+		echo The current Operating System is $OS and Codename is $Codename and Version is $Version and PrimaryVersion is $PrimaryVersion and SecondaryVersion is $SecondaryVersion and the architecture is $OS_SUFFIX
 	else
 		#	为	Fedora	等类	RedHat Linux	系统预留
 		echo The current Operating System is $OS and Codename is $Codename and Version is $Version
