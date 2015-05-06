@@ -52,7 +52,7 @@ for i in $*; do
 		else
 			echo 32位系统不需要安装
 		fi
-		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 	elif [[ $i =~ ^gperftools ]]; then
 		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
@@ -115,7 +115,7 @@ for i in $*; do
 				host_alias=i386-redhat-linux-gnu \
 				target_alias=i386-redhat-linux-gnu
 		fi
-		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+		make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 #	        sudo touch /etc/ld.so.conf.d/gperftools.conf && sudo echo '/usr/local/lib/' > /etc/ld.so.conf.d/gperftools.conf && sudo ldconfig -v
 #	        以上echo语句即使是sudo也无权限写入文件
 #	       	sudo cp /home/jimmychou/workspace/jimmy/os/centos/build/build_as_system/conf/nginx/gperftools.conf /etc/ld.so.conf.d/ && sudo ldconfig -v
@@ -521,7 +521,7 @@ NOEFFECT
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	elif [[ $i =~ ^httpd ]]; then
 		# HTTPD编译
@@ -586,7 +586,7 @@ NOEFFECT
 					--enable-rewrite=shared \
 					--enable-speling=shared
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	elif [[ $i =~ ^mysql ]]; then
 		# MySQL编译，从5.5开始使用cmake来编译
@@ -2022,7 +2022,7 @@ NOEFFECT
 					--mandir=/usr/share/man \
 					--includedir=/usr/include
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		fi
 	fi
 done
