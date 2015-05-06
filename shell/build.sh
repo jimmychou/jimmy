@@ -611,6 +611,7 @@ NOEFFECT
 		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ -f index.html ]; then     #   OK
 			mv index.html $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
+		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
 		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
 			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
 		fi
@@ -1115,7 +1116,7 @@ NOEFFECT
 					fi
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^php ]]; then
 		# PHP编译
@@ -1129,6 +1130,7 @@ NOEFFECT
 		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
 			wget --content-disposition -nc http://cn2.php.net/get/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/this/mirror
 		fi
+		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
 		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
 			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		fi
@@ -1512,8 +1514,6 @@ NOEFFECT
 						--without-sqlite3 \
 						--with-libxml-dir=/usr \
 						--enable-xml \
-						--with-system-tzdata \
-						--enable-force-cgi-redirect \
 						--enable-pcntl \
 						--with-imap=shared \
 						--with-imap-ssl \
@@ -1537,7 +1537,6 @@ NOEFFECT
 						--enable-xmlreader=shared \
 						--enable-xmlwriter=shared \
 						--with-curl=shared,/usr \
-						--enable-fastcgi \
 						--enable-pdo=shared \
 						--with-pdo-odbc=shared,unixODBC,/usr \
 						--with-pdo-mysql=shared,/usr/bin/mysql_config \
@@ -1980,7 +1979,7 @@ NOEFFECT
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && sz config.cache && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^memcached ]]; then
 		# Memcached编译
