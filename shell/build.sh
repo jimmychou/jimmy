@@ -11,7 +11,49 @@ if [ ! -d $SOFTWARE ];then
 	mkdir $SOFTWARE
 fi
 for i in $*; do
-	if [[ $i =~ ^gperftools ]]; then
+	if [[ $i =~ ^libunwind ]]; then
+		# libunwind编译，会对	x86_64	平台做一些多线程相关的优化
+		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
+		SOFT_VERSION=`echo $i | awk -F "-" '{print $2}'`
+		if [[ -z $SOFT_VERSION ]]; then
+			source ./get_soft_version.sh
+		fi
+		cd $SOFTWARE
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+			wget --content-disposition http://download.savannah.gnu.org/releases/$SOFT_NAME/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		fi
+		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
+		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+		if [[ $OS_SUFFIX == "x86_64" ]]; then
+			CFLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+			./configure --build=x86_64-redhat-linux-gnu \
+				--host=x86_64-redhat-linux-gnu \
+				--target=x86_64-redhat-linux-gnu \
+				--program-prefix= \
+				--prefix=/usr \
+				--exec-prefix=/usr \
+				--bindir=/usr/bin \
+				--sbindir=/usr/sbin \
+				--sysconfdir=/etc \
+				--datadir=/usr/share \
+				--includedir=/usr/include \
+				--libdir=/usr/lib64 \
+				--libexecdir=/usr/libexec \
+				--localstatedir=/var \
+				--sharedstatedir=/usr/com \
+				--mandir=/usr/share/man \
+				--infodir=/usr/share/info \
+				build_alias=x86_64-redhat-linux-gnu \
+				host_alias=x86_64-redhat-linux-gnu \
+				target_alias=x86_64-redhat-linux-gnu
+		else
+			echo 32位系统不需要安装
+		fi
+		make && sudo make install && sudo /sbin/ldconfig -v
+	elif [[ $i =~ ^gperftools ]]; then
 		# gperftools编译
 		# Nginx模块 google_perftools_module	需要
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -47,6 +89,7 @@ for i in $*; do
 				--sharedstatedir=/usr/com \
 				--mandir=/usr/share/man \
 				--infodir=/usr/share/info \
+				--enable-frame-pointers \
 				build_alias=x86_64-redhat-linux-gnu \
 				host_alias=x86_64-redhat-linux-gnu \
 				target_alias=x86_64-redhat-linux-gnu
@@ -471,16 +514,14 @@ NOEFFECT
 						--with-http_random_index_module \
 						--with-http_secure_link_module \
 						--with-http_stub_status_module \
-						--with-http_auth_request_module \
 						--with-mail \
 						--with-mail_ssl_module \
 						--with-file-aio \
 						--with-ipv6 \
-						--with-http_spdy_module \
 						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.$OS_SUFFIX.make_done.zip $SOFT_NAME-$SOFT_VERSION
 		fi
 	elif [[ $i =~ ^httpd ]]; then
 		# HTTPD编译
