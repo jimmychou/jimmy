@@ -517,8 +517,25 @@ NOEFFECT
 						--with-mail \
 						--with-mail_ssl_module \
 						--with-file-aio \
-						--with-ipv6 \
-						--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
+						--with-ipv6
+						#--with-ipv6 \
+						#--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
+	#	编译报错不能解决，只能暂时注释掉
+<<NOEFFECT
+In file included from /usr/include/string.h:638:0,
+                 from src/os/unix/ngx_linux_config.h:26,
+                 from src/core/ngx_config.h:26,
+                 from src/http/modules/ngx_http_autoindex_module.c:8:
+In function ‘memset’,
+    inlined from ‘ngx_http_autoindex_handler’ at src/http/modules/ngx_http_autoindex_module.c:492:13:
+/usr/include/bits/string3.h:81:30: error: call to ‘__warn_memset_zero_len’ declared with attribute warning: memset used with constant zero length parameter; this could be due to transposed parameters [-Werror]
+       __warn_memset_zero_len ();
+                              ^
+cc1: all warnings being treated as errors
+make[1]: *** [objs/src/http/modules/ngx_http_autoindex_module.o] Error 1
+make[1]: Leaving directory `/home/jimmychou/software/nginx-1.0.14'
+make: *** [build] Error 2
+NOEFFECT
 				fi
 			fi
 			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
