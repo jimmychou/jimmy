@@ -1123,6 +1123,7 @@ NOEFFECT
 <<NOEFFECT
 				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below(translate from above):
 NOEFFECT
+				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
