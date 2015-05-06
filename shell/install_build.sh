@@ -13,7 +13,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
@@ -33,7 +33,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
@@ -62,7 +62,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
@@ -82,7 +82,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
@@ -94,7 +94,7 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
-		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
+		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 	elif [[ $i =~ ^php- || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
 		#	PHP
@@ -103,7 +103,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
@@ -132,7 +132,7 @@ for i in $*; do
 		if [[ -z $SOFT_VERSION ]]; then
 			source ./get_soft_version.sh
 		fi
-		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done.zip
+		SOFT_ZIP=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
 		SOFT_INSTALL_DIR=$SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [ ! -d $SOFT_INSTALL_DIR ]; then
 			echo 安装文件夹不存在，需要解压安装压缩包
