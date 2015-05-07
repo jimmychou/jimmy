@@ -1120,15 +1120,12 @@ Compilation info (used): CC='/usr/bin/cc'  CFLAGS=''  CXX='/usr/bin/c++'  CXXFLA
 
 Perl: This is perl 5, version 16, subversion 3 (v5.16.3) built for x86_64-linux-thread-multi
 NOEFFECT
-<<NOEFFECT
-				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below(translate from above):
-NOEFFECT
-				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-					CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
-					CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
+					#CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
+					#CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
 					if [[ $SOFT_VERSION == "5.5.41" ]]; then
 						sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX bison.$OS_SUFFIX libaio-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 						cmake -DCMAKE_INSTALL_PREFIX=/usr \
@@ -1136,7 +1133,7 @@ NOEFFECT
 							-DINSTALL_INCLUDEDIR=/usr/include \
 							-DINSTALL_LIBDIR=/usr/lib64 \
 							-DINSTALL_SBINDIR=/usr/libexec \
-							-DMYSQL_DATADIR=/var/lib64/mysql \
+							-DMYSQL_DATADIR=/var/lib/mysql \
 							-DINSTALL_SHAREDIR=/usr/com \
 							-DINSTALL_MANDIR=/usr/share/man \
 							-DINSTALL_INFODIR=/usr/share/info \
