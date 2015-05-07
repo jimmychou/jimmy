@@ -1066,13 +1066,11 @@ NOEFFECT
 					fi
 				fi
 			elif [[ $PrimaryVersion == "7" ]]; then
-				#sudo yum $INSTALL_OPTION install doxygen
-				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
+#	奇怪的问题，注释在这里实在是太奇怪了
+#SEND-PR: -*- send-pr -*-
+#SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
+#SEND-PR: will all comments (text enclosed in `<' and `>').
 <<NOEFFECT
-				echo The Official $SOFT_NAME-5.5.41 on $OS $Version is configured as below:
-SEND-PR: -*- send-pr -*-
-SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
-SEND-PR: will all comments (text enclosed in `<' and `>').
 SEND-PR:
 From: jimmychou
 To: maria-developers@lists.launchpad.net
@@ -1123,15 +1121,15 @@ NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
-					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
+					echo The Current $SOFT_NAME-$SOFT_VERSION like MariaDB on $OS $Version is configured as below:
 					#CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"
 					#CXXFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC -felide-constructors -fno-rtti -fno-exceptions"
 					if [[ $SOFT_VERSION == "5.5.41" ]]; then
 						sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX bison.$OS_SUFFIX libaio-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 						cmake -DCMAKE_INSTALL_PREFIX=/usr \
 							-DSYSCONFDIR=/etc \
-							-DINSTALL_INCLUDEDIR=/usr/include \
-							-DINSTALL_LIBDIR=/usr/lib64 \
+							-DINSTALL_INCLUDEDIR=/usr/include/mysql \
+							-DINSTALL_LIBDIR=/usr/lib64/mysql \
 							-DINSTALL_SBINDIR=/usr/libexec \
 							-DMYSQL_DATADIR=/var/lib/mysql \
 							-DINSTALL_SHAREDIR=/usr/com \
@@ -1152,7 +1150,10 @@ NOEFFECT
 							-DWITH_HEAP_STORAGE_ENGINE=1 \
 							-DWITH_INNOBASE_STORAGE_ENGINE=1 \
 							-DWITH_MYISAM_STORAGE_ENGINE=1 \
-							-DWITH_MYISAMMRG_STORAGE_ENGINE=1
+							-DWITH_MYISAMMRG_STORAGE_ENGINE=1 \
+							-DINSTALL_PLUGINDIR=/usr/lib64/mysql/plugin \
+							-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
+							-DWITH_EMBEDDED_SERVER=yes
 					fi
 				fi
 			fi
