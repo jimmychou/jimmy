@@ -1154,10 +1154,7 @@ NOEFFECT
 							-DINSTALL_PLUGINDIR=/usr/lib64/mysql/plugin \
 							-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
 							-DWITH_EMBEDDED_SERVER=yes \
-							-DWITH_EMBEDDED_SHARED_LIBRARY \
-							-DWITH_NDBCLUSTER_STORAGE_ENGINE=1 \
-							-DWITH_NDB_TEST=1 \
-							-DWITH_NDBMTD=1
+							-DWITH_EMBEDDED_SHARED_LIBRARY=1
 					fi
 				fi
 			fi
