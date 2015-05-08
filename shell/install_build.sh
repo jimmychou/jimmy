@@ -80,9 +80,6 @@ for i in $*; do
 			if [ ! -f $SOFT_ZIP ]; then
 				echo 安装压缩包不存在
 				exit
-			else
-				echo 开始解压安装压缩包
-				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
 		if [[ $OS == "CentOS" ]]; then
@@ -92,7 +89,7 @@ for i in $*; do
 				fi
 			fi
 		fi
-		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
+		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~/ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 	elif [[ $i =~ ^php- || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
 		#	PHP
