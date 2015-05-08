@@ -85,6 +85,13 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
+		if [[ $OS == "CentOS" ]]; then
+			if [[ $PrimaryVersion == "7" ]]; then
+				if [[ $OS_SUFFIX == "x86_64" ]]; then
+					sudo ln -sf /usr/lib64/libssl.so.1.0.1e /usr/lib64/libssl.so && sudo ln -sf /usr/lib64/libcrypto.so.1.0.1e /usr/lib64/libcrypto.so && sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX
+				fi
+			fi
+		fi
 		cd ~ && cp -r $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~/ && rm -f $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE && unzip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && cd ~ && sudo ldconfig -v && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 	elif [[ $i =~ ^php- || $i == 'php' ]]; then
 		#	避免	phpMyAdmin	走此分支
