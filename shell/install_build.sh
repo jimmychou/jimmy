@@ -46,15 +46,6 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
-		if [[ $OS == "CentOS" ]]; then
-			if [[ $PrimaryVersion == "5" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm
-				sudo yum $INSTALL_OPTION install gd.$OS_SUFFIX geoip.$OS_SUFFIX
-			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
-				sudo yum $INSTALL_OPTION install gd.$OS_SUFFIX geoip.$OS_SUFFIX libxslt.$OS_SUFFIX
-			fi
-		fi
 	elif [[ $i =~ ^httpd ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -116,15 +107,6 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
-		if [[ $OS == "CentOS" ]]; then
-			if [[ $PrimaryVersion == "5" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el5.rf.i386.rpm
-				sudo yum $INSTALL_OPTION install gmp.$OS_SUFFIX libmcrypt.$OS_SUFFIX
-			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
-				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX
-			fi
-		fi
 	elif [[ $i =~ ^memcached ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
