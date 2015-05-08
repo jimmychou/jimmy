@@ -46,6 +46,11 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
+		if [[ $OS == "CentOS" ]]; then
+			if [[ $PrimaryVersion == "6" ]]; then
+				sudo yum $INSTALL_OPTION install libxslt.$OS_SUFFIX gd.$OS_SUFFIX geoip.$OS_SUFFIX
+			fi
+		fi
 	elif [[ $i =~ ^httpd ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -111,6 +116,12 @@ for i in $*; do
 			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
+		if [[ $OS == "CentOS" ]]; then
+			if [[ $PrimaryVersion == "6" ]]; then
+				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX
+				#	libmcrypt	是在配置完成后需要
+			fi
+		fi
 	elif [[ $i =~ ^memcached ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
