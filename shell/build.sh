@@ -521,21 +521,6 @@ NOEFFECT
 						#--with-ipv6 \
 						#--with-cc-opt='-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic'
 	#	编译报错不能解决，只能暂时注释掉
-<<NOEFFECT
-In file included from /usr/include/string.h:638:0,
-                 from src/os/unix/ngx_linux_config.h:26,
-                 from src/core/ngx_config.h:26,
-                 from src/http/modules/ngx_http_autoindex_module.c:8:
-In function ‘memset’,
-    inlined from ‘ngx_http_autoindex_handler’ at src/http/modules/ngx_http_autoindex_module.c:492:13:
-/usr/include/bits/string3.h:81:30: error: call to ‘__warn_memset_zero_len’ declared with attribute warning: memset used with constant zero length parameter; this could be due to transposed parameters [-Werror]
-       __warn_memset_zero_len ();
-                              ^
-cc1: all warnings being treated as errors
-make[1]: *** [objs/src/http/modules/ngx_http_autoindex_module.o] Error 1
-make[1]: Leaving directory `/home/jimmychou/software/nginx-1.0.14'
-make: *** [build] Error 2
-NOEFFECT
 				fi
 			fi
 			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
@@ -2020,7 +2005,8 @@ NOEFFECT
 					--with-recode=shared,/usr
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX t1lib-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-turbo-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX t1lib-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+				#	单独安装时，libjpeg-devel	能转化成	libjpeg-turbo-devel，但这样不能
 				if [ $SOFT_VERSION == "5.4.16" ]; then
 					./configure --build=x86_64-redhat-linux-gnu \
 						--host=x86_64-redhat-linux-gnu \
