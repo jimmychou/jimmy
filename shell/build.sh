@@ -2059,7 +2059,7 @@ NOEFFECT
 						--enable-xml \
 						--with-system-tzdata \
 						--with-mhash \
-						--libdir=/usr/lib64/php \
+						--libdir=/usr/lib64/php/modules \
 						--enable-pcntl \
 						--enable-mbstring=shared \
 						--enable-mbregex \
