@@ -1104,7 +1104,7 @@ Compilation info (used): CC='/usr/bin/cc'  CFLAGS=''  CXX='/usr/bin/c++'  CXXFLA
 Perl: This is perl 5, version 16, subversion 3 (v5.16.3) built for x86_64-linux-thread-multi
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
+				#sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 				if [[ $SOFT_BIGVERSION == "5.5" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION like MariaDB on $OS $Version is configured as below:
 					#CFLAGS="-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m32 -march=i686 -mtune=atom -fasynchronous-unwind-tables -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fwrapv -fPIC"

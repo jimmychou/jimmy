@@ -65,6 +65,8 @@ else
 		else
 			if [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install zip.$OS_SUFFIX unzip.$OS_SUFFIX
+			elif [[ $PrimaryVersion == "7" ]]; then
+				sudo yum $INSTALL_OPTION install cmake.$OS_SUFFIX
 			fi
 			declare -l OS_DIR=$OS
 		fi
