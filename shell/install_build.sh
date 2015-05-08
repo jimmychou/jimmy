@@ -47,7 +47,9 @@ for i in $*; do
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 		if [[ $OS == "CentOS" ]]; then
-			if [[ $PrimaryVersion == "6" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
+				sudo yum $INSTALL_OPTION install gd.$OS_SUFFIX geoip.$OS_SUFFIX
+			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install libxslt.$OS_SUFFIX gd.$OS_SUFFIX geoip.$OS_SUFFIX
 			fi
 		fi
@@ -117,7 +119,10 @@ for i in $*; do
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 		if [[ $OS == "CentOS" ]]; then
-			if [[ $PrimaryVersion == "6" ]]; then
+			if [[ $PrimaryVersion == "5" ]]; then
+				sudo yum $INSTALL_OPTION install gmp.$OS_SUFFIX libmcrypt.$OS_SUFFIX
+				#	libmcrypt	是在配置完成后需要
+			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX
 				#	libmcrypt	是在配置完成后需要
 			fi
