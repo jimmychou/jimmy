@@ -2020,7 +2020,7 @@ NOEFFECT
 					--with-recode=shared,/usr
 NOEFFECT
 				echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
-				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX curl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX t1lib-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX libcurl-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX libjpeg-devel.$OS_SUFFIX libpng-devel.$OS_SUFFIX libXpm-devel.$OS_SUFFIX freetype-devel.$OS_SUFFIX t1lib-devel.$OS_SUFFIX libicu-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
 				if [ $SOFT_VERSION == "5.4.16" ]; then
 					./configure --build=x86_64-redhat-linux-gnu \
 						--host=x86_64-redhat-linux-gnu \
