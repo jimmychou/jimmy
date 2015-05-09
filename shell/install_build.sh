@@ -193,6 +193,9 @@ for i in $*; do
 		if [ ! -d ~/workspace/$SOFT_NAME-$SOFT_VERSION-all-languages ]; then
 			cp -r $SOFT_INSTALL_DIR ~/workspace/
 		fi
+		if [ -d ~/workspace/$SOFT_LOWER ]; then
+			rm -fr ~/workspace/$SOFT_LOWER
+		fi
 		ln -sf ~/workspace/$SOFT_NAME-$SOFT_VERSION-all-languages ~/workspace/$SOFT_LOWER
 	fi
 done

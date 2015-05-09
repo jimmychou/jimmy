@@ -168,7 +168,7 @@ else
 			elif [[ $i == "php" ]]; then
 				SOFT_VERSION=5.3.3
 			elif [[ $i == "phpMyAdmin" ]]; then
-				SOFT_VERSION=4.0.4.1
+				SOFT_VERSION=3.5.7
 			fi
 		elif [[ $PrimaryVersion == "7" ]]; then
 			if [[ $i == "libunwind" ]]; then

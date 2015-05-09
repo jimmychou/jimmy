@@ -240,6 +240,8 @@ for i in $*; do
 		if [[ -z `getsebool httpd_can_network_connect_db | grep '\--> on'` ]]; then
 			sudo setsebool -P httpd_can_network_connect_db 1
 		fi
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
+		sudo /etc/init.d/mysqld restart
 
 	fi
 done
