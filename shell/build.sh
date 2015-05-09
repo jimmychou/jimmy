@@ -624,11 +624,12 @@ NOEFFECT
 			sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install doxygen
-<<NOEFFECT
 				echo The Official $SOFT_NAME-5.0.95 on $OS $Version is configured as below:
-SEND-PR: -*- send-pr -*-
-SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
-SEND-PR: will all comments (text enclosed in `<' and `>').
+#	奇怪的问题，注释在这里实在是太奇怪了
+#SEND-PR: -*- send-pr -*-
+#SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
+#SEND-PR: will all comments (text enclosed in `<' and `>').
+<<NOEFFECT
 SEND-PR:
 From: jimmychou
 To: mysql@lists.mysql.com
@@ -825,11 +826,12 @@ NOEFFECT
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install doxygen
 				#	--with-ndb-docs 需要，configure   时不报错，但    make    时会报错
-<<NOEFFECT
 				echo The Official $SOFT_NAME-5.1.73 on $OS $Version is configured as below:
-SEND-PR: -*- send-pr -*-
-SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
-SEND-PR: will all comments (text enclosed in `<' and `>').
+#	奇怪的问题，注释在这里实在是太奇怪了
+#SEND-PR: -*- send-pr -*-
+#SEND-PR: Lines starting with `SEND-PR' will be removed automatically, as
+#SEND-PR: will all comments (text enclosed in `<' and `>').
+<<NOEFFECT
 SEND-PR:
 From: jimmychou
 To: mysql@lists.mysql.com
