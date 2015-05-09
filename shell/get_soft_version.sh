@@ -154,7 +154,7 @@ else
 			elif [[ $i == "php" ]]; then
 				SOFT_VERSION=5.1.6
 			elif [[ $i == "phpMyAdmin" ]]; then
-				SOFT_VERSION=4.0.4.1
+				SOFT_VERSION=2.11.11.3
 			fi
 		elif [[ $PrimaryVersion == "6" ]]; then
 			if [[ $i == "gperftools" ]]; then

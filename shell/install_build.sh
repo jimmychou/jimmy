@@ -127,6 +127,24 @@ for i in $*; do
 				#	libmcrypt	是在配置完成后需要
 			fi
 		fi
+		FIRST_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $1}'`
+		SECOND_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $2}'`
+		THIRD_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $3}'`
+		if [[ $FIRST_SOFT_VERSION -lt 5 ]]; then
+			echo php-5.3.3	之前的版本没有	php-fpm
+			sudo cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION/sapi/cgi/php /usr/bin/php-cgi
+			exit
+		elif [[ $FIRST_SOFT_VERSION -eq 5 ]]; then
+			if [[ $SECOND_SOFT_VERSION -lt 3 ]]; then
+				echo php-5.3.3	之前的版本没有	php-fpm
+				sudo cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION/sapi/cgi/php /usr/bin/php-cgi
+				exit
+			elif [[ $SECOND_SOFT_VERSION -eq 3 && $THIRD_SOFT_VERSION -lt 3 ]]; then
+				echo php-5.3.3	之前的版本没有	php-fpm
+				sudo cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION/sapi/cgi/php /usr/bin/php-cgi
+				exit
+			fi
+		fi
 	elif [[ $i =~ ^memcached ]]; then
 		#	Memcached
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
