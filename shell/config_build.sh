@@ -233,6 +233,10 @@ for i in $*; do
 			declare -l SOFT_LOWER=$SOFT_NAME
 		fi
 		cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_LOWER/$SOFT_VERSION/conf/config.inc.php ~/workspace/$SOFT_LOWER/
+		#	httpd_can_network_connect	需要么？貌似不同系统需求不同
+		if [[ -z `getsebool httpd_can_network_connect_db | grep '\--> on'` ]]; then
+			sudo setsebool -P httpd_can_network_connect_db 1
+		fi
 
 	fi
 done
