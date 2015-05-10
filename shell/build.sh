@@ -1149,15 +1149,15 @@ NOEFFECT
 					if [[ $SOFT_VERSION == "5.5.41" ]]; then
 						sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX bison.$OS_SUFFIX libaio-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 						cmake -DCMAKE_INSTALL_PREFIX=/usr \
-							-DINSTALL_BINDIR=/usr/bin \
+							-DINSTALL_BINDIR=bin \
 							-DSYSCONFDIR=/etc \
-							-DINSTALL_INCLUDEDIR=/usr/include/mysql \
-							-DINSTALL_LIBDIR=/usr/lib64/mysql \
-							-DINSTALL_SBINDIR=/usr/libexec \
+							-DINSTALL_INCLUDEDIR=include/mysql \
+							-DINSTALL_LIBDIR=lib64/mysql \
+							-DINSTALL_SBINDIR=libexec \
 							-DMYSQL_DATADIR=/var/lib/mysql \
-							-DINSTALL_SHAREDIR=/usr/share \
-							-DINSTALL_MANDIR=/usr/share/man \
-							-DINSTALL_INFODIR=/usr/share/info \
+							-DINSTALL_SHAREDIR=share \
+							-DINSTALL_MANDIR=share/man \
+							-DINSTALL_INFODIR=share/info \
 							-DWITH_READLINE=1 \
 							-DWITH_SSL=yes \
 							-DEXTRA_CHARSETS=all \
@@ -1174,12 +1174,12 @@ NOEFFECT
 							-DWITH_INNOBASE_STORAGE_ENGINE=1 \
 							-DWITH_MYISAM_STORAGE_ENGINE=1 \
 							-DWITH_MYISAMMRG_STORAGE_ENGINE=1 \
-							-DINSTALL_PLUGINDIR=/usr/lib64/mysql/plugin \
+							-DINSTALL_PLUGINDIR=lib64/mysql/plugin \
 							-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
 							-DWITH_EMBEDDED_SERVER=yes \
 							-DWITH_EMBEDDED_SHARED_LIBRARY=1 \
-							-DINSTALL_MYSQLSHAREDIR=/usr/share/mysql \
-							-DINSTALL_SCRIPTDIR=/usr/bin \
+							-DINSTALL_MYSQLSHAREDIR=share/mysql \
+							-DINSTALL_SCRIPTDIR=bin \
 							-DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
 							-DINSTALL_LAYOUT=RPM
 					fi
