@@ -168,16 +168,16 @@ for i in $*; do
 		#sudo cp ~/workspace/jimmy/os/$OS_DIR/build/done/$SOFT_NAME/$SOFT_VERSION/conf/php.d/* /etc/php.d/
 		if [[ $FIRST_SOFT_VERSION -lt 5 ]]; then
 			echo php-5.3.3	之前的版本没有	php-fpm
-			php-cgi -b 127.0.0.1:9000
+			php-cgi -b 127.0.0.1:9000 &
 			exit
 		elif [[ $FIRST_SOFT_VERSION -eq 5 ]]; then
 			if [[ $SECOND_SOFT_VERSION -lt 3 ]]; then
 				echo php-5.3.3	之前的版本没有	php-fpm
-				php-cgi -b 127.0.0.1:9000
+				php-cgi -b 127.0.0.1:9000 &
 				exit
 			elif [[ $SECOND_SOFT_VERSION -eq 3 && $THIRD_SOFT_VERSION -lt 3 ]]; then
 				echo php-5.3.3	之前的版本没有	php-fpm
-				php-cgi -b 127.0.0.1:9000
+				php-cgi -b 127.0.0.1:9000 &
 				exit
 			fi
 		fi
