@@ -44,7 +44,15 @@ for i in $*; do
 		sudo chmod 755 /home/jimmychou
 			#	755是web目录可以访问的最低要求，不要再试图744等
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
-		sudo /etc/init.d/nginx restart
+		if [[ $OS == "CentOS" ]]; then
+			if [[ $PrimaryVersion == "7" ]]; then
+				sudo systemctl restart nginx
+			else
+				sudo /etc/init.d/nginx restart
+			fi
+		else
+			sudo /etc/init.d/nginx restart
+		fi
 		sudo chkconfig --add nginx
 		sudo chkconfig nginx on
 		#sudo ln -sf ~/workspace/ /usr/share/nginx/html/jimmychou

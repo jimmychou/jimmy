@@ -19,11 +19,17 @@ for i in $*; do
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition http://download.savannah.gnu.org/releases/$SOFT_NAME/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition http://download.savannah.gnu.org/releases/$SOFT_NAME/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
@@ -62,11 +68,17 @@ for i in $*; do
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition http://gperftools.googlecode.com/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition http://gperftools.googlecode.com/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
@@ -128,11 +140,17 @@ for i in $*; do
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition http://nginx.org/download/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition http://nginx.org/download/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
@@ -533,11 +551,17 @@ NOEFFECT
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition http://mirror.bit.edu.cn/apache/httpd/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition http://mirror.bit.edu.cn/apache/httpd/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
@@ -602,20 +626,27 @@ NOEFFECT
 		THIRD_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $3}'`
 		SOFT_BIGVERSION=$FIRST_SOFT_VERSION.$SECOND_SOFT_VERSION
 		cd $SOFTWARE
-		#	SHELL的if语句，多条件使用要注意
-		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && ! -f index.html ]; then      #   NOT OK
-		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a ! -f index.html ]; then      #   OK?
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ ! -f index.html ]; then   #   OK
-			wget --content-disposition http://dev.mysql.com/get/Downloads/MySQL-$SOFT_BIGVERSION/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/http://cdn.mysql.com/
-		fi
-		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && -f index.html ]; then        #   NOT OK
-		#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a -f index.html ]; then        #   OK?
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ -f index.html ]; then     #   OK
-			mv index.html $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			#	SHELL的if语句，多条件使用要注意
+			#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && ! -f index.html ]; then      #   NOT OK
+			#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a ! -f index.html ]; then      #   OK?
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ ! -f index.html ]; then   #   OK
+				wget --content-disposition http://dev.mysql.com/get/Downloads/MySQL-$SOFT_BIGVERSION/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/http://cdn.mysql.com/
+			fi
+			#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && -f index.html ]; then        #   NOT OK
+			#if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX -a -f index.html ]; then        #   OK?
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ] && [ -f index.html ]; then     #   OK
+				mv index.html $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
@@ -1118,12 +1149,13 @@ NOEFFECT
 					if [[ $SOFT_VERSION == "5.5.41" ]]; then
 						sudo yum $INSTALL_OPTION install ncurses-devel.$OS_SUFFIX bison.$OS_SUFFIX libaio-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX
 						cmake -DCMAKE_INSTALL_PREFIX=/usr \
+							-DINSTALL_BINDIR=/usr/bin \
 							-DSYSCONFDIR=/etc \
 							-DINSTALL_INCLUDEDIR=/usr/include/mysql \
 							-DINSTALL_LIBDIR=/usr/lib64/mysql \
 							-DINSTALL_SBINDIR=/usr/libexec \
 							-DMYSQL_DATADIR=/var/lib/mysql \
-							-DINSTALL_SHAREDIR=/usr/com \
+							-DINSTALL_SHAREDIR=/usr/share \
 							-DINSTALL_MANDIR=/usr/share/man \
 							-DINSTALL_INFODIR=/usr/share/info \
 							-DWITH_READLINE=1 \
@@ -1145,7 +1177,11 @@ NOEFFECT
 							-DINSTALL_PLUGINDIR=/usr/lib64/mysql/plugin \
 							-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
 							-DWITH_EMBEDDED_SERVER=yes \
-							-DWITH_EMBEDDED_SHARED_LIBRARY=1
+							-DWITH_EMBEDDED_SHARED_LIBRARY=1 \
+							-DINSTALL_MYSQLSHAREDIR=/usr/share/mysql \
+							-DINSTALL_SCRIPTDIR=/usr/bin \
+							-DWITH_PERFSCHEMA_STORAGE_ENGINE=1 \
+							-DINSTALL_LAYOUT=RPM
 					fi
 				fi
 			fi
@@ -1160,12 +1196,19 @@ NOEFFECT
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition -nc http://cn2.php.net/get/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/this/mirror
-		fi
-		cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition -nc http://cn2.php.net/get/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX/from/this/mirror
+			fi
+			cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX && cd $SOFTWARE
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			cd ~ && cp $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ~ && rm -fr $SOFTWARE && mkdir $SOFTWARE && mv ~/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFTWARE/$SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd $SOFTWARE
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
@@ -1806,7 +1849,8 @@ NOEFFECT
 						--enable-fpm \
 						--with-mcrypt=shared,/usr \
 						--with-icu-dir=/usr \
-						--with-enchant=shared,/usr
+						--with-enchant=shared,/usr \
+						--enable-soap
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
@@ -2128,11 +2172,17 @@ NOEFFECT
 			source ./get_soft_version.sh
 		fi
 		cd $SOFTWARE
-		if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
-			wget --content-disposition http://www.memcached.org/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
-		fi
-		if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
-			tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+		if [ ! -f $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip ]; then
+			if [ ! -f $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX ]; then
+				wget --content-disposition http://www.memcached.org/files/$SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				tar -zvxf $SOFT_NAME-$SOFT_VERSION.$SOFT_SUFFIX
+			fi
+		else
+			if [ ! -d $SOFT_NAME-$SOFT_VERSION ]; then
+				unzip $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip
+			fi
 		fi
 		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION
 		if [[ $OS == "Ubuntu" ]]; then
