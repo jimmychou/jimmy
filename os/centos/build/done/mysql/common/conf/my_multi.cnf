@@ -6,9 +6,11 @@ password   = zhouxiaomin123
 
 [mysqld1]
 datadir=/var/lib/mysql_master
+ledir=/usr/libexec
 socket=/var/run/mysqld/mysqld_master.sock
 user=mysql
 symbolic-links=0
+skip-name-resolve=1
 character-set-server=utf8
 port=3310
 log-error=/var/log/mysqld_master.log
@@ -20,9 +22,11 @@ server-id=1
 
 [mysqld2]
 datadir=/var/lib/mysql_slave
+ledir=/usr/libexec
 socket=/var/run/mysqld/mysqld_slave.sock
 user=mysql
 symbolic-links=0
+skip-name-resolve=1
 character-set-server=utf8
 port=3311
 log-error=/var/log/mysqld_slave.log
@@ -35,9 +39,11 @@ replicate-do-db=test
 
 [mysqld3]
 datadir=/var/lib/mysql_slave_a
+ledir=/usr/libexec
 socket=/var/run/mysqld/mysqld_slave_a.sock
 user=mysql
 symbolic-links=0
+skip-name-resolve=1
 character-set-server=utf8
 port=3312
 log-error=/var/log/mysqld_slave_a.log
@@ -50,9 +56,11 @@ replicate-do-db=test
 
 [mysqld4]
 datadir=/var/lib/mysql_slave_b
+ledir=/usr/libexec
 socket=/var/run/mysqld/mysqld_slave_b.sock
 user=mysql
 symbolic-links=0
+skip-name-resolve=1
 character-set-server=utf8
 port=3313
 log-error=/var/log/mysqld_slave_b.log

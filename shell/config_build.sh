@@ -128,6 +128,7 @@ for i in $*; do
 				#	否则	/etc/init.d/mysqld stop	不能正常工作
 		fi
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
+		BUILD_HOST=build.$OS_DIR.jimmychou.com
 		for sub in default master slave slave_a slave_b; do
 			data_dir=/var/lib/mysql_$sub
 			config_file=/etc/my_$sub.cnf
@@ -138,21 +139,19 @@ for i in $*; do
 			if [ ! -d $data_dir ]; then
 				sudo mysql_install_db --defaults-file=$config_file --user=mysql
 			fi
-		done
-		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
-		for sub in default master slave slave_a slave_b; do
-			config_file=/etc/my_$sub.cnf
-			if [[ $sub == "default" ]]; then
-				config_file=/etc/my.cnf
-			fi
-			BUILD_HOST=build.$OS_DIR.jimmychou.com
-				#/usr/bin/mysqladmin -u root password 'new-password'
-				#/usr/bin/mysqladmin -u root -h localhost.localdomain password 'new-password'
+			sudo mysqld_safe --defaults-file=$config_file &
+			sleep 10s
+				#	避免服务未启动就执行	mysqladmin	命令
+				#	/usr/bin/mysqladmin -u root password 'new-password'
+				#	/usr/bin/mysqladmin -u root -h localhost.localdomain password 'new-password'
 			mysqladmin --defaults-file=$config_file -u root password 'zhouxiaomin123'
-			mysqladmin --defaults-file=$config_file -u root -h '192.168.%.%' password 'zhouxiaomin123'
-			mysqladmin --defaults-file=$config_file -u root -h localhost.localdomain password 'zhouxiaomin123'
-			mysqladmin --defaults-file=$config_file -u root -h $BUILD_HOST password 'zhouxiaomin123'
+			#mysqladmin --defaults-file=$config_file -u root -h localhost password 'zhouxiaomin123'
+			#mysqladmin --defaults-file=$config_file -u root -h '192.168.%.%' password 'zhouxiaomin123'
+			#mysqladmin --defaults-file=$config_file -u root -h localhost.localdomain password 'zhouxiaomin123'
+			#mysqladmin --defaults-file=$config_file -u root -h $BUILD_HOST password 'zhouxiaomin123'
 		done
+		#sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
+			#	设定密码与my_multi.cnf中密码相悖
 		for sub in ndb_a ndb_b api_a api_b; do
 			#	@todo:	NDB	Cluster	Service
 			echo $sub
