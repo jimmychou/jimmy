@@ -1806,7 +1806,8 @@ NOEFFECT
 						--enable-fpm \
 						--with-mcrypt=shared,/usr \
 						--with-icu-dir=/usr \
-						--with-enchant=shared,/usr
+						--with-enchant=shared,/usr \
+						--enable-soap
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
