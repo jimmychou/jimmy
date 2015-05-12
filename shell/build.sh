@@ -467,7 +467,7 @@ NOEFFECT
 				fi
 			elif [[ $PrimaryVersion == "7" ]]; then
 				#sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX zlib-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxml2-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX GeoIP-devel.$OS_SUFFIX
-				#sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install pcre-devel.$OS_SUFFIX openssl-devel.$OS_SUFFIX#libxslt-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX geoip-devel.$OS_SUFFIX
 				#	zlib-devel	libxml2-devel	不知何时已经安装上了，GeoIP-devel	和	geoip-devel	不是一个软件么？
 <<NOEFFECT
 				echo The Official $SOFT_NAME-1.8.0 on $OS $Version of Nginx Repository is configured as below:
