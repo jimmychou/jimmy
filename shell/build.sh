@@ -1185,7 +1185,7 @@ NOEFFECT
 					fi
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && cd ~ && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^php ]]; then
 		# PHP编译
@@ -2162,7 +2162,7 @@ NOEFFECT
 						--with-fpm-group=nginx
 				fi
 			fi
-			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && sz config.cache && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
+			make && sudo make install && sudo /sbin/ldconfig -v && cd $SOFTWARE && zip -r $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip $SOFT_NAME-$SOFT_VERSION && sz $SOFT_NAME-$SOFT_VERSION.make_done_$OS_SUFFIX.zip && sz config.cache && cd ~ && rm -fr $SOFTWARE && ln -sf /mnt/hgfs/software/ $SOFTWARE
 		fi
 	elif [[ $i =~ ^memcached ]]; then
 		# Memcached编译
