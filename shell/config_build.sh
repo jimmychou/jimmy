@@ -127,6 +127,8 @@ for i in $*; do
 			sudo chown mysql:root /var/run/mysqld
 				#	否则	/etc/init.d/mysqld stop	不能正常工作
 		fi
+		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
+		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
 		for sub in default master slave slave_a slave_b; do
 			data_dir=/var/lib/mysql_$sub
 			config_file=/etc/my_$sub.cnf
@@ -137,11 +139,16 @@ for i in $*; do
 			if [ ! -d $data_dir ]; then
 				sudo mysql_install_db --defaults-file=$config_file --user=mysql
 			fi
+			BUILD_HOST=build.$OS_DIR.jimmychou.com
+				#/usr/bin/mysqladmin -u root password 'new-password'
+				#/usr/bin/mysqladmin -u root -h localhost.localdomain password 'new-password'
+			mysqladmin --defaults-file=$config_file -u root password 'zhouxiaomin123'
+			mysqladmin --defaults-file=$config_file -u root -h '192.168.%.%' password 'zhouxiaomin123'
+			mysqladmin --defaults-file=$config_file -u root -h localhost.localdomain password 'zhouxiaomin123'
+			mysqladmin --defaults-file=$config_file -u root -h $BUILD_HOST password 'zhouxiaomin123'
 		done
-		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
-		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
 		for sub in ndb_a ndb_b api_a api_b; do
-			#	@todo
+			#	@todo:	NDB	Cluster	Service
 			echo $sub
 		done
 		#sudo /etc/init.d/mysqld start
@@ -249,7 +256,7 @@ for i in $*; do
 			sudo setsebool -P httpd_can_network_connect_db 1
 		fi
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
+		mysql --defaults-file=/etc/my.cnf -u root -p < ~/workspace/phpmyadmin/examples/create_tables.sql
 		sudo /etc/init.d/mysqld restart
-
 	fi
 done

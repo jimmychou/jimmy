@@ -117,6 +117,8 @@ socket			= 	/var/run/mysqld/mysqld_ndb_a.sock
 default-character-set	=	utf8
 
 
+[mysqladmin]
+socket			= 	/var/run/mysqld/mysqld_ndb_a.sock
 
 # Remove the next comment character if you are not familiar with SQL
 #safe-updates

@@ -32,3 +32,10 @@ socket=/var/run/mysqld/mysqld_slave.sock	#	加入此行后，用	mysql	命令无
 [mysqld_safe]
 log-error=/var/log/mysqld_slave.log
 pid-file=/var/run/mysqld/mysqld_slave.pid
+
+[mysqladmin]
+socket=/var/run/mysqld/mysqld_slave.sock
+
+[client]
+default-character-set=utf8
+socket=/var/run/mysqld/mysqld_slave.sock
