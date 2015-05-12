@@ -1773,7 +1773,6 @@ NOEFFECT
 						--disable-debug \
 						--with-pic \
 						--disable-rpath \
-						--without-pear \
 						--with-bz2 \
 						--with-exec-dir=/usr/bin \
 						--with-freetype-dir=/usr \
@@ -1850,7 +1849,8 @@ NOEFFECT
 						--with-mcrypt=shared,/usr \
 						--with-icu-dir=/usr \
 						--with-enchant=shared,/usr \
-						--enable-soap
+						--enable-soap \
+						--with-pear=/usr/bin
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
