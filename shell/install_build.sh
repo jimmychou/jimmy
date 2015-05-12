@@ -125,6 +125,8 @@ for i in $*; do
 			elif [[ $PrimaryVersion == "6" ]]; then
 				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX
 				#	libmcrypt	是在配置完成后需要
+			elif [[ $PrimaryVersion == "7" ]]; then
+				sudo yum $INSTALL_OPTION install t1lib.$OS_SUFFIX gd.$OS_SUFFIX
 			fi
 		fi
 		FIRST_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $1}'`
