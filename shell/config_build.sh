@@ -128,7 +128,6 @@ for i in $*; do
 				#	否则	/etc/init.d/mysqld stop	不能正常工作
 		fi
 		sudo cp ~/workspace/jimmy/os/$OS_DIR/hosts /etc/
-		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
 		for sub in default master slave slave_a slave_b; do
 			data_dir=/var/lib/mysql_$sub
 			config_file=/etc/my_$sub.cnf
@@ -138,6 +137,13 @@ for i in $*; do
 			fi
 			if [ ! -d $data_dir ]; then
 				sudo mysql_install_db --defaults-file=$config_file --user=mysql
+			fi
+		done
+		sudo mysqld_multi --defaults-file=/etc/my_multi.cnf --verbose start 1-4
+		for sub in default master slave slave_a slave_b; do
+			config_file=/etc/my_$sub.cnf
+			if [[ $sub == "default" ]]; then
+				config_file=/etc/my.cnf
 			fi
 			BUILD_HOST=build.$OS_DIR.jimmychou.com
 				#/usr/bin/mysqladmin -u root password 'new-password'
