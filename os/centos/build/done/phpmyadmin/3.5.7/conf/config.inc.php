@@ -35,6 +35,23 @@ $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+/*  Advance Settings    */
+$cfg['Servers'][$i]['controlhost'] = 'build.centos.jimmychou.com';
+$cfg['Servers'][$i]['controluser'] = 'root';
+$cfg['Servers'][$i]['controlpass'] = 'zhouxiaomin123';
+$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][$i]['relation'] = 'pma__relation';
+$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][$i]['history'] = 'pma__history';
+$cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
+$cfg['Servers'][$i]['recent'] = 'pma__recent';
+$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 
 /*
  * Second server
@@ -50,6 +67,23 @@ $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+/*  Advance Settings    */
+$cfg['Servers'][$i]['controlhost'] = 'build.centos.jimmychou.com';
+$cfg['Servers'][$i]['controluser'] = 'root';
+$cfg['Servers'][$i]['controlpass'] = 'zhouxiaomin123';
+$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][$i]['relation'] = 'pma__relation';
+$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][$i]['history'] = 'pma__history';
+$cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
+$cfg['Servers'][$i]['recent'] = 'pma__recent';
+$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 
 /*
  * Third server
@@ -65,6 +99,23 @@ $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+/*  Advance Settings    */
+$cfg['Servers'][$i]['controlhost'] = 'build.centos.jimmychou.com';
+$cfg['Servers'][$i]['controluser'] = 'root';
+$cfg['Servers'][$i]['controlpass'] = 'zhouxiaomin123';
+$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][$i]['relation'] = 'pma__relation';
+$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][$i]['history'] = 'pma__history';
+$cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
+$cfg['Servers'][$i]['recent'] = 'pma__recent';
+$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 
 /*
  * Fourth server
@@ -80,6 +131,23 @@ $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+/*  Advance Settings    */
+$cfg['Servers'][$i]['controlhost'] = 'build.centos.jimmychou.com';
+$cfg['Servers'][$i]['controluser'] = 'root';
+$cfg['Servers'][$i]['controlpass'] = 'zhouxiaomin123';
+$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][$i]['relation'] = 'pma__relation';
+$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][$i]['history'] = 'pma__history';
+$cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
+$cfg['Servers'][$i]['recent'] = 'pma__recent';
+$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 
 /*
  * Fifth server
@@ -95,6 +163,23 @@ $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */
 $cfg['Servers'][$i]['extension'] = 'mysqli';
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
+/*  Advance Settings    */
+$cfg['Servers'][$i]['controlhost'] = 'build.centos.jimmychou.com';
+$cfg['Servers'][$i]['controluser'] = 'root';
+$cfg['Servers'][$i]['controlpass'] = 'zhouxiaomin123';
+$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][$i]['relation'] = 'pma__relation';
+$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][$i]['history'] = 'pma__history';
+$cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
+$cfg['Servers'][$i]['recent'] = 'pma__recent';
+$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 
 /*
  * Sixth server
