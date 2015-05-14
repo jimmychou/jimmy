@@ -1850,7 +1850,7 @@ NOEFFECT
 						--with-icu-dir=/usr \
 						--with-enchant=shared,/usr \
 						--enable-soap \
-						--with-pear=/usr/bin
+						--with-pear=/usr/share/pear
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
