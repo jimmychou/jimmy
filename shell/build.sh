@@ -1949,7 +1949,9 @@ NOEFFECT
 						--with-icu-dir=/usr \
 						--enable-bcmath \
 						--with-enchant=shared,/usr \
-						--with-recode=shared,/usr
+						--with-recode=shared,/usr \
+						--enable-soap \
+						--with-pear=/usr/share/pear
 				fi
 			elif [[ $PrimaryVersion == "7" ]]; then
 				#sudo yum $INSTALL_OPTION install curl-devel.$OS_SUFFIX db4-devel.$OS_SUFFIX openldap-devel.$OS_SUFFIX expat-devel.$OS_SUFFIX
