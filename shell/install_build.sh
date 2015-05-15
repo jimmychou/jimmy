@@ -45,14 +45,15 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
-		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 		if [[ $OS == "CentOS" ]]; then
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install gd.$OS_SUFFIX geoip.$OS_SUFFIX
 			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo yum $INSTALL_OPTION install libxslt.$OS_SUFFIX gd.$OS_SUFFIX geoip.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install perl-devel.$OS_SUFFIX libxslt.$OS_SUFFIX gd.$OS_SUFFIX geoip.$OS_SUFFIX
+					#	除了	perl-devel	是安装前需要，其他都是配置时需要
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 	elif [[ $i =~ ^httpd ]]; then
 		#	Httpd
 		SOFT_NAME=`echo $i | awk -F "-" '{print $1}'`
@@ -117,7 +118,6 @@ for i in $*; do
 				cd $SOFTWARE && unzip $SOFT_ZIP
 			fi
 		fi
-		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 		if [[ $OS == "CentOS" ]]; then
 			if [[ $PrimaryVersion == "5" ]]; then
 				sudo yum $INSTALL_OPTION install gmp.$OS_SUFFIX libmcrypt.$OS_SUFFIX
@@ -129,6 +129,7 @@ for i in $*; do
 				sudo yum $INSTALL_OPTION install t1lib.$OS_SUFFIX gd.$OS_SUFFIX
 			fi
 		fi
+		cd $SOFTWARE/$SOFT_NAME-$SOFT_VERSION && sudo make install && sudo ldconfig -v
 		FIRST_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $1}'`
 		SECOND_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $2}'`
 		THIRD_SOFT_VERSION=`echo $SOFT_VERSION | awk -F "." '{print $3}'`
