@@ -1635,7 +1635,110 @@ NOEFFECT
 				elif [[ $SOFT_VERSION == "5.5.14" ]]; then
 					echo The Current $SOFT_NAME-$SOFT_VERSION on $OS $Version is configured as below:
 					#	不能依赖	yum	安装的库按CentOS6编译条件安装此版本PHP
+					#	configure: error: Unable to detect ICU prefix or /usr/bin/icu-config failed. Please verify ICU install prefix and make sure icu-config works.
 					#	checking for ICU 4.0 or greater... found 3.6
+					#	--enable-intl=shared \
+					#	configure: error: Please install SQLite 3.3.9 first or check libsqlite3 is present
+					#	--with-sqlite3=shared,/usr \
+					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					./configure --build=i386-redhat-linux-gnu \
+						--host=i386-redhat-linux-gnu \
+						--target=i686-redhat-linux-gnu \
+						--program-prefix= \
+						--prefix=/usr \
+						--exec-prefix=/usr \
+						--bindir=/usr/bin \
+						--sbindir=/usr/sbin \
+						--sysconfdir=/etc \
+						--datadir=/usr/share \
+						--includedir=/usr/include \
+						--libdir=/usr/lib/php/modules \
+						--libexecdir=/usr/libexec \
+						--localstatedir=/var \
+						--sharedstatedir=/var/lib \
+						--mandir=/usr/share/man \
+						--infodir=/usr/share/info \
+						--cache-file=../config.cache \
+						--with-libdir=lib \
+						--with-config-file-path=/etc \
+						--with-config-file-scan-dir=/etc/php.d \
+						--disable-debug \
+						--with-pic \
+						--disable-rpath \
+						--without-pear \
+						--with-bz2 \
+						--with-freetype-dir=/usr \
+						--with-png-dir=/usr \
+						--with-xpm-dir=/usr \
+						--enable-gd-native-ttf \
+						--without-gdbm \
+						--with-gettext \
+						--with-gmp \
+						--with-iconv \
+						--with-jpeg-dir=/usr \
+						--with-openssl \
+						--with-pcre-regex=/usr \
+						--with-zlib \
+						--with-layout=GNU \
+						--enable-exif \
+						--enable-ftp \
+						--enable-sockets \
+						--enable-sysvsem \
+						--enable-sysvshm \
+						--enable-sysvmsg \
+						--with-kerberos \
+						--enable-shmop \
+						--enable-calendar \
+						--with-libxml-dir=/usr \
+						--enable-xml \
+						--enable-pcntl \
+						--with-imap-ssl \
+						--enable-mbstring=shared \
+						--enable-mbregex \
+						--with-gd=shared \
+						--enable-bcmath=shared \
+						--enable-dba=shared \
+						--with-db4=/usr \
+						--with-xmlrpc=shared \
+						--with-ldap=shared \
+						--with-ldap-sasl \
+						--with-mysql=shared,/usr \
+						--with-mysqli=shared,/usr/bin/mysql_config \
+						--enable-dom=shared \
+						--with-pgsql=shared \
+						--enable-wddx=shared \
+						--with-snmp=shared,/usr \
+						--enable-soap=shared \
+						--with-xsl=shared,/usr \
+						--enable-xmlreader=shared \
+						--enable-xmlwriter=shared \
+						--with-curl=shared,/usr \
+						--enable-pdo=shared \
+						--with-pdo-odbc=shared,unixODBC,/usr \
+						--with-pdo-mysql=shared,/usr/bin/mysql_config \
+						--with-pdo-pgsql=shared,/usr \
+						--with-pdo-sqlite=shared,/usr \
+						--enable-json=shared \
+						--enable-zip=shared \
+						--without-readline \
+						--with-libedit \
+						--with-pspell=shared \
+						--enable-phar=shared \
+						--with-tidy=shared,/usr \
+						--enable-sysvmsg=shared \
+						--enable-sysvshm=shared \
+						--enable-sysvsem=shared \
+						--enable-posix=shared \
+						--with-unixODBC=shared,/usr \
+						--enable-fileinfo=shared \
+						--enable-fpm \
+						--with-mcrypt=shared,/usr \
+						--with-icu-dir=/usr \
+						--enable-bcmath \
+						--with-enchant=shared,/usr \
+						--with-recode=shared,/usr \
+						--enable-soap \
+						--with-pear=/usr/share/pear
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
 <<NOEFFECT
