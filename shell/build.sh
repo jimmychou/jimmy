@@ -1718,6 +1718,7 @@ NOEFFECT
 						--with-pdo-mysql=shared,/usr/bin/mysql_config \
 						--with-pdo-pgsql=shared,/usr \
 						--with-pdo-sqlite=shared,/usr \
+						--with-sqlite3=shared,/usr/local \
 						--enable-json=shared \
 						--enable-zip=shared \
 						--without-readline \
