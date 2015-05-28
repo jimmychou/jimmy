@@ -1638,9 +1638,13 @@ NOEFFECT
 					#	configure: error: Unable to detect ICU prefix or /usr/bin/icu-config failed. Please verify ICU install prefix and make sure icu-config works.
 					#	checking for ICU 4.0 or greater... found 3.6
 					#	--enable-intl=shared \
+					#	加了atomic源之后可以编译intl扩展
 					#	configure: error: Please install SQLite 3.3.9 first or check libsqlite3 is present
 					#	--with-sqlite3=shared,/usr \
-					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX
+					#	加了atomic源之后可以编译sqlite3扩展
+					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX libicu42-devel.$OS_SUFFIX
+					#	libicu42-devel竟然给装到了/usr/local目录下
+					sudo rpm -ivh http://www6.atomicorp.com/channels/atomic/centos/5/i386/RPMS/atomic-release-1.0-19.el5.art.noarch.rpm
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
 						--target=i686-redhat-linux-gnu \
@@ -1718,7 +1722,7 @@ NOEFFECT
 						--with-pdo-mysql=shared,/usr/bin/mysql_config \
 						--with-pdo-pgsql=shared,/usr \
 						--with-pdo-sqlite=shared,/usr \
-						--with-sqlite3=shared,/usr/local \
+						--with-sqlite3=shared,/usr \
 						--enable-json=shared \
 						--enable-zip=shared \
 						--without-readline \
@@ -1732,9 +1736,10 @@ NOEFFECT
 						--enable-posix=shared \
 						--with-unixODBC=shared,/usr \
 						--enable-fileinfo=shared \
+						--enable-intl=shared \
 						--enable-fpm \
 						--with-mcrypt=shared,/usr \
-						--with-icu-dir=/usr \
+						--with-icu-dir=/usr/local \
 						--enable-bcmath \
 						--with-enchant=shared,/usr \
 						--with-recode=shared,/usr \
