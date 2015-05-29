@@ -123,10 +123,11 @@ for i in $*; do
 				sudo yum $INSTALL_OPTION install gmp.$OS_SUFFIX libmcrypt.$OS_SUFFIX
 				#	libmcrypt	是在配置完成后需要
 				if [[ $SOFT_VERSION == "5.5.14" ]]; then
-					sudo yum $INSTALL_OPTION install libedit.$OS_SUFFIX
+					sudo yum $INSTALL_OPTION install libedit.$OS_SUFFIX net-snmp.$OS_SUFFIX enchant.$OS_SUFFIX libicu42.$OS_SUFFIX unixODBC.$OS_SUFFIX recode.$OS_SUFFIX libtidy.$OS_SUFFIX
 				fi
 			elif [[ $PrimaryVersion == "6" ]]; then
-				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX enchant.$OS_SUFFIX icu.$OS_SUFFIX unixODBC.$OS_SUFFIX apr-util-pgsql.$OS_SUFFIX aspell.$OS_SUFFIX recode.$OS_SUFFIX net-snmp.$OS_SUFFIX libtidy.$OS_SUFFIX
+				sudo yum $INSTALL_OPTION install libevent.$OS_SUFFIX libmcrypt.$OS_SUFFIX enchant.$OS_SUFFIX libicu.$OS_SUFFIX unixODBC.$OS_SUFFIX apr-util-pgsql.$OS_SUFFIX aspell.$OS_SUFFIX recode.$OS_SUFFIX net-snmp.$OS_SUFFIX libtidy.$OS_SUFFIX
+				#	貌似	libicu.$OS_SUFFIX	就够了，不用	icu.$OS_SUFFIX
 				#	libmcrypt	是在配置完成后需要
 			elif [[ $PrimaryVersion == "7" ]]; then
 				sudo yum $INSTALL_OPTION install t1lib.$OS_SUFFIX gd.$OS_SUFFIX
