@@ -1642,9 +1642,11 @@ NOEFFECT
 					#	configure: error: Please install SQLite 3.3.9 first or check libsqlite3 is present
 					#	--with-sqlite3=shared,/usr \
 					#	加了atomic源之后可以编译sqlite3扩展
-					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX libicu42-devel.$OS_SUFFIX
+					sudo yum $INSTALL_OPTION install libxml2-devel.$OS_SUFFIX pcre-devel.$OS_SUFFIX enchant-devel.$OS_SUFFIX gd-devel.$OS_SUFFIX libedit-devel.$OS_SUFFIX recode-devel.$OS_SUFFIX libtidy-devel.$OS_SUFFIX libxslt-devel.$OS_SUFFIX sqlite-devel.$OS_SUFFIX
+#libicu42-devel.$OS_SUFFIX
 					#	libicu42-devel竟然给装到了/usr/local目录下
 					sudo rpm -ivh http://www6.atomicorp.com/channels/atomic/centos/5/i386/RPMS/atomic-release-1.0-19.el5.art.noarch.rpm
+					sudo yum $INSTALL_OPTION update
 					./configure --build=i386-redhat-linux-gnu \
 						--host=i386-redhat-linux-gnu \
 						--target=i686-redhat-linux-gnu \
