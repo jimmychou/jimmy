@@ -47,6 +47,7 @@ else
 		sudo yum $INSTALL_OPTION install redhat-lsb
 	fi
 	RPM_FORGE_EXIST=`rpm -qa | grep 'rpmforge-release'`
+	RPM_ATOMIC_EXIST=`rpm -qa | grep 'atomic-release'`
 	OS=`lsb_release -a | grep Description | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Codename=`lsb_release -a | grep Codename | awk -F ":" '{print $2}' | awk '{print $1}'`
 	Version=`lsb_release -a | grep Release | awk -F ":" '{print $2}' | awk '{print $1}'`
@@ -60,6 +61,10 @@ else
 			fi
 		fi
 		if [[ $PrimaryVersion == "5" ]]; then
+			if [[ -z $RPM_ATOMIC_EXIST ]]; then
+				sudo rpm -ivh http://www6.atomicorp.com/channels/atomic/centos/5/i386/RPMS/atomic-release-1.0-19.el5.art.noarch.rpm
+				sudo yum $INSTALL_OPTION update
+			fi
 			OS_DIR=`echo $OS | tr '[A-Z]' '[a-z]'`
 				#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
 		else
