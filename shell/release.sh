@@ -4,6 +4,7 @@ LSB_EXIST=''
 OS=`uname -v | awk '{print $1}' | awk -F "-" '{print $2}'`
 	#   此语句仅仅对Debian系的Ubuntu有效
 OS_SUFFIX=`uname -m`
+LOW_OS_SUFFIX=$OS_SUFFIX
 if [[ $OS == "Ubuntu" ]]; then
 	for i in $*; do
 		if [[ $i =~ ^- ]]; then
@@ -59,12 +60,13 @@ else
 			if [[ $PrimaryVersion == "5" ]]; then
 				OS_SUFFIX="i386"
 			fi
+			LOW_OS_SUFFIX="i386"
+		fi
+		if [[ -z $RPM_ATOMIC_EXIST ]]; then
+			sudo rpm -ivh http://www6.atomicorp.com/channels/atomic/centos/$PrimaryVersion/$LOW_OS_SUFFIX/RPMS/atomic-release-1.0-19.el$PrimaryVersion.art.noarch.rpm
+			sudo yum $INSTALL_OPTION update
 		fi
 		if [[ $PrimaryVersion == "5" ]]; then
-			if [[ -z $RPM_ATOMIC_EXIST ]]; then
-				sudo rpm -ivh http://www6.atomicorp.com/channels/atomic/centos/5/i386/RPMS/atomic-release-1.0-19.el5.art.noarch.rpm
-				sudo yum $INSTALL_OPTION update
-			fi
 			OS_DIR=`echo $OS | tr '[A-Z]' '[a-z]'`
 				#	CentOS5	的	bash	版本为3，declare	命令不支持大小写转换，需要	bash4	支持
 		else
