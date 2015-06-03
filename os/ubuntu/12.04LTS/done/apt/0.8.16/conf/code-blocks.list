@@ -1,0 +1,2 @@
+deb [arch=i386] https://apt.jenslody.de/stable jessie main
+deb-src https://apt.jenslody.de/stable jessie main
