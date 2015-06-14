@@ -159,59 +159,51 @@ class Tree
 		$stack = array();
 //		array_push($stack,$root);	//	不需要，会重复
 		file_put_contents('/tmp/tree.txt',__FUNCTION__." begin \n",FILE_APPEND);
-//		$p = array_pop($stack);
-		$p = $pl = $pr = $root;
-		while($p||!empty($stack)){
+		$p_current = $p_pre =$root;
+		while($p_current||!empty($stack)){
+echo "\nthe p_current is \n";
+print_r($p_current);
+echo "\nthe p_pre is \n";
+print_r($p_pre);
+echo "\nthe stack is \n";
 print_r($stack);
-			if($p!==null){
-				array_push($stack,$p);
-				$var_name = $p->rchild;
-				if($var_name===null){
-					$pr = $var_name;
+			if($p_current!==null){
+				array_push($stack,$p_current);
+				$rchild= $p_current->rchild;
+				if($rchild!==null){
+					$p_pre = $p_current;
+//					array_push($stack,$p_current);
+					$p_current = $this->$rchild;
+					array_push($stack,$p_current);
+					$p_current = $this->$rchild;
 				}
 				else{
-					$pr = $this->$var_name;
-					array_push($stack,$pr);
+					$p_pre = $p_current;
+					$p_current = null;
 				}
-				$var_name = $p->lchild;
-				if($var_name===null){
-					$pl = $var_name;
-					$p = $pr;
+				$lchild = $p_pre->lchild;
+				if($lchild!==null){
+					$p_pre = $p_current;
+//					array_push($stack,$p_current);
+					$p_current = $this->$lchild;
 				}
 				else{
-					$pl = $this->$var_name;
-					$p = $pl;
-//					array_push($stack,$pl);	//	这里放开会重复入栈
+					$p_pre = $p_current;
+					$p_current = null;
 				}
 			}
 			else{
-				//	没有else分支会陷入死循环
-//				if($pr!==null){
-//					$p = $pr;
-//					$pl = $pr = $p;
-//					continue;
-//				}
-				$p = array_pop($stack);
-				if(!$this->visit($p->data)){
-					return 0;
+				$p_current = $p_pre;
+				if($p_current!==null){
+					$this->visit($p_current->data);
 				}
-				$last = $p;
+				$p_pre = array_pop($stack);
 				/*
-				$var_name = $p->rchild;
-				if($var_name===null){
-					$pr = $var_name;
-				}
-				else{
-					$pr = $this->$var_name;
-				}
-				$var_name = $p->lchild;
-				if($var_name===null){
-					$pl = $var_name;
-				}
-				else{
-					$pl = $this->$var_name;
+				if($p_pre!==null){
+					$this->visit($p_pre->data);
 				}
 				*/
+				//	@todo:	visit
 			}
 		}
 		file_put_contents('/tmp/tree.txt',__FUNCTION__." end \n",FILE_APPEND);
