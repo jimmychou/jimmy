@@ -19,13 +19,13 @@ class Tree
 {
 	public $root = null;
 	private $init = array(
-				'node7'=>array('data'=>7,'lchild'=>null,'rchild'=>null)
-				,'node6'=>array('data'=>6,'lchild'=>null,'rchild'=>null)
-				,'node5'=>array('data'=>5,'lchild'=>null,'rchild'=>null)
-				,'node4'=>array('data'=>4,'lchild'=>null,'rchild'=>null)
-				,'node3'=>array('data'=>3,'lchild'=>'node6','rchild'=>'node7')
-				,'node2'=>array('data'=>2,'lchild'=>'node4','rchild'=>'node5')
-				,'node1'=>array('data'=>1,'lchild'=>'node2','rchild'=>'node3')
+				'node7'=>array('data'=>7,'lchild'=>null,'rchild'=>null,'visited'=>0)
+				,'node6'=>array('data'=>6,'lchild'=>null,'rchild'=>null,'visited'=>0)
+				,'node5'=>array('data'=>5,'lchild'=>null,'rchild'=>null,'visited'=>0)
+				,'node4'=>array('data'=>4,'lchild'=>null,'rchild'=>null,'visited'=>0)
+				,'node3'=>array('data'=>3,'lchild'=>'node6','rchild'=>'node7','visited'=>0)
+				,'node2'=>array('data'=>2,'lchild'=>'node4','rchild'=>'node5','visited'=>0)
+				,'node1'=>array('data'=>1,'lchild'=>'node2','rchild'=>'node3','visited'=>0)
 			);
 	public function __construct()
 	{
@@ -154,7 +154,7 @@ class Tree
 		file_put_contents('/tmp/tree.txt',__FUNCTION__." end \n",FILE_APPEND);
 	}
 	
-	public function PostOrderTravel(&$root)
+	public function PostOrderTravel2(&$root)
 	{
 		$stack = array();
 //		array_push($stack,$root);	//	不需要，会重复
@@ -204,6 +204,63 @@ print_r($stack);
 				}
 				*/
 				//	@todo:	visit
+			}
+		}
+		file_put_contents('/tmp/tree.txt',__FUNCTION__." end \n",FILE_APPEND);
+	}
+	
+	public function PostOrderTravel(&$root)
+	{
+		$stack = array();
+//		array_push($stack,$root);	//	不需要，会重复
+		file_put_contents('/tmp/tree.txt',__FUNCTION__." begin \n",FILE_APPEND);
+		$p_current = $p_pre = $root;
+		while($p_current||!empty($stack)){
+echo "\nthe p_current is \n";
+print_r($p_current);
+echo "\nthe p_pre is \n";
+print_r($p_pre);
+echo "\nthe stack is \n";
+print_r($stack);
+			if($p_current!==null){
+				array_push($stack,$p_current);
+				$lchild_pre = $p_pre->lchild;
+				$rchild_pre = $p_pre->rchild;
+				if($p_pre===$p_current||$p_current===$this->$lchild_pre){
+					$lchild = $p_current->lchild;
+					$p_pre = $p_current;
+					if($lchild!==null){
+						$p_current = $this->$lchild;
+					}
+					else{
+						$p_current = null;
+					}
+				}
+				elseif($p_current===$this->$rchild_pre){
+					//	 @todo:	visit	p_current
+					$p_current=$pre;
+					$pre = array_pop($stack);
+				}
+			}
+			else{
+				$p_current = $p_pre;
+				$p_pre = array_pop($stack);
+				$lchild_pre = $p_pre->lchild;
+				$rchild_pre = $p_pre->rchild;
+				if($p_current===$this->$lchild_pre){	//	从左子树返回
+					$rchild= $p_pre->rchild;
+					if($rchild!==null){
+//						$p_pre = $p_current;
+						$p_current = $this->$rchild;
+					}
+					else{
+						$p_current = null;
+					}
+				}
+				elseif($p_current===$this->$rchild_pre){	//	从右子树返回
+					$p_current = $p_pre;
+					$p_pre = array_pop($stack);
+				}
 			}
 		}
 		file_put_contents('/tmp/tree.txt',__FUNCTION__." end \n",FILE_APPEND);
